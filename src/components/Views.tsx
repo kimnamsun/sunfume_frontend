@@ -45,18 +45,16 @@ const F7Views = () => {
     <Views tabs className="safe-areas">
       <Toolbar tabbar labels bottom>
         <Link tabLink="#view-home" tabLinkActive icon="las la-home" text="홈" />
-        {/* <Link tabLink="#view-items" icon="las la-gift" text="쇼핑" /> */}
-        <Link tabLink="#view-items" iconF7="cart" text="장바구니" />
-        <Link tabLink="#view-items" icon="las la-heart" text="찜목록" />
-        {/* <Link tabLink="#view-users" icon="las la-address-book" text="사용자" /> */}
-        {/* <Link tabLink="#view-contacts" icon="las la-edit" text="문의하기" /> */}
+        <Link tabLink="#view-cart" iconF7="cart" text="장바구니" />
+        <Link tabLink="#view-like" icon="las la-heart" text="찜목록" />
         <Link tabLink="#view-mypage" icon="las la-user" text="마이페이지" />
       </Toolbar>
       <View id="view-home" stackPages main tab tabActive url="/" iosDynamicNavbar={false} />
       <View id="view-items" stackPages name="items" tab url="/items?is_main=true/" />
       <View id="view-users" stackPages name="users" tab url="/users?is_main=true" />
-      <View id="view-contacts" stackPages name="contacts" tab url="/contacts?is_main=true" />
+      <View id="view-cart" stackPages name="contacts" tab url="/line_items" />
       <View id="view-mypage" stackPages name="mypage" tab url="/mypage?is_main=true" />
+      {/* <View id="view-like" stackPages name="mypage" tab url="/mypage?is_main=true" /> */}
     </Views>
   );
 

@@ -39,7 +39,7 @@ const ItemIndexPage = ({ f7route }) => {
     // then을 사용
     if (category_id) {
       getCategory(category_id).then((resp) => {
-        setCategory(resp.data);
+        setCategory(resp.data.name);
       });
     }
     // async await 을 사용
@@ -76,7 +76,7 @@ const ItemIndexPage = ({ f7route }) => {
   return (
     <Page noToolbar={!is_main} onPtrRefresh={onRefresh} ptr>
       <Navbar backLink={!is_main}>
-        <NavTitle>{(category && category.title) || '쇼핑'}</NavTitle>
+        <NavTitle>{category}</NavTitle>
         <NavRight>
           <Link href="/line_items" iconF7="cart" iconBadge={3} badgeColor="red" />
         </NavRight>

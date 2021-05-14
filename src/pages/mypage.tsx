@@ -1,24 +1,28 @@
-import { API_URL, logoutAPI } from '@api';
+import { logoutAPI } from '@api';
 import useAuth from '@hooks/useAuth';
 import { Navbar, NavTitle, Page } from 'framework7-react';
 import React, { useCallback } from 'react';
 
 const MYPAGE_MENUS = [
   {
-    name: '회원 정보 수정',
+    name: '회원 정보 조회/수정',
     url: '',
+    image_path: '',
   },
   {
-    name: '주문/배송 조회',
+    name: '주문 정보 조회',
     url: '',
+    image_path: '',
   },
   {
-    name: '교환/환불 조회',
-    url: '',
+    name: '찜 목록',
+    url: '/likes/list',
+    image_path: 'lar la-heart',
   },
   {
-    name: '리뷰',
+    name: '리뷰 목록',
     url: '',
+    image_path: '',
   },
 ];
 
@@ -40,57 +44,10 @@ const MyPage = () => {
       <Navbar>
         <NavTitle>마이페이지</NavTitle>
       </Navbar>
-      <div className="py-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-          <div className="flex items-center space-x-5">
-            <div className="flex-shrink-0">
-              <a href={`/users/${currentUser?.id}`}>
-                <div className="relative">
-                  {currentUser?.image_path ? (
-                    <img className="h-24 w-24 rounded-full" src={API_URL + currentUser?.image_path} alt="" />
-                  ) : (
-                    <i
-                      className="h-24 w-24 rounded-full las la-user-circle"
-                      style={{ fontSize: '96px', color: 'gray' }}
-                    />
-                  )}
-                  <span className="absolute inset-0 shadow-inner rounded-full" aria-hidden="true" />
-                </div>
-              </a>
-            </div>
-            <div className="w-full">
-              <a href={`/users/${currentUser?.id}`}>
-                <h1 className="text-xl font-bold text-gray-900">{isAuthenticated ? currentUser.name : '인썸니아'}</h1>
-                <p className="mt-1 text-xs font-medium text-gray-500">
-                  팔로워 <span className=" text-gray-900">0</span> | 팔로잉 <span className=" text-gray-900">0</span>
-                </p>
-              </a>
-            </div>
-            <a href={`/users/${currentUser?.id}`}>
-              <i className="las la-angle-right" style={{ fontSize: '24px', color: 'gray' }} />
-            </a>
-          </div>
-        </div>
-        <div className="py-8 grid grid-flow-col auto-cols-max grid-cols-3 gap-4 text-center">
-          <div className="text-center">
-            <a href="/notifications">
-              <i className="mb-2 las la-bell" style={{ fontSize: '42px', color: 'lightgray' }} />
-              <br />
-              <span className="text-sm text-gray-600">알림</span>
-            </a>
-          </div>
-          <div className="text-center">
-            <i className="mb-2 las la-file-invoice" style={{ fontSize: '42px', color: 'lightgray' }} />
-            <br />
-            <span className="text-sm text-gray-600">주문</span>
-          </div>
-          <div className="text-center">
-            <a href="/likes/list" className="text-sm text-gray-600">
-              <i className="mb-2 lar la-heart" style={{ fontSize: '42px', color: 'lightgray' }} />
-              <br />
-              좋아요{/* <span className="font-semibold text-gray-900">0</span> */}
-            </a>
-          </div>
+      <div className="py-2">
+        <div className="max-w-3xl mx-auto px-8 py-10 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
+          <h1 className="text-xl font-bold text-gray-900">김남선님 안녕하세요!</h1>
+          <p className="mt-1 text-xs font-medium text-gray-500">{currentUser ? currentUser.email : ''}</p>
         </div>
         <div className="bg-white overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
@@ -112,7 +69,7 @@ const MyPage = () => {
                 </li>
               );
             })}
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <li>
                 <a href="#" onClick={logoutHandler} className="block hover:bg-gray-50">
                   <div className="flex items-center px-4 py-4 sm:px-6">
@@ -126,21 +83,10 @@ const MyPage = () => {
                   </div>
                 </a>
               </li>
-            ) : null}
+            )}
           </ul>
         </div>
       </div>
-      <footer className="bg-gray-100 mt-8">
-        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
-          <div className="mt-8 md:mt-0 md:order-1">
-            <p className="text-xs text-gray-400">
-              <a href="#">이용약관 </a> | <a href="#">개인정보처리방침</a>
-            </p>
-
-            <p className="mt-2 text-xs text-gray-400">&copy; 2021 SUNFUME. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </Page>
   );
 };
