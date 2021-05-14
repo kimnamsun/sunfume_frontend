@@ -5,6 +5,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
 import React from 'react';
 import * as Yup from 'yup';
+import DefaultTitle from '@components/DefaultTitle';
 
 interface FormValues {
   email: string;
@@ -26,7 +27,8 @@ const SessionNewPage = () => {
     try {
       const { data: user } = await loginAPI({ ...params });
       authenticateUser(user);
-      f7.dialog.alert('성공적으로 로그인 하였습니다. ');
+      console.log(authenticateUser);
+      f7.dialog.alert('환영합니다. ');
     } catch (error) {
       f7.dialog.alert('정보를 확인 해주세요. ');
       setSubmitting(false);
@@ -36,7 +38,7 @@ const SessionNewPage = () => {
   return (
     <Page className="bg-white">
       <Navbar title={i18next.t('login.title')} backLink sliding={false} />
-      <p className="font-semibole text-4xl text-center mt-5">SUNFUME</p>
+      <DefaultTitle />
       <Formik
         initialValues={initialValues}
         validationSchema={SignInSchema}

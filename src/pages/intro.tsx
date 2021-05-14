@@ -1,93 +1,42 @@
-import { Button, f7ready, Navbar, Page, Swiper, SwiperSlide, Toolbar } from 'framework7-react';
-import { sampleSize, zip } from 'lodash';
+import { Button, f7ready, Navbar, Page, Swiper, SwiperSlide, Toolbar, NavTitle } from 'framework7-react';
 import React, { useEffect, useState } from 'react';
-import sanitizeHtml from '../js/utils/sanitizeHtml';
 
 const IntroPage = (props) => {
-  const [slides, setSlides] = useState([]);
-  const images: string[] = [
-    'couple',
-    'segment',
-    'chilling',
-    'choose',
-    'chatting',
-    'confirmed',
-    'agreement',
-    'grades',
-    'brainstorming',
-    'hiring',
-    'love',
-    'messages1',
-    'development',
-    'team',
-    'together',
-    'space',
-    'mobile',
-    'website',
-    'easter',
-    'romantic',
-    'tasting',
-    'drone',
-    'coding',
-    'mindfulness',
-    'artificial',
-    'celebration',
-    'virtual',
-    'doggy',
-    'static',
-    'healthy',
-    'data',
-    'sleep',
-    'force',
-    'makeup',
-    'bicycle',
-    'podcast',
-    'fishing',
-    'credit',
-    'workout',
-    'pilates',
-    'group',
-    'mouth',
-    'school',
+  const SLIDES: string[] = [
+    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/b4a4d56ae278add3c010d088f000a338.jpg',
+    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/ca37bd8a827c2b827d5037683fba5b59.jpg',
+    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/ccd85b8c0aeeffa49dc355af1b10bd74.jpg',
   ];
-
-  useEffect(() => {
-    f7ready(async (f7) => {
-      setSlides(zip(sampleSize(images, 2), ['SUNFUME에<br/> 오신 것을 환영합니다.', '로그인해주세요.']));
-    });
-  }, []);
 
   return (
     <Page>
-      <Navbar className="hidden" />
-      <Toolbar bottom className="p-0" inner={false}>
-        <div className="w-full flex">
-          <Button className="w-full rounded-none" large href="/users/sign_in">
-            로그인
-          </Button>
-          <Button className="w-full rounded-none" large href="/users/sign_up" fill>
-            회원가입
-          </Button>
-        </div>
-      </Toolbar>
+      <Navbar>
+        <NavTitle>SUNFUME</NavTitle>
+      </Navbar>
       <Swiper
-        className="h-full"
         spaceBetween={30}
         slidesPerView={1}
         centeredSlides
         pagination={{ clickable: true }}
         observer
+        className="align-content-center"
       >
-        {slides.map((item, i) => (
-          <SwiperSlide key={Number(i)}>
-            <div className="flex justify-center p-0 ">
-              <img src={`https://insomenia.com/svgs/${item[0]}`} alt="" />
+        {SLIDES.map((slide, index) => (
+          <SwiperSlide key={Number(index)}>
+            <div className="flex justify-center p-0">
+              <img src={slide} alt="slideImage" />
             </div>
-
-            {sanitizeHtml(item[1], { className: 'text-lg text-center pt-4' })}
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className="block block-strong m-10 pt-10 pb-10">
+        <Button outline className="button button-large mb-5" href="/users/sign_in">
+          로그인
+        </Button>
+        <Button className="button button-large" href="/users/sign_up" fill>
+          회원가입
+        </Button>
+      </div>
     </Page>
   );
 };
