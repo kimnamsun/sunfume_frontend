@@ -1,4 +1,4 @@
-var capacitorApp = {
+const capacitorApp = {
   f7: null,
   /*
   This method hides splashscreen after 2 seconds

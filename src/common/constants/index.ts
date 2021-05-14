@@ -62,8 +62,8 @@ export interface User extends DefaultProps, Address {
 }
 
 export interface Category extends DefaultProps {
-  title: string;
-  body: string;
+  id: number;
+  name: string;
   image_path: string;
 }
 

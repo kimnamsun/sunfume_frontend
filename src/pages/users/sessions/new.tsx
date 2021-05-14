@@ -1,5 +1,6 @@
 import { loginAPI } from '@api';
 import useAuth from '@hooks/useAuth';
+import i18next from 'i18next';
 import { Formik, FormikHelpers } from 'formik';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
 import React from 'react';
@@ -35,7 +36,7 @@ const SessionNewPage = () => {
   return (
     <Page className="bg-white">
       <Navbar title={i18next.t('login.title')} backLink sliding={false} />
-      <p className="font-semibole text-4xl text-center mt-5">insomenia</p>
+      <p className="font-semibole text-4xl text-center mt-5">SUNFUME</p>
       <Formik
         initialValues={initialValues}
         validationSchema={SignInSchema}
@@ -46,7 +47,7 @@ const SessionNewPage = () => {
           <form onSubmit={handleSubmit}>
             <List>
               <ListInput
-                label={i18next.t('login.email')}
+                label={String(i18next.t('login.email'))}
                 name="email"
                 type="email"
                 placeholder="이메일을 입력해주세요."
@@ -58,7 +59,7 @@ const SessionNewPage = () => {
                 errorMessage={touched.email && errors.email}
               />
               <ListInput
-                label={i18next.t('login.password')}
+                label={String(i18next.t('login.password'))}
                 name="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요."

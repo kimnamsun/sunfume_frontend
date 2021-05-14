@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { API_URL, getCategories } from '@api';
-import { Link, SkeletonBlock, SkeletonText } from 'framework7-react';
+import {
+  Link,
+  SkeletonBlock,
+  SkeletonText,
+  Page,
+  Navbar,
+  BlockTitle,
+  Swiper,
+  SwiperSlide,
+  Block,
+} from 'framework7-react';
 // import { useQuery } from 'react-query';
 import { Category } from '@constants';
 
@@ -29,29 +39,49 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="mt-2 grid grid-cols-4 gap-2 p-2">
-      {categories.map((category: Category, i) => (
-        <div key={category.id}>
-          {categories.length ? (
-            <Link
-              href={`/items?category_id=${category.id}`}
-              className="bg-white h-20 flex flex-col items-center justify-center"
-              key={category.id}
-            >
-              <img src={API_URL + category.image_path} alt="#" className="w-14 h-14 rounded-lg shadow-sm" />
-              <span className="text-gray-500 mt-1">{category.title}</span>
-            </Link>
-          ) : (
-            <Link href="#" className="bg-white h-20 flex flex-col items-center justify-center" key={i}>
-              <SkeletonBlock slot="media" className="w-14 h-14 rounded-lg shadow-sm" effect="fade" />
-              <span className="text-gray-500 mt-1">
-                <SkeletonText>---</SkeletonText>
-              </span>
-            </Link>
-          )}
-        </div>
-      ))}
-    </div>
+    <>
+      <Swiper pagination navigation scrollbar>
+        <SwiperSlide>Slide 1</SwiperSlide>
+        <SwiperSlide>Slide 2</SwiperSlide>
+        <SwiperSlide>Slide 3</SwiperSlide>
+      </Swiper>
+      <div className="mt-2 grid grid-cols-4 gap-2 p-2">
+        {categories.map((category: Category, i) => {
+          const { id, name, image_path } = category;
+          return (
+            <div key={id}>
+              {categories.length ? (
+                <Link
+                  href={`/items?category_id=${id}`}
+                  className="bg-white h-20 flex flex-col items-center justify-center"
+                  key={id}
+                >
+                  <img src={API_URL + image_path} alt="#" className="w-14 h-14 rounded-lg shadow-sm" />
+                  <span className="text-gray-500 mt-1">{name}</span>
+                </Link>
+              ) : (
+                <Link href="#" className="bg-white h-20 flex flex-col items-center justify-center" key={Number(i)}>
+                  <SkeletonBlock
+                    tag=""
+                    width=""
+                    height=""
+                    borderRadius=""
+                    slot="media"
+                    className="w-14 h-14 rounded-lg shadow-sm"
+                    effect="fade"
+                  />
+                  <span className="text-gray-500 mt-1">
+                    <SkeletonText tag="" effect="fade">
+                      ---
+                    </SkeletonText>
+                  </span>
+                </Link>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

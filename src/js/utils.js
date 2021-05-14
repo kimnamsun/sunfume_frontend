@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { isString, map } from 'lodash'
+import { isString, map } from 'lodash';
 
 export const currency = (data, options) => {
   if (!data) return '';

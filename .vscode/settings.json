@@ -1,0 +1,33 @@
+{
+  "explorer.confirmDelete": false,
+  "liveServer.settings.donotVerifyTags": true,
+  "git.enableSmartCommit": true,
+  "javascript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "single",
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },"[typescript]": {
+    "editor.defaultFormatter":"esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+  },
+  "editor.minimap.enabled": false,
+  "terminal.integrated.fontFamily": "'MesloLGS NF'",
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "workbench.colorTheme": "Plastic Legacy v2",
+  "files.eol": "\n",
+  "indentRainbow.includedLanguages": [],
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "css.styleSheets": [],
+  "colorize.languages": [
+    "typescript",
+    "javascript",
+    "css",
+    "scss"
+  ],
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true
+}

@@ -53,9 +53,7 @@ const IntroPage = (props) => {
 
   useEffect(() => {
     f7ready(async (f7) => {
-      setSlides(
-        zip(sampleSize(images, 3), ['인썸니아의 사전<br/> 신입 교육용 앱입니다.', '여러분 파이팅!', '도큐 잘보세요!']),
-      );
+      setSlides(zip(sampleSize(images, 2), ['SUNFUME에<br/> 오신 것을 환영합니다.', '로그인해주세요.']));
     });
   }, []);
 
@@ -81,7 +79,7 @@ const IntroPage = (props) => {
         observer
       >
         {slides.map((item, i) => (
-          <SwiperSlide key={i}>
+          <SwiperSlide key={Number(i)}>
             <div className="flex justify-center p-0 ">
               <img src={`https://insomenia.com/svgs/${item[0]}`} alt="" />
             </div>

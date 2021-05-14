@@ -3,6 +3,25 @@ import useAuth from '@hooks/useAuth';
 import { Navbar, NavTitle, Page } from 'framework7-react';
 import React, { useCallback } from 'react';
 
+const MYPAGE_MENUS = [
+  {
+    name: '회원 정보 수정',
+    url: '',
+  },
+  {
+    name: '주문/배송 조회',
+    url: '',
+  },
+  {
+    name: '교환/환불 조회',
+    url: '',
+  },
+  {
+    name: '리뷰',
+    url: '',
+  },
+];
+
 const MyPage = () => {
   const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
 
@@ -75,84 +94,24 @@ const MyPage = () => {
         </div>
         <div className="bg-white overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">회원 정보 수정</p>
+            {MYPAGE_MENUS.map((menu) => {
+              const { name } = menu;
+              return (
+                <li key={name}>
+                  <a href="#" className="block hover:bg-gray-50">
+                    <div className="flex items-center px-4 py-4 sm:px-6">
+                      <div className="min-w-0 flex-1 flex items-center">
+                        <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                          <div>
+                            <p className="text-sm font-medium text-gray-900 truncate">{name}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">주문/배송 조회</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">교환/환불 조회</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">리뷰</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">고객센터</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block hover:bg-gray-50">
-                <div className="flex items-center px-4 py-4 sm:px-6">
-                  <div className="min-w-0 flex-1 flex items-center">
-                    <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900 truncate">신고하기</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
+                  </a>
+                </li>
+              );
+            })}
             {isAuthenticated ? (
               <li>
                 <a href="#" onClick={logoutHandler} className="block hover:bg-gray-50">
@@ -178,7 +137,7 @@ const MyPage = () => {
               <a href="#">이용약관 </a> | <a href="#">개인정보처리방침</a>
             </p>
 
-            <p className="mt-2 text-xs text-gray-400">&copy; 2021 insomenia. All rights reserved.</p>
+            <p className="mt-2 text-xs text-gray-400">&copy; 2021 SUNFUME. All rights reserved.</p>
           </div>
         </div>
       </footer>
