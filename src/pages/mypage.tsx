@@ -46,7 +46,7 @@ const MyPage = () => {
       </Navbar>
       <div className="py-2">
         <div className="max-w-3xl mx-auto px-8 py-10 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
-          <h1 className="text-xl font-bold text-gray-900">김남선님 안녕하세요!</h1>
+          <h1 className="text-xl font-bold text-gray-900">{currentUser.name}님 안녕하세요!</h1>
           <p className="mt-1 text-xs font-medium text-gray-500">{currentUser ? currentUser.email : ''}</p>
         </div>
         <div className="bg-white overflow-hidden sm:rounded-md">

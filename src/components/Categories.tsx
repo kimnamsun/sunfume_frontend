@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { API_URL, getCategories } from '@api';
-import { Link, SkeletonBlock, SkeletonText } from 'framework7-react';
+import { getCategories } from '@api';
+import { Link } from 'framework7-react';
 // import { useQuery } from 'react-query';
 import { Category } from '@constants';
 
@@ -29,7 +29,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="mt-2 grid grid-cols-4 gap-2 p-2">
+    <div className="grid grid-cols-4 gap-2 pt-4 pb-3 px-2">
       {categories.map((category: Category) => {
         const { id, name, image_path } = category;
         return (

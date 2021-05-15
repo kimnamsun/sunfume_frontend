@@ -1,16 +1,40 @@
-import Categories from '@components/Categories';
-import Nav from '@components/Nav';
-import { Page, Swiper, SwiperSlide } from 'framework7-react';
 import React from 'react';
+import {
+  Page,
+  Swiper,
+  SwiperSlide,
+  Link,
+  Navbar,
+  NavLeft,
+  NavRight,
+  NavTitle,
+  Searchbar,
+  theme,
+} from 'framework7-react';
+import Categories from '@components/Categories';
+import Item from '@components/Item';
 
 const SLIDE_OPTIONS = 'w-full h-full bg-no-repeat bg-cover bg-center object-cover';
 
 const HomePage = () => (
   <Page name="home">
-    <Nav />
+    <Navbar>
+      <NavLeft>
+        <Link searchbarEnable=".searchbar-demo" iconIos="f7:search" iconAurora="f7:search" iconMd="material:search" />
+      </NavLeft>
+      <NavTitle>SUNFUME</NavTitle>
+      <NavRight>
+        <Link href="/line_items" iconF7="cart" iconBadge={3} badgeColor="red" />
+      </NavRight>
+      <Searchbar
+        className="searchbar-demo"
+        expandable
+        searchContainer=".search-list"
+        searchIn=".item-title"
+        disableButton={!theme.aurora}
+      />
+    </Navbar>
     <Swiper
-      centeredSlides={true}
-      loop={true}
       pagination={{ clickable: true }}
       observer
       autoplay
@@ -31,6 +55,14 @@ const HomePage = () => (
       />
     </Swiper>
     <Categories />
+    <div className="grid grid-cols-2 gap-2 p-2">
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+      <Item />
+    </div>
   </Page>
 );
 
