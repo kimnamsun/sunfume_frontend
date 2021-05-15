@@ -51,10 +51,10 @@ const F7Views = () => {
       </Toolbar>
       <View id="view-home" stackPages main tab tabActive url="/" iosDynamicNavbar={false} />
       <View id="view-items" stackPages name="items" tab url="/items?is_main=true/" />
+      <View id="view-details" stackPages name="details" tab url="/details?is_main=true/" />
       <View id="view-users" stackPages name="users" tab url="/users?is_main=true" />
       <View id="view-cart" stackPages name="contacts" tab url="/line_items" />
       <View id="view-mypage" stackPages name="mypage" tab url="/mypage?is_main=true" />
-      {/* <View id="view-like" stackPages name="mypage" tab url="/mypage?is_main=true" /> */}
     </Views>
   );
 

@@ -82,6 +82,7 @@ export interface Item extends DefaultProps {
   price: number;
   description: string;
   category?: Category;
-  images?: Image[];
+  images?: [];
   user?: User;
+  options?: any;
 }

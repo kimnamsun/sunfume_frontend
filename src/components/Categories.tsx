@@ -34,11 +34,7 @@ const Categories = () => {
         const { id, name, image_path } = category;
         return (
           <div key={id}>
-            <Link
-              href={`/items?category_id=${id}`}
-              className="bg-white h-20 flex flex-col items-center justify-center"
-              key={id}
-            >
+            <Link href={`/category/${id}`} className="bg-white h-20 flex flex-col items-center justify-center" key={id}>
               <img src={image_path} alt="categoryImage" className="w-14 h-14 rounded-lg shadow-sm" />
               <span className="text-gray-500 mt-1">{name}</span>
             </Link>

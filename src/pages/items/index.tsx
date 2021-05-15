@@ -20,7 +20,8 @@ interface ItemFilterProps {
 }
 
 const ItemIndexPage = ({ f7route }) => {
-  const { is_main, category_id } = f7route.query;
+  const { is_main } = f7route.query;
+  const { id } = f7route.params;
   const [viewType, setViewType] = useState('grid');
   // const queryClient = useQueryClient();
   // const ITEM_KEY = ['items', category_id * 1];
@@ -36,13 +37,11 @@ const ItemIndexPage = ({ f7route }) => {
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   useEffect(() => {
-    // then을 사용
-    if (category_id) {
-      getCategory(category_id).then((resp) => {
+    if (id) {
+      getCategory(id).then((resp) => {
         setCategory(resp.data.name);
       });
     }
-    // async await 을 사용
     (async () => {
       const { data } = await getItems();
       setItems(data.items);
@@ -52,7 +51,7 @@ const ItemIndexPage = ({ f7route }) => {
   const filterForm = useFormik<ItemFilterProps>({
     initialValues: {
       s: 'created_at desc',
-      category_id_eq: category_id,
+      category_id_eq: id,
     },
     onSubmit: async () => {
       // await queryClient.removeQueries(ITEM_KEY);
@@ -103,7 +102,7 @@ const ItemIndexPage = ({ f7route }) => {
           ))}
         </ListInput>
       </form>
-      <List noHairlines className="mt-0 text-sm font-thin ">
+      {/* <List noHairlines className="mt-0 text-sm font-thin ">
         {items && (
           <ul>
             {viewType === 'list'
@@ -144,7 +143,7 @@ const ItemIndexPage = ({ f7route }) => {
                 ))}
           </ul>
         )}
-      </List>
+      </List> */}
     </Page>
   );
 };

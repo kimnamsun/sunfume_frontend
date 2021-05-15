@@ -29,6 +29,7 @@ export const logoutAPI = () => API.delete('/logout');
 // export const { query: getCategories, get: getCategory } = ApiService('categories');
 
 export const getItems = (params = null) => API.get<any>('/items', { params });
+export const getItemDetail = (id) => API.get(`/items/${id}`);
 export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
 export const getCategory = (id, params = null) => API.get<Category>(`/categories/${id}`, { params });
 export { API_URL, VERSION };
