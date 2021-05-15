@@ -74,15 +74,13 @@ export interface Image extends DefaultProps {
 }
 
 export interface Item extends DefaultProps {
+  id: number;
   user_id: number;
   category_id: number;
   name: string;
-  status: 'active' | 'disabled';
-  // list_price: number;
-  // sale_price: number;
+  // status: 'active' | 'disabled';
   price: number;
   description: string;
-  // image_path: string;
   category?: Category;
   images?: Image[];
   user?: User;

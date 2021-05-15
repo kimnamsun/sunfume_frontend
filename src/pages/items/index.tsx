@@ -102,18 +102,6 @@ const ItemIndexPage = ({ f7route }) => {
             </option>
           ))}
         </ListInput>
-        <ListInput
-          type="select"
-          defaultValue="grid"
-          className="float-right inline-flex items-center px-2.5 py-3 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2"
-          onChange={(e) => setViewType(e.target.value)}
-        >
-          {map(i18n.t('ui'), (v, k) => (
-            <option value={k} key={k}>
-              {v}
-            </option>
-          ))}
-        </ListInput>
       </form>
       <List noHairlines className="mt-0 text-sm font-thin ">
         {items && (

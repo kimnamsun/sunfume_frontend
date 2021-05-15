@@ -23,7 +23,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     (async () => {
-      const { data } = await getCategories({ q: { s: ['title asc'] } });
+      const { data } = await getCategories({ q: { s: ['name asc'] } });
       setCategories(data);
     })();
   }, []);
@@ -39,7 +39,7 @@ const Categories = () => {
               className="bg-white h-20 flex flex-col items-center justify-center"
               key={id}
             >
-              <img src={image_path} alt="#" className="w-14 h-14 rounded-lg shadow-sm" />
+              <img src={image_path} alt="categoryImage" className="w-14 h-14 rounded-lg shadow-sm" />
               <span className="text-gray-500 mt-1">{name}</span>
             </Link>
           </div>
