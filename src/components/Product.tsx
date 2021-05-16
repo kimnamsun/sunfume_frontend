@@ -1,4 +1,5 @@
 import React from 'react';
+import { currency } from '@js/utils';
 import { Card, CardHeader, CardContent, Link, Icon } from 'framework7-react';
 
 const Product = ({ id, name, price, image }) => (
@@ -16,7 +17,7 @@ const Product = ({ id, name, price, image }) => (
       <Link href={`/items/${id}`}>
         <p>{name}</p>
       </Link>
-      <p className="font-bold text-lg">{price.toLocaleString()}</p>
+      <p className="font-bold text-lg">{currency(price)}</p>
     </CardContent>
   </Card>
 );

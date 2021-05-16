@@ -14,7 +14,7 @@ const MoreDetail = ({ desc }) => (
         <span>{desc}</span>
       </Tab>
       <Tab id="review" className="page-content mx-5">
-        <span>리뷰~</span>
+        <span>리뷰</span>
       </Tab>
     </Tabs>
   </>

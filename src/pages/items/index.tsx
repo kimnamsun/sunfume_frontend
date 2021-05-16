@@ -1,10 +1,11 @@
-import { API_URL, getCategory, getItems } from '@api';
+import { API_URL, getCategory, getCategoryItem } from '@api';
 import { Item } from '@constants';
 import { currency } from '@js/utils';
 import { useFormik } from 'formik';
-import { Link, List, ListInput, ListItem, Navbar, NavRight, NavTitle, Page } from 'framework7-react';
+import { Link, ListInput, Navbar, NavRight, NavTitle, Page } from 'framework7-react';
 import { map } from 'lodash';
 import React, { useEffect, useState } from 'react';
+import Product from '@components/Product';
 import i18n from '../../assets/lang/i18n';
 
 const SortStates = [
@@ -23,15 +24,6 @@ const ItemIndexPage = ({ f7route }) => {
   const { is_main } = f7route.query;
   const { id } = f7route.params;
   const [viewType, setViewType] = useState('grid');
-  // const queryClient = useQueryClient();
-  // const ITEM_KEY = ['items', category_id * 1];
-  // const { data: category } = useQuery<Category, Error>(
-  //   ['category', parseInt(category_id, 10)],
-  //   getCategory(category_id),
-  //   {
-  //     enabled: !!category_id,
-  //   },
-  // );
   const [category, setCategory] = useState(null);
 
   const [items, setItems] = useState([]);
@@ -43,8 +35,9 @@ const ItemIndexPage = ({ f7route }) => {
       });
     }
     (async () => {
-      const { data } = await getItems();
+      const { data } = await getCategoryItem(id);
       setItems(data.items);
+      setTotalCount(data.total_count);
     })();
   }, []);
 
@@ -77,7 +70,7 @@ const ItemIndexPage = ({ f7route }) => {
       <Navbar backLink={!is_main}>
         <NavTitle>{category}</NavTitle>
         <NavRight>
-          <Link href="/line_items" iconF7="cart" iconBadge={3} badgeColor="red" />
+          <Link href="/cart" iconF7="cart" iconBadge={3} badgeColor="red" />
         </NavRight>
       </Navbar>
 
@@ -85,7 +78,7 @@ const ItemIndexPage = ({ f7route }) => {
         <div className="float-left">
           총 <b>{currency((items && totalCount) || 0)}</b>개 상품
         </div>
-        <ListInput
+        {/* <ListInput
           type="select"
           className="float-right inline-flex items-center px-2.5 py-3 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           name="s"
@@ -100,50 +93,13 @@ const ItemIndexPage = ({ f7route }) => {
               {v[1]}
             </option>
           ))}
-        </ListInput>
+        </ListInput> */}
       </form>
-      {/* <List noHairlines className="mt-0 text-sm font-thin ">
-        {items && (
-          <ul>
-            {viewType === 'list'
-              ? items.map((item: Item, i) => (
-                  <React.Fragment key={item.id}>
-                    <ListItem
-                      key={item.id}
-                      mediaItem
-                      link={`/items/${item.id}`}
-                      title={`${item.id}-${item.name}`}
-                      subtitle={`${currency(item.sale_price)}원`}
-                      className="w-full"
-                    >
-                      <img slot="media" src={API_URL + item.image_path} className="w-20 rounded" alt="" />
-                    </ListItem>
-                  </React.Fragment>
-                ))
-              : items.map((item: Item, i) => (
-                  <React.Fragment key={item.id}>
-                    <div className="w-1/2 inline-flex grid-list-item relative">
-                      <ListItem
-                        mediaItem
-                        link={`/items/${item.id}`}
-                        title={`${item.id}-${item.name}`}
-                        subtitle={`${currency(item.sale_price)}원`}
-                        header={category_id ? category?.title : ''}
-                        className="w-full"
-                      >
-                        <img
-                          slot="media"
-                          alt=""
-                          src={API_URL + item.image_path}
-                          className="w-40 m-auto radius rounded shadow"
-                        />
-                      </ListItem>
-                    </div>
-                  </React.Fragment>
-                ))}
-          </ul>
-        )}
-      </List> */}
+      <div className="grid grid-cols-2 gap-2 p-2">
+        {items.map((item: Item) => (
+          <Product key={item.id} id={item.id} name={item.name} price={item.price} image={item.images[0]} />
+        ))}
+      </div>
     </Page>
   );
 };

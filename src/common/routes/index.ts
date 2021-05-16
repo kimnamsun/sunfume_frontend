@@ -4,6 +4,7 @@ import IntroPage from '@pages/intro';
 import ItemIndexPage from '@pages/items';
 import ItemDetailPage from '@pages/details';
 import MyPage from '@pages/mypage';
+import CartPage from '@pages/cart';
 import SignUpPage from '@pages/users/registrations/new';
 import LoginPage from '@pages/users/sessions/new';
 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/mypage', component: MyPage },
   { path: '/category/:id', component: ItemIndexPage },
   { path: '/items/:id', component: ItemDetailPage },
+  { path: '/cart', component: CartPage },
   { path: '(.*)', component: NotFoundPage },
 ];
 

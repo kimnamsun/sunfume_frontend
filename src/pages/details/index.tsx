@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { currency } from '@js/utils';
 import {
   Card,
   ActionsGroup,
@@ -71,7 +72,7 @@ const ItemDetailPage = ({ id }) => {
           <span className="text-sm text-gray-400 mx-2">{itemDetail.capacity}</span>
         </span>
         <span slot="content" className="text-2xl font-bold">
-          {Number(itemDetail.price).toLocaleString()}원
+          {currency(itemDetail.price)}원
         </span>
       </Card>
       <MoreDetail desc={itemDetail.description} />
@@ -119,8 +120,7 @@ const ItemDetailPage = ({ id }) => {
               onStepperChange={setItemAmount}
             />
             <div className="text-black text-lg">
-              총<span className="inline-block font-bold ml-3">{(itemDetail.price * itemAmount).toLocaleString()}</span>
-              원
+              총<span className="inline-block font-bold ml-3">{currency(itemDetail.price * itemAmount)}</span>원
             </div>
           </ActionsLabel>
           <ActionsLabel className="text-white">

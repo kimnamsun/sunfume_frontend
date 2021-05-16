@@ -31,8 +31,8 @@ const HomePage = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await getItems({ q: { s: ['create_at asc'] } });
-      setItems(data);
+      const { data } = await getItems();
+      setItems(data.items);
     })();
   }, []);
 
@@ -44,7 +44,7 @@ const HomePage = () => {
         </NavLeft>
         <NavTitle>SUNFUME</NavTitle>
         <NavRight>
-          <Link href="/line_items" iconF7="cart" iconBadge={3} badgeColor="red" />
+          <Link href="/cart" iconF7="cart" iconBadge={3} badgeColor="red" />
         </NavRight>
         <Searchbar
           className="searchbar-demo"
