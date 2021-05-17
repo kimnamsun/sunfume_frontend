@@ -3,6 +3,7 @@ import { getCategories } from '@api';
 import { Link } from 'framework7-react';
 // import { useQuery } from 'react-query';
 import { Category } from '@constants';
+import { ApiService } from '../common/api/api.service';
 
 // const categoriesSkeletonPlaceholder = (size) => new Array(size).fill({});
 
@@ -23,7 +24,7 @@ const Categories = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     (async () => {
-      const { data } = await getCategories({ q: { s: ['name asc'] } });
+      const { data } = await getCategories();
       setCategories(data);
     })();
   }, []);
@@ -34,7 +35,7 @@ const Categories = () => {
         const { id, name, image_path } = category;
         return (
           <div key={id}>
-            <Link href={`/category/${id}`} className="bg-white h-20 flex flex-col items-center justify-center" key={id}>
+            <Link key={id} href={`/category/${id}`} className="bg-white h-20 flex flex-col items-center justify-center">
               <img src={image_path} alt="categoryImage" className="w-14 h-14 rounded-lg shadow-sm" />
               <span className="text-gray-500 mt-1">{name}</span>
             </Link>

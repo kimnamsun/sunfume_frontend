@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getItems } from '@api';
+import { getItems, getLikeItem, postLikeItem, deleteLikeItem } from '@api';
+import { Item } from '@constants';
+import { likeState } from '@atoms';
+import { useRecoilState } from 'recoil';
 import {
   Page,
   Swiper,
@@ -14,7 +17,6 @@ import {
 } from 'framework7-react';
 import Categories from '@components/Categories';
 import Product from '@components/Product';
-import { Item } from '@constants';
 
 const SLIDE_DATAS = {
   option: 'w-full h-full bg-no-repeat bg-cover bg-center object-cover',
@@ -28,13 +30,21 @@ const SLIDE_DATAS = {
 
 const HomePage = () => {
   const [items, setItems] = useState([]);
+  const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {
     (async () => {
       const { data } = await getItems();
       setItems(data.items);
+      const { data: likeData } = await getLikeItem();
+      setLikeItem(likeData);
     })();
   }, []);
+
+  const likeItemArray = [];
+  likeItem.map((item) => {
+    likeItemArray.push(item.id);
+  });
 
   return (
     <Page name="home">
@@ -63,7 +73,7 @@ const HomePage = () => {
       >
         {SLIDE_DATAS.images.map((image, index) => (
           <SwiperSlide
-            key={index}
+            key={Number(index)}
             className={SLIDE_DATAS.option}
             style={{
               backgroundImage: `url(${image})`,
@@ -74,7 +84,14 @@ const HomePage = () => {
       <Categories />
       <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item: Item) => (
-          <Product key={item.id} id={item.id} name={item.name} price={item.price} image={item.images[0]} />
+          <Product
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            price={item.price}
+            image={item.images[0]}
+            isLike={likeItemArray.includes(item.id)}
+          />
         ))}
       </div>
     </Page>

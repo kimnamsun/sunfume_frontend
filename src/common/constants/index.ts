@@ -62,19 +62,18 @@ export interface User extends DefaultProps, Address {
 }
 
 export interface Category extends DefaultProps {
-  id: number;
   name: string;
   image_path: string;
 }
 
-export interface Image extends DefaultProps {
-  imagable_type: string;
-  imagable_id: number;
-  image_path: string;
+export interface Option extends DefaultProps {
+  item_id: number;
+  name: string;
+  add_price: number;
+  stock: number;
 }
 
 export interface Item extends DefaultProps {
-  id: number;
   user_id: number;
   category_id: number;
   name: string;
@@ -82,7 +81,12 @@ export interface Item extends DefaultProps {
   price: number;
   description: string;
   category?: Category;
-  images?: [];
+  images?: string;
   user?: User;
-  options?: any;
+  options?: Option;
+}
+
+export interface Like extends DefaultProps {
+  user_id: number;
+  item_id: number;
 }

@@ -11,3 +11,8 @@ export const authState = atom<AuthState>({
   key: 'authState',
   default: initialAuthState,
 });
+
+export const likeState = atom({
+  key: 'likeState',
+  default: [],
+});

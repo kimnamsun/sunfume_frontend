@@ -46,7 +46,7 @@ const F7Views = () => {
       <Toolbar tabbar labels bottom>
         <Link tabLink="#view-home" tabLinkActive icon="las la-home" text="홈" />
         <Link tabLink="#view-cart" iconF7="cart" text="장바구니" />
-        <Link tabLink="#view-like" icon="las la-heart" text="찜목록" />
+        <Link tabLink="#view-likelist" icon="las la-heart" text="찜 목록" />
         <Link tabLink="#view-mypage" icon="las la-user" text="마이페이지" />
       </Toolbar>
       <View id="view-home" stackPages main tab tabActive url="/" iosDynamicNavbar={false} />
@@ -54,6 +54,7 @@ const F7Views = () => {
       <View id="view-details" stackPages name="details" tab url="/details?is_main=true/" />
       <View id="view-users" stackPages name="users" tab url="/users?is_main=true" />
       <View id="view-cart" stackPages name="cart" tab url="/cart?is_main=true" />
+      <View id="view-likelist" stackPages name="likelist" tab url="/like?is_main=true" />
       <View id="view-mypage" stackPages name="mypage" tab url="/mypage?is_main=true" />
     </Views>
   );
