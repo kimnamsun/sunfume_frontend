@@ -1,11 +1,12 @@
-import { Button, f7ready, Navbar, Page, Swiper, SwiperSlide, Toolbar, NavTitle } from 'framework7-react';
 import React, { useEffect, useState } from 'react';
+import { Button, Navbar, Page, Swiper, SwiperSlide, NavTitle } from 'framework7-react';
+import { SLIDE_PREFIX } from '@config';
 
-const IntroPage = (props) => {
+const IntroPage = () => {
   const SLIDES: string[] = [
-    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/b4a4d56ae278add3c010d088f000a338.jpg',
-    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/ca37bd8a827c2b827d5037683fba5b59.jpg',
-    'https://nonfiction.kr/web/upload/category/editor/2021/04/23/ccd85b8c0aeeffa49dc355af1b10bd74.jpg',
+    `${SLIDE_PREFIX.intro}/b4a4d56ae278add3c010d088f000a338.jpg`,
+    `${SLIDE_PREFIX.intro}/ca37bd8a827c2b827d5037683fba5b59.jpg`,
+    `${SLIDE_PREFIX.intro}/ccd85b8c0aeeffa49dc355af1b10bd74.jpg`,
   ];
 
   return (

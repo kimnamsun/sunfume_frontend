@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
 import { Navbar, NavTitle, Page } from 'framework7-react';
+import { useRecoilState } from 'recoil';
 import { getLikeItem } from '@api';
-import LineItem from '@components/LineItem';
 import { likeState } from '@atoms';
+import LineItem from '@components/LineItem';
 import Caution from '@components/Caution';
 
 const LikeListPage = () => {
@@ -17,7 +17,7 @@ const LikeListPage = () => {
   }, []);
 
   return (
-    <Page name="cart">
+    <Page>
       <Navbar sliding={false} backLink>
         <NavTitle>찜 목록</NavTitle>
       </Navbar>

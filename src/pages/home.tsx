@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { getItems, getLikeItem, postLikeItem, deleteLikeItem } from '@api';
+import { Page, Swiper, SwiperSlide, NavLeft, Navbar, Link, NavRight, NavTitle } from 'framework7-react';
+import { useRecoilState } from 'recoil';
+import { getItems, getLikeItem } from '@api';
 import { Item } from '@constants';
 import { likeState } from '@atoms';
-import { useRecoilState } from 'recoil';
-import {
-  Page,
-  Swiper,
-  SwiperSlide,
-  Link,
-  Navbar,
-  NavLeft,
-  NavRight,
-  NavTitle,
-  Searchbar,
-  theme,
-} from 'framework7-react';
+import { SLIDE_PREFIX } from '@config';
 import Categories from '@components/Categories';
 import Product from '@components/Product';
+import NavCart from '@components/NavCart';
 
 const SLIDE_DATAS = {
   option: 'w-full h-full bg-no-repeat bg-cover bg-center object-cover',
   images: [
-    'https://www.aesop.com/u1nb1km7t5q7/4uahoGkAUbKTdgi26UWS8U/d35893987804270676a1ab2a46ad2038/Our-Story-Carousel-1-Desktop-2880x1620.jpg',
-    'https://www.aesop.com/u1nb1km7t5q7/2PpcVH3jmgnmlOWo1AZs0l/30e1f9848e4e7d9b694a313cd787f9d1/Our-Story-Carousel-2-Desktop-2880x1620.jpg',
-    'https://www.aesop.com/u1nb1km7t5q7/3PKKR9alriDf7lD9MegHnM/7d085941e3a907e401d3ffa15c6457f4/Our-Story-Carousel-3-Desktop-2880x1620.jpg',
-    'https://www.aesop.com/u1nb1km7t5q7/6fsPa4NCMUwwMkM4zCgI6D/7a3798640d11e6ec5834b43ac2433959/Aesop_About_Page_Primary_Desktop_1440x1500px.jpg',
+    `${SLIDE_PREFIX.main}/4uahoGkAUbKTdgi26UWS8U/d35893987804270676a1ab2a46ad2038/Our-Story-Carousel-1-Desktop-2880x1620.jpg`,
+    `${SLIDE_PREFIX.main}/2PpcVH3jmgnmlOWo1AZs0l/30e1f9848e4e7d9b694a313cd787f9d1/Our-Story-Carousel-2-Desktop-2880x1620.jpg`,
+    `${SLIDE_PREFIX.main}/3PKKR9alriDf7lD9MegHnM/7d085941e3a907e401d3ffa15c6457f4/Our-Story-Carousel-3-Desktop-2880x1620.jpg`,
+    `${SLIDE_PREFIX.main}/6fsPa4NCMUwwMkM4zCgI6D/7a3798640d11e6ec5834b43ac2433959/Aesop_About_Page_Primary_Desktop_1440x1500px.jpg`,
   ],
 };
 
@@ -42,27 +33,18 @@ const HomePage = () => {
   }, []);
 
   const likeItemArray = [];
-  likeItem.map((item) => {
-    likeItemArray.push(item.id);
-  });
+  likeItem.map((like) => likeItemArray.push(like.id));
 
   return (
     <Page name="home">
       <Navbar>
         <NavLeft>
-          <Link searchbarEnable=".searchbar-demo" iconIos="f7:search" iconAurora="f7:search" iconMd="material:search" />
+          <Link href="/intro" iconF7="person_fill" />
         </NavLeft>
         <NavTitle>SUNFUME</NavTitle>
         <NavRight>
-          <Link href="/cart" iconF7="cart" iconBadge={3} badgeColor="red" />
+          <NavCart />
         </NavRight>
-        <Searchbar
-          className="searchbar-demo"
-          expandable
-          searchContainer=".search-list"
-          searchIn=".item-title"
-          disableButton={!theme.aurora}
-        />
       </Navbar>
       <Swiper
         pagination={{ clickable: true }}
@@ -71,7 +53,7 @@ const HomePage = () => {
         spaceBetween={10}
         className="swiper-container w-full h-1/3"
       >
-        {SLIDE_DATAS.images.map((image, index) => (
+        {SLIDE_DATAS.images.map((image: string, index) => (
           <SwiperSlide
             key={Number(index)}
             className={SLIDE_DATAS.option}

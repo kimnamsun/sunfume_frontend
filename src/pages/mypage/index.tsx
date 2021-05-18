@@ -1,7 +1,7 @@
+import React, { useCallback } from 'react';
+import { Navbar, NavTitle, Page } from 'framework7-react';
 import { logoutAPI } from '@api';
 import useAuth from '@hooks/useAuth';
-import { Navbar, NavTitle, Page } from 'framework7-react';
-import React, { useCallback } from 'react';
 
 const MYPAGE_MENUS = [
   {

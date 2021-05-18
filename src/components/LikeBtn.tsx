@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { f7, Icon } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { likeState } from '@atoms';
-import { Link, f7, Icon } from 'framework7-react';
-import { postLikeItem, deleteLikeItem } from '../common/api';
+import { postLikeItem, deleteLikeItem } from '@api';
 
-const LikeBtn = ({ id, isLike }) => {
+const optionList = {
+  detail: 'flex w-full h-1/2 justify-center',
+  likelist: 'w-6 h-6 right-2',
+  product: 'w-6 h-6 right-2',
+};
+
+const LikeBtn = ({ type, id, isLike }) => {
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   const handleLike = async () => {
@@ -20,13 +26,9 @@ const LikeBtn = ({ id, isLike }) => {
     }
   };
 
-  console.log(likeItem);
-
   return (
-    <button className="absolute w-6 h-6 right-2 bottom-2.5 z-20 focus:outline-none">
-      <Link data-idx={id} onClick={handleLike}>
-        {isLike ? <Icon f7="heart_fill" color="red" /> : <Icon f7="heart" />}
-      </Link>
+    <button className={`absolute ${optionList[type]} bottom-2.5 z-20 focus:outline-none`} onClick={handleLike}>
+      {isLike ? <Icon f7="heart_fill" color="red" /> : <Icon f7="heart" />}
     </button>
   );
 };

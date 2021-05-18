@@ -12,6 +12,19 @@ interface FormValues {
   password: string;
 }
 
+const SIGNIN_DATAS = [
+  {
+    type: 'email',
+    name: 'email',
+    placeholder: '이메일을 입력해주세요.',
+  },
+  {
+    type: 'password',
+    name: 'password',
+    placeholder: '비밀번호를 입력해주세요.',
+  },
+];
+
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email().required('필수 입력사항 입니다'),
   password: Yup.string().min(4, '길이가 너무 짧습니다').max(50, '길이가 너무 깁니다').required('필수 입력사항 입니다'),
@@ -48,30 +61,21 @@ const SessionNewPage = () => {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => (
           <form onSubmit={handleSubmit}>
             <List>
-              <ListInput
-                label={String(i18next.t('login.email'))}
-                name="email"
-                type="email"
-                placeholder="이메일을 입력해주세요."
-                clearButton
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-                errorMessageForce
-                errorMessage={touched.email && errors.email}
-              />
-              <ListInput
-                label={String(i18next.t('login.password'))}
-                name="password"
-                type="password"
-                placeholder="비밀번호를 입력해주세요."
-                clearButton
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password}
-                errorMessageForce
-                errorMessage={touched.password && errors.password}
-              />
+              {SIGNIN_DATAS.map((data, index) => (
+                <ListInput
+                  key={Number(index)}
+                  label={String(i18next.t(`login.${data.name}`))}
+                  type={data.type}
+                  name={data.name}
+                  placeholder={data.placeholder}
+                  clearButton
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values[data.name]}
+                  errorMessageForce
+                  errorMessage={touched[data.name] && errors[data.name]}
+                />
+              ))}
             </List>
             <div className="p-1">
               <button

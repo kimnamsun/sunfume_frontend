@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getCategories } from '@api';
 import { Link } from 'framework7-react';
-// import { useQuery } from 'react-query';
+import { getCategories } from '@api';
 import { Category } from '@constants';
 import { ApiService } from '../common/api/api.service';
+// import { useQuery } from 'react-query';
 
 // const categoriesSkeletonPlaceholder = (size) => new Array(size).fill({});
 

@@ -1,16 +1,15 @@
 import React from 'react';
+import { Card, CardHeader, CardContent, Link } from 'framework7-react';
 import { currency } from '@js/utils';
-import { Card, CardHeader, CardContent, Link, Icon } from 'framework7-react';
-import LikeBtn from './LikeBtn';
+import LikeBtn from '@components/LikeBtn';
 
 const Product = ({ id, name, price, image, isLike }) => (
-  // const Item = ({ id, name, price, image, isLike, handleLike }) => (
   <Card noShadow className="w-full m-0">
     <CardHeader className="p-0 relative">
       <Link href={`/items/${id}`}>
         <img alt="itemImage" className="w-full rounded-md object-cover" src={image} />
       </Link>
-      <LikeBtn id={id} isLike={isLike} />
+      <LikeBtn type="product" id={id} isLike={isLike} />
     </CardHeader>
     <CardContent className="px-2 py-1">
       <Link href={`/items/${id}`}>

@@ -33,9 +33,11 @@ export const getItems = (params = null) => API.get<any>('/items', { params });
 export const getItemDetail = (id) => API.get(`/items/${id}`);
 export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
 export const getCategory = (id, params = null) => API.get<Category>(`/categories/${id}`, { params });
-export const getCategoryItem = (id, params = null) => API.get<Item>(`/items/category/${id}`, { params });
+export const getCategoryItem = (id, params = null): Promise<AxiosResponse> =>
+  API.get<Item>(`/items/category/${id}`, { params });
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
 export const postLikeItem = (params = null) => API.post<Like>('/likes', { params });
 export const deleteLikeItem = (id, params = null) => API.delete<Like>(`/likes/${id}`, { params });
+export const getLineItem = (params = null) => API.get<any>(`/line_items`, { params });
 
 export { API_URL, VERSION };

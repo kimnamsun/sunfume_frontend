@@ -77,7 +77,8 @@ export interface Item extends DefaultProps {
   user_id: number;
   category_id: number;
   name: string;
-  // status: 'active' | 'disabled';
+  status: 'active' | 'disabled';
+  capacity: string;
   price: number;
   description: string;
   category?: Category;
@@ -86,7 +87,30 @@ export interface Item extends DefaultProps {
   options?: Option;
 }
 
+export interface ItemDetail extends DefaultProps {
+  user_id: number;
+  category_id: number;
+  name: string;
+  status: 'active' | 'disabled';
+  capacity: string;
+  price: number;
+  description: string;
+  stock: number;
+  category?: Category;
+  images?: Array<string>;
+  option?: Array<any>;
+}
+
 export interface Like extends DefaultProps {
   user_id: number;
   item_id: number;
+}
+
+export interface LineItem extends DefaultProps {
+  [x: string]: any;
+  order_id: number;
+  item_id: number;
+  option_id: number;
+  quantity: number;
+  total_price: number;
 }

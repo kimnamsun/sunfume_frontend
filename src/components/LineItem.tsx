@@ -1,6 +1,6 @@
 import React from 'react';
 import CartLineItem from '@pages/cart/cartLineItem';
-import LikeLineItem from '../pages/likelist/likeLineItem';
+import LikeLineItem from '@pages/likelist/likeLineItem';
 
 // const typeList = {
 //   cart: <CartLineItem />,

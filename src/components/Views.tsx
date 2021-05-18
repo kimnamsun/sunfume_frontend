@@ -1,11 +1,11 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link, Toolbar, View, Views } from 'framework7-react';
 import { logoutAPI } from '@api';
 import CustomPanel from '@components/shared/CustomPanel';
 import useAuth from '@hooks/useAuth';
 import LandingPage from '@pages/landing';
 import { destroyToken, getToken } from '@store';
 import { sleep } from '@utils/index';
-import { Link, Toolbar, View, Views } from 'framework7-react';
-import React, { useCallback, useEffect, useState } from 'react';
 
 const F7Views = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);

@@ -1,12 +1,14 @@
-import { API_URL, getCategory, getCategoryItem } from '@api';
+import React, { useEffect, useState } from 'react';
+import { Navbar, NavRight, NavTitle, Page } from 'framework7-react';
+import { useRecoilState } from 'recoil';
+import { getCategory, getCategoryItem } from '@api';
+import { useFormik } from 'formik';
 import { Item } from '@constants';
 import { currency } from '@js/utils';
-import { useFormik } from 'formik';
-import { Link, ListInput, Navbar, NavRight, NavTitle, Page } from 'framework7-react';
 import { map } from 'lodash';
-import React, { useEffect, useState } from 'react';
+import { likeState } from '@atoms';
 import Product from '@components/Product';
-import i18n from '../../assets/lang/i18n';
+import NavCart from '@components/NavCart';
 
 const SortStates = [
   ['created_at desc', '최신순'],
@@ -25,9 +27,14 @@ const ItemIndexPage = ({ f7route }) => {
   const { id } = f7route.params;
   const [viewType, setViewType] = useState('grid');
   const [category, setCategory] = useState(null);
+  const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+
+  const likeItemArray = [];
+  likeItem.map((like) => likeItemArray.push(like.id));
+
   useEffect(() => {
     if (id) {
       getCategory(id).then((resp) => {
@@ -66,11 +73,11 @@ const ItemIndexPage = ({ f7route }) => {
   };
 
   return (
-    <Page noToolbar={!is_main} onPtrRefresh={onRefresh} ptr>
+    <Page onPtrRefresh={onRefresh} ptr>
       <Navbar backLink={!is_main}>
         <NavTitle>{category}</NavTitle>
         <NavRight>
-          <Link href="/cart" iconF7="cart" iconBadge={3} badgeColor="red" />
+          <NavCart />
         </NavRight>
       </Navbar>
 
@@ -97,7 +104,14 @@ const ItemIndexPage = ({ f7route }) => {
       </form>
       <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item: Item) => (
-          <Product key={item.id} id={item.id} name={item.name} price={item.price} image={item.images[0]} />
+          <Product
+            key={item.id}
+            id={item.id}
+            name={item.name}
+            price={item.price}
+            image={item.images[0]}
+            isLike={likeItemArray.includes(item.id)}
+          />
         ))}
       </div>
     </Page>

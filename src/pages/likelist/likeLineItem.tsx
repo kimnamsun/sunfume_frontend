@@ -9,9 +9,7 @@ const LikeLineItem = ({ item }) => {
   const { id, name, price } = item;
 
   const likeItemArray = [];
-  likeItem.map((like) => {
-    likeItemArray.push(like.id);
-  });
+  likeItem.map((like) => likeItemArray.push(like.id));
 
   return (
     <>
@@ -19,7 +17,7 @@ const LikeLineItem = ({ item }) => {
         <span>{name}</span>
         <p className="font-bold text-lg pt-2">{currency(price)}원</p>
       </div>
-      <LikeBtn id={id} isLike={likeItemArray.includes(item.id)} />
+      <LikeBtn type="likelist" id={id} isLike={likeItemArray.includes(item.id)} />
     </>
   );
 };

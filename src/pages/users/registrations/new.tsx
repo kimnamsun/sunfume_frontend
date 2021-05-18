@@ -92,9 +92,9 @@ const SignUpPage = () => {
                   clearButton
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  // value={`values.${data.name}}
+                  value={values[data.name]}
                   errorMessageForce
-                  // errorMessage={touched.${data.name} && `errors.${data.name}`}
+                  errorMessage={touched[data.name] && errors[data.name]}
                 />
               ))}
             </List>
