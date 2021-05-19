@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  f7,
   Card,
   ActionsGroup,
   ActionsLabel,
@@ -17,7 +18,7 @@ import {
 } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
-import { getItemDetail } from '@api';
+import { getItemDetail, postLineItem, postOrder } from '@api';
 import { totalPriceState, selectOptionState, itemAmountState, likeState } from '@atoms';
 import { ItemDetail } from '@constants';
 import LikeBtn from '@components/LikeBtn';
@@ -30,6 +31,7 @@ const ItemDetailPage = ({ id }) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
+  const [selectOptionId, setSelectOptionId] = useState(null);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {
@@ -43,14 +45,39 @@ const ItemDetailPage = ({ id }) => {
 
   const selectedOption = (e) => {
     setSelectOption(Number(e.target.value));
+    setSelectOptionId(e.target.selectedOptions[0].id);
   };
 
   useEffect(() => {
     setTotalPrice((selectOption + (itemDetail && itemDetail.price)) * itemAmount);
   }, [selectOption, itemAmount]);
 
-  const goToCart = () => {
-    console.log(totalPrice);
+  const goToCart = async () => {
+    if (selectOptionId === null) {
+      f7.dialog.alert('옵션을 반드시 선택해주세요.');
+      return;
+    }
+
+    await postOrder();
+    // await postOrder({
+    //   receiver_name: '',
+    //   receiver_phone: '',
+    //   zipcode: '',
+    //   address1: '',
+    //   address2: '',
+    //   status: 2,
+    // });
+
+    await postLineItem({
+      item_id: id,
+      option_id: selectOptionId,
+      quantity: itemAmount,
+      total_price: totalPrice,
+    });
+
+    f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
+      f7.views.current.router.navigate('/cart');
+    });
   };
 
   const likeItemArray = [];
@@ -104,11 +131,16 @@ const ItemDetailPage = ({ id }) => {
                     <option value="default" disabled hidden>
                       옵션 선택
                     </option>
-                    {itemDetail.option.map(({ name, add_price }, index) => (
+                    {itemDetail.option.map((optionData) => (
+                      <option key={optionData.id} id={optionData.id} value={optionData.add_price}>
+                        {optionData.name} (+ {optionData.add_price}원)
+                      </option>
+                    ))}
+                    {/* {itemDetail.option.map(({ name, add_price }, index) => (
                       <option key={String(index)} value={add_price}>
                         {name} (+ {add_price}원)
                       </option>
-                    ))}
+                    ))} */}
                   </select>
                 </List>
               </ActionsLabel>
@@ -138,5 +170,4 @@ const ItemDetailPage = ({ id }) => {
     </Page>
   );
 };
-
 export default ItemDetailPage;

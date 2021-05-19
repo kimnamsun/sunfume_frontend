@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, NavTitle, Page, Button, BlockTitle } from 'framework7-react';
-// import LineItem from '@components/LineItem';
+import LineProduct from '@components/LineProduct';
 import { LineItem } from '@constants';
 import { getLineItem } from '@api';
 import Caution from '@components/Caution';
@@ -13,7 +13,7 @@ const CartPage = () => {
   useEffect(() => {
     (async () => {
       const { data } = await getLineItem();
-      // setLineItems(items);
+      setLineItems(data.line_items);
       setLineItemCount(data.total_count);
     })();
   }, []);
@@ -28,8 +28,10 @@ const CartPage = () => {
           <BlockTitle className="flex justify-between p-2 ml-1">
             <p>전체 {lineItemCount}개</p>
           </BlockTitle>
-          {/* <LineItem type="cart" /> */}
-          <TotalPrice />
+          {lineItems.map((item) => {
+            return <LineProduct type="cart" item={item} />;
+          })}
+          <TotalPrice item={lineItems} />
           <Button raised large round className="m-1" href="/orders">
             전체상품 주문하기
           </Button>

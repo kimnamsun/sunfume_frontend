@@ -114,3 +114,14 @@ export interface LineItem extends DefaultProps {
   quantity: number;
   total_price: number;
 }
+
+export interface Order extends DefaultProps {
+  user_id: number;
+  receiver_name: string;
+  receiver_phone: string;
+  zipcode: string;
+  address1: string;
+  address2: string;
+  total_price: number;
+  status: number;
+}

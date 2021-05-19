@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TotalPrice = () => (
+const TotalPrice = ({ item }) => (
   <div className="m-1">
     <h3 className="text-lg m-2">
       총 상품 금액

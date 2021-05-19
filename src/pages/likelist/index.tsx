@@ -3,7 +3,7 @@ import { Navbar, NavTitle, Page } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { getLikeItem } from '@api';
 import { likeState } from '@atoms';
-import LineItem from '@components/LineItem';
+import LineProduct from '@components/LineProduct';
 import Caution from '@components/Caution';
 
 const LikeListPage = () => {
@@ -22,7 +22,7 @@ const LikeListPage = () => {
         <NavTitle>찜 목록</NavTitle>
       </Navbar>
       {likeItem.length ? (
-        likeItem.map((item) => <LineItem key={item.id} type="like" item={item} />)
+        likeItem.map((item) => <LineProduct key={item.id} type="like" item={item} />)
       ) : (
         <Caution>
           <span className="text-lg p-10 font-bold">찜한 상품이 없습니다.</span>

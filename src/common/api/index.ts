@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Category, Item, Token, Like } from '@constants';
+import { Category, Item, Token, Like, LineItem, Order } from '@constants';
 import { getToken } from '@store';
 import { PlainAPI, API, VERSION, API_URL } from './api.config';
 import { ApiService } from './api.service';
@@ -36,8 +36,10 @@ export const getCategory = (id, params = null) => API.get<Category>(`/categories
 export const getCategoryItem = (id, params = null): Promise<AxiosResponse> =>
   API.get<Item>(`/items/category/${id}`, { params });
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
-export const postLikeItem = (params = null) => API.post<Like>('/likes', { params });
-export const deleteLikeItem = (id, params = null) => API.delete<Like>(`/likes/${id}`, { params });
-export const getLineItem = (params = null) => API.get<any>(`/line_items`, { params });
+export const postLikeItem = (params = null) => API.post<Like>('/likes', params);
+export const deleteLikeItem = (id, params = null) => API.delete<Like>(`/likes/${id}`, params);
+export const getLineItem = (params = null): Promise<AxiosResponse> => API.get<any>(`/line_items`, params);
+export const postLineItem = (params = null) => API.post<LineItem>(`/line_items`, params);
+export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 
 export { API_URL, VERSION };

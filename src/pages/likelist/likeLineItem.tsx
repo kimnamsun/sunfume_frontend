@@ -13,6 +13,7 @@ const LikeLineItem = ({ item }) => {
 
   return (
     <>
+      <img alt="likeListImage" className="w-1/3 border rounded-lg" src={item.images[0]} />
       <div className="p-2 ml-2 w-full">
         <span>{name}</span>
         <p className="font-bold text-lg pt-2">{currency(price)}원</p>
