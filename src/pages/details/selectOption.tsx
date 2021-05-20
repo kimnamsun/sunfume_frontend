@@ -29,13 +29,18 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
       return;
     }
 
-    await postOrder();
-    await postLineItem({
+    const { data } = await postLineItem({
       item_id: id,
       option_id: selectOptionId,
       quantity: itemAmount,
       total_price: totalPrice,
     });
+
+    if (data.MESSAGE === 'exist') {
+      f7.dialog.alert('이미 장바구니에 존재합니다.');
+    } else {
+      await postOrder();
+    }
 
     f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
       f7.views.current.router.navigate('/cart');

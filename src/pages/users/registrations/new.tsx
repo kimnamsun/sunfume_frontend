@@ -1,11 +1,11 @@
+import React from 'react';
+import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
+import { Form, Formik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import i18next from 'i18next';
 import { signupAPI } from '@api';
 import useAuth from '@hooks/useAuth';
 import { sleep } from '@utils';
-import i18next from 'i18next';
-import { Form, Formik, FormikHelpers } from 'formik';
-import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
-import React from 'react';
-import * as Yup from 'yup';
 import DefaultTitle from '@components/DefaultTitle';
 
 interface FormValues {

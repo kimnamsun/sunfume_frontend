@@ -8,6 +8,6 @@ const LineItem = ({ type, item }) => {
     like: <LikeLineItem item={item} />,
   };
 
-  return <div className="relative flex p-2 m-2 border">{typeList[type]}</div>;
+  return <div className="relative flex p-2 mx-2 mb-2 border">{typeList[type]}</div>;
 };
 export default LineItem;

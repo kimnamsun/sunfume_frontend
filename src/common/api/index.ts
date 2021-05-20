@@ -43,7 +43,7 @@ export const deleteLikeItem = (id, params = null) => API.delete<Like>(`/likes/${
 
 export const getLineItem = (params = null): Promise<AxiosResponse> => API.get<any>(`/line_items`, params);
 export const postLineItem = (params = null) => API.post<LineItem>(`/line_items`, params);
-export const updateLineItem = (params = null) => API.patch<LineItem>(`/line_items`, params);
+export const updateLineItem = (id, params = null) => API.put<LineItem>(`/line_items/${id}`, params);
 export const deleteLineItem = (id) => API.delete<LineItem>(`/line_items/${id}`);
 
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);

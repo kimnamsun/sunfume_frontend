@@ -1,10 +1,10 @@
+import React from 'react';
+import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
+import { Formik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
+import i18next from 'i18next';
 import { loginAPI } from '@api';
 import useAuth from '@hooks/useAuth';
-import i18next from 'i18next';
-import { Formik, FormikHelpers } from 'formik';
-import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
-import React from 'react';
-import * as Yup from 'yup';
 import DefaultTitle from '@components/DefaultTitle';
 
 interface FormValues {
@@ -61,19 +61,19 @@ const SessionNewPage = () => {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => (
           <form onSubmit={handleSubmit}>
             <List>
-              {SIGNIN_DATAS.map((data, index) => (
+              {SIGNIN_DATAS.map(({ name, type, placeholder }, index: number) => (
                 <ListInput
                   key={Number(index)}
-                  label={String(i18next.t(`login.${data.name}`))}
-                  type={data.type}
-                  name={data.name}
-                  placeholder={data.placeholder}
+                  label={String(i18next.t(`login.${name}`))}
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
                   clearButton
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values[data.name]}
+                  value={values[name]}
                   errorMessageForce
-                  errorMessage={touched[data.name] && errors[data.name]}
+                  errorMessage={touched[name] && errors[name]}
                 />
               ))}
             </List>

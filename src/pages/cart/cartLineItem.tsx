@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Stepper, Icon, f7 } from 'framework7-react';
+import { Stepper, Icon, f7, Link } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
 import { deleteLineItem, updateLineItem } from '@api';
 import { lineItemState } from '@atoms';
 
 const CartLineItem = ({ item }) => {
-  const { id, option, total_price, quantity } = item;
+  const { option, total_price, quantity, item_id } = item;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [itemAmount, setItemAmount] = useState(quantity);
 
@@ -18,13 +18,15 @@ const CartLineItem = ({ item }) => {
   };
 
   const handleAmount = async () => {
-    const { data } = await updateLineItem({ quantity: itemAmount });
+    const { data } = await updateLineItem(item.id, {
+      itemAmount,
+    });
     console.log(data);
-    // setLineItemCount(lineItems);
+    // setLineItems(...lineItems);
   };
 
   useEffect(() => {
-    // handleAmount();
+    handleAmount();
   }, [itemAmount]);
 
   return (
@@ -41,14 +43,14 @@ const CartLineItem = ({ item }) => {
               className="black"
               color="teal"
               value={itemAmount}
-              min={quantity}
+              min={1}
               max={option.item.stock}
               raised
               manualInputMode
               onStepperChange={setItemAmount}
             />
           </div>
-          <p className="font-bold text-lg pt-2">{currency(total_price)}원</p>
+          <p className="font-bold text-lg pt-2">{currency(itemAmount * total_price)}원</p>
         </div>
         <div className="absolute right-3 top-3" onClick={deleteCart}>
           <Icon f7="multiply" />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Navbar, Page, Swiper, SwiperSlide, NavTitle } from 'framework7-react';
-import { SLIDE_PREFIX } from '@config';
+import { SLIDE_PREFIX, configs } from '@config';
 
 const IntroPage = () => {
   const SLIDES: string[] = [
@@ -12,7 +12,7 @@ const IntroPage = () => {
   return (
     <Page>
       <Navbar>
-        <NavTitle>SUNFUME</NavTitle>
+        <NavTitle>{configs.SITE_NAME}</NavTitle>
       </Navbar>
       <Swiper
         spaceBetween={30}
@@ -22,7 +22,7 @@ const IntroPage = () => {
         observer
         className="align-content-center"
       >
-        {SLIDES.map((slide, index) => (
+        {SLIDES.map((slide: string, index: number) => (
           <SwiperSlide key={Number(index)}>
             <div className="flex justify-center p-0">
               <img src={slide} alt="slideImage" />

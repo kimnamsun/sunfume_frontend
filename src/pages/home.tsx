@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { logoutAPI, getItems, getLikeItem } from '@api';
 import { Item } from '@constants';
 import { likeState } from '@atoms';
-import { SLIDE_PREFIX } from '@config';
+import { SLIDE_PREFIX, configs } from '@config';
 import Categories from '@components/Categories';
 import Product from '@components/Product';
 import NavCart from '@components/NavCart';
@@ -23,7 +23,7 @@ const SLIDE_DATAS = {
 const HomePage = () => {
   const [items, setItems] = useState([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
-  const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
+  const { unAuthenticateUser } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -53,7 +53,7 @@ const HomePage = () => {
         <NavLeft>
           <Link onClick={logoutHandler} iconF7="square_arrow_right" />
         </NavLeft>
-        <NavTitle>SUNFUME</NavTitle>
+        <NavTitle>{configs.SITE_NAME}</NavTitle>
         <NavRight>
           <NavCart />
         </NavRight>
@@ -65,7 +65,7 @@ const HomePage = () => {
         spaceBetween={10}
         className="swiper-container w-full h-1/3"
       >
-        {SLIDE_DATAS.images.map((image: string, index) => (
+        {SLIDE_DATAS.images.map((image: string, index: number) => (
           <SwiperSlide
             key={Number(index)}
             className={SLIDE_DATAS.option}
