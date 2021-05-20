@@ -31,15 +31,21 @@ export const logoutAPI = () => API.delete('/logout');
 
 export const getItems = (params = null) => API.get<any>('/items', { params });
 export const getItemDetail = (id) => API.get(`/items/${id}`);
+
 export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
 export const getCategory = (id, params = null) => API.get<Category>(`/categories/${id}`, { params });
 export const getCategoryItem = (id, params = null): Promise<AxiosResponse> =>
   API.get<Item>(`/items/category/${id}`, { params });
+
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
-export const postLikeItem = (params = null) => API.post<Like>('/likes', params);
+export const postLikeItem = (params = null): Promise<AxiosResponse> => API.post<Like>('/likes', params);
 export const deleteLikeItem = (id, params = null) => API.delete<Like>(`/likes/${id}`, params);
+
 export const getLineItem = (params = null): Promise<AxiosResponse> => API.get<any>(`/line_items`, params);
 export const postLineItem = (params = null) => API.post<LineItem>(`/line_items`, params);
+export const updateLineItem = (params = null) => API.patch<LineItem>(`/line_items`, params);
+export const deleteLineItem = (id) => API.delete<LineItem>(`/line_items/${id}`);
+
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 
 export { API_URL, VERSION };

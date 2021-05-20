@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { f7, Icon } from 'framework7-react';
+import { Icon } from 'framework7-react';
 import { useRecoilState } from 'recoil';
+import { toast } from '@js/utils';
 import { likeState } from '@atoms';
-import { postLikeItem, deleteLikeItem, getItemDetail } from '@api';
+import { postLikeItem, deleteLikeItem } from '@api';
 
 const optionList = {
   detail: 'flex w-full h-1/2 justify-center',
@@ -12,17 +13,20 @@ const optionList = {
 
 const LikeBtn = ({ type, id, isLike }) => {
   const [likeItem, setLikeItem] = useRecoilState(likeState);
+  let toastText = '';
+
   const handleLike = async () => {
     if (isLike) {
       await deleteLikeItem(id);
       const isUnLike = likeItem.filter((item) => item.id !== id);
       setLikeItem(isUnLike);
-      f7.dialog.alert('찜 리스트에서 제거되었습니다.');
+      toastText = '제거';
     } else {
       const { data } = await postLikeItem({ item_id: id });
       setLikeItem(data);
-      f7.dialog.alert('찜 리스트에 추가되었습니다.');
+      toastText = '추가';
     }
+    toast.get().setToastText(`찜 목록에 ${toastText}되었습니다.`).openToast();
   };
 
   return (

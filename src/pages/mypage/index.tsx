@@ -6,7 +6,7 @@ import useAuth from '@hooks/useAuth';
 const MYPAGE_MENUS = [
   {
     name: '회원 정보 조회/수정',
-    url: '',
+    url: '/users/info',
     image_path: '',
   },
   {

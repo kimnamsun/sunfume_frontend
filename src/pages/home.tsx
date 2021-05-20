@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Page, Swiper, SwiperSlide, NavLeft, Navbar, Link, NavRight, NavTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
-import { getItems, getLikeItem } from '@api';
+import { logoutAPI, getItems, getLikeItem } from '@api';
 import { Item } from '@constants';
 import { likeState } from '@atoms';
 import { SLIDE_PREFIX } from '@config';
 import Categories from '@components/Categories';
 import Product from '@components/Product';
 import NavCart from '@components/NavCart';
+import useAuth from '@hooks/useAuth';
 
 const SLIDE_DATAS = {
   option: 'w-full h-full bg-no-repeat bg-cover bg-center object-cover',
@@ -22,6 +23,7 @@ const SLIDE_DATAS = {
 const HomePage = () => {
   const [items, setItems] = useState([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
+  const { currentUser, isAuthenticated, unAuthenticateUser } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -32,6 +34,16 @@ const HomePage = () => {
     })();
   }, []);
 
+  const logoutHandler = useCallback(async () => {
+    try {
+      await logoutAPI();
+    } catch (e) {
+      console.log(e);
+    } finally {
+      unAuthenticateUser();
+    }
+  }, [unAuthenticateUser]);
+
   const likeItemArray = [];
   likeItem.map((like) => likeItemArray.push(like.id));
 
@@ -39,7 +51,7 @@ const HomePage = () => {
     <Page name="home">
       <Navbar>
         <NavLeft>
-          <Link href="/intro" iconF7="person_fill" />
+          <Link onClick={logoutHandler} iconF7="square_arrow_right" />
         </NavLeft>
         <NavTitle>SUNFUME</NavTitle>
         <NavRight>

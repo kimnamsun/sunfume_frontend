@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-onchange */
 import React, { useState, useEffect } from 'react';
 import {
   f7,
@@ -59,15 +60,6 @@ const ItemDetailPage = ({ id }) => {
     }
 
     await postOrder();
-    // await postOrder({
-    //   receiver_name: '',
-    //   receiver_phone: '',
-    //   zipcode: '',
-    //   address1: '',
-    //   address2: '',
-    //   status: 2,
-    // });
-
     await postLineItem({
       item_id: id,
       option_id: selectOptionId,
@@ -126,21 +118,19 @@ const ItemDetailPage = ({ id }) => {
                   <select
                     className="border-solid border border-gray-300"
                     onChange={selectedOption}
-                    defaultValue={'default'}
+                    defaultValue="default"
                   >
                     <option value="default" disabled hidden>
                       옵션 선택
                     </option>
-                    {itemDetail.option.map((optionData) => (
-                      <option key={optionData.id} id={optionData.id} value={optionData.add_price}>
-                        {optionData.name} (+ {optionData.add_price}원)
-                      </option>
-                    ))}
-                    {/* {itemDetail.option.map(({ name, add_price }, index) => (
-                      <option key={String(index)} value={add_price}>
-                        {name} (+ {add_price}원)
-                      </option>
-                    ))} */}
+                    {itemDetail.option.map((optionData) => {
+                      const { add_price, name } = optionData;
+                      return (
+                        <option key={optionData.id} id={optionData.id} value={add_price}>
+                          {name} (+ {add_price}원)
+                        </option>
+                      );
+                    })}
                   </select>
                 </List>
               </ActionsLabel>

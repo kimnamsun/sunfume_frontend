@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { AuthState } from '@constants';
+import { AuthState, LineItem } from '@constants';
 
 const initialAuthState: AuthState = {
   token: null,
@@ -30,4 +30,14 @@ export const selectOptionState = atom({
 export const itemAmountState = atom({
   key: 'itemAmount',
   default: 1,
+});
+
+export const lineItemState = atom({
+  key: 'lineItems',
+  default: [],
+});
+
+export const lineItemCountState = atom({
+  key: 'lineItemCount',
+  default: 0,
 });
