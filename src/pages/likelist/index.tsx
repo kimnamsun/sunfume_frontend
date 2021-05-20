@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Navbar, NavTitle, Page } from 'framework7-react';
+import { Navbar, Page } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { getLikeItem } from '@api';
 import { likeState } from '@atoms';
@@ -19,9 +19,7 @@ const LikeListPage = () => {
 
   return (
     <Page>
-      <Navbar sliding={false} backLink>
-        <NavTitle>찜 목록</NavTitle>
-      </Navbar>
+      <Navbar title="찜 목록" backLink sliding={false} />
       {likeItem.length ? (
         likeItem.map((item: Item) => <LineProduct key={item.id} type="like" item={item} />)
       ) : (

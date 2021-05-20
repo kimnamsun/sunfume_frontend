@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, NavTitle, Page, Button, BlockTitle } from 'framework7-react';
+import { Navbar, Page, Button, BlockTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
@@ -21,10 +21,8 @@ const CartPage = () => {
 
   return (
     <Page name="cart">
-      <Navbar sliding={false} backLink>
-        <NavTitle>장바구니</NavTitle>
-      </Navbar>
-      {lineItems ? (
+      <Navbar title="장바구니" backLink sliding={false} />
+      {lineItems.length ? (
         <>
           <BlockTitle className="flex justify-between p-2 ml-1">
             <p>전체 {lineItemCount}개</p>
@@ -32,7 +30,8 @@ const CartPage = () => {
           {lineItems.map((item) => (
             <LineProduct key={item.id} type="cart" item={item} />
           ))}
-          <TotalPrice item={lineItems} />
+          {/* <LineProduct type="cart" /> */}
+          <TotalPrice />
           <Button raised large round className="m-1" href="/orders">
             전체상품 주문하기
           </Button>
@@ -46,4 +45,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default React.memo(CartPage);

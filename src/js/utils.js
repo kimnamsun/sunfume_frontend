@@ -91,4 +91,4 @@ export const saleRate = ({ list_price, sale_price }) => {
     result = 100 - resultSaleRate;
   }
   return result;
-};
+}

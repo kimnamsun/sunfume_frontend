@@ -8,13 +8,11 @@ import CartPage from '@pages/cart';
 import LikeListPage from '@pages/likelist';
 import SignUpPage from '@pages/users/registrations/new';
 import LoginPage from '@pages/users/sessions/new';
-import UserInfoPage from '@pages/users/info';
 
 const routes = [
   { path: '/', component: HomePage },
   { path: '/users/sign_in', component: LoginPage },
   { path: '/users/sign_up', component: SignUpPage },
-  { path: '/users/info', component: UserInfoPage },
   { path: '/intro', component: IntroPage },
   { path: '/mypage', component: MyPage },
   { path: '/category/:id', component: ItemIndexPage },

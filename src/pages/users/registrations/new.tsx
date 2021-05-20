@@ -59,7 +59,7 @@ const SignUpPage = () => {
 
   return (
     <Page>
-      <Navbar title="회원가입" backLink sliding={false} />
+      <Navbar title={i18next.t('signup.title')} backLink sliding={false} />
       <DefaultTitle />
       <Formik
         initialValues={initialValues}
@@ -104,7 +104,7 @@ const SignUpPage = () => {
                 className="button button-fill button-large disabled:opacity-50"
                 disabled={isSubmitting || !isValid}
               >
-                회원가입
+                {i18next.t('signup.title')}
               </button>
             </div>
           </Form>

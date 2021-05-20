@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Navbar, NavTitle, Page, Swiper, SwiperSlide } from 'framework7-react';
+import { Card, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
 import { getItemDetail } from '@api';
@@ -25,9 +25,7 @@ const ItemDetailPage = ({ id }) => {
 
   return (
     <Page name="item">
-      <Navbar sliding={false} backLink>
-        <NavTitle>제품상세</NavTitle>
-      </Navbar>
+      <Navbar title="제품상세" backLink sliding={false} />
       {itemDetail && (
         <>
           <Swiper pagination={{ clickable: true }} spaceBetween={10} className="swiper-container w-full h-1/2" observer>

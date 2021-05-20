@@ -4,15 +4,16 @@ import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
-import { totalPriceState, selectOptionState, itemAmountState, likeState } from '@atoms';
+import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 
 const SelectOption = ({ itemDetail }: any, id: number) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
-  const [selectOptionId, setSelectOptionId] = useState(null);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
+  const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
+  const [selectOptionId, setSelectOptionId] = useState(null);
 
   const selectedOption = (e) => {
     setSelectOption(Number(e.target.value));
@@ -29,6 +30,7 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
       return;
     }
 
+    await postOrder();
     const { data } = await postLineItem({
       item_id: id,
       option_id: selectOptionId,
@@ -39,7 +41,7 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
     if (data.MESSAGE === 'exist') {
       f7.dialog.alert('이미 장바구니에 존재합니다.');
     } else {
-      await postOrder();
+      setLineItemCount((prev) => prev + 1);
     }
 
     f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
@@ -55,7 +57,7 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
       <>
         <Toolbar tabbar labels bottom>
           <Button raised round className="w-1/2 mx-1">
-            <LikeBtn type="detail" id={id} isLike={likeItemArray.includes(itemDetail.id)} />
+            <LikeBtn type="detail" id={itemDetail.id} isLike={likeItemArray.includes(itemDetail.id)} />
           </Button>
           <Button raised round className="w-1/2 mx-1" actionsOpen="#select-option">
             <Icon f7="cart" />
@@ -110,4 +112,4 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
   );
 };
 
-export default SelectOption;
+export default React.memo(SelectOption);

@@ -38,7 +38,7 @@ const HomePage = () => {
     try {
       await logoutAPI();
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     } finally {
       unAuthenticateUser();
     }

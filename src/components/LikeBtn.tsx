@@ -23,7 +23,8 @@ const LikeBtn = ({ type, id, isLike }) => {
       toastText = '제거';
     } else {
       const { data } = await postLikeItem({ item_id: id });
-      setLikeItem(data);
+      const likeData = [data];
+      setLikeItem([...likeItem, ...likeData]);
       toastText = '추가';
     }
     toast.get().setToastText(`찜 목록에 ${toastText}되었습니다.`).openToast();

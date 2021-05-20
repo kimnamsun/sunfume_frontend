@@ -13,16 +13,8 @@ interface FormValues {
 }
 
 const SIGNIN_DATAS = [
-  {
-    type: 'email',
-    name: 'email',
-    placeholder: '이메일을 입력해주세요.',
-  },
-  {
-    type: 'password',
-    name: 'password',
-    placeholder: '비밀번호를 입력해주세요.',
-  },
+  { type: 'email', placeholder: '이메일을 입력해주세요.' },
+  { type: 'password', placeholder: '비밀번호를 입력해주세요.' },
 ];
 
 const SignInSchema = Yup.object().shape({
@@ -40,7 +32,7 @@ const SessionNewPage = () => {
     try {
       const { data: user } = await loginAPI({ ...params });
       authenticateUser(user);
-      console.log(user);
+      // console.log(user);
       f7.dialog.alert('환영합니다. ');
     } catch (error) {
       f7.dialog.alert('정보를 확인 해주세요. ');
@@ -61,19 +53,19 @@ const SessionNewPage = () => {
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => (
           <form onSubmit={handleSubmit}>
             <List>
-              {SIGNIN_DATAS.map(({ name, type, placeholder }, index: number) => (
+              {SIGNIN_DATAS.map(({ type, placeholder }, index: number) => (
                 <ListInput
                   key={Number(index)}
-                  label={String(i18next.t(`login.${name}`))}
+                  label={String(i18next.t(`login.${type}`))}
                   type={type}
-                  name={name}
+                  name={type}
                   placeholder={placeholder}
                   clearButton
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values[name]}
+                  value={values[type]}
                   errorMessageForce
-                  errorMessage={touched[name] && errors[name]}
+                  errorMessage={touched[type] && errors[type]}
                 />
               ))}
             </List>
@@ -83,7 +75,7 @@ const SessionNewPage = () => {
                 className="button button-fill button-large disabled:opacity-50"
                 disabled={isSubmitting || !isValid}
               >
-                로그인
+                {i18next.t('login.title')}
               </button>
             </div>
           </form>

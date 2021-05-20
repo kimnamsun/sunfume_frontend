@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Navbar, Page, Swiper, SwiperSlide, NavTitle } from 'framework7-react';
+import { Button, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
+import i18next from 'i18next';
 import { SLIDE_PREFIX, configs } from '@config';
 
 const IntroPage = () => {
@@ -11,9 +12,7 @@ const IntroPage = () => {
 
   return (
     <Page>
-      <Navbar>
-        <NavTitle>{configs.SITE_NAME}</NavTitle>
-      </Navbar>
+      <Navbar title={configs.SITE_NAME} sliding={false} />
       <Swiper
         spaceBetween={30}
         slidesPerView={1}
@@ -32,10 +31,10 @@ const IntroPage = () => {
       </Swiper>
       <div className="block block-strong m-10 pt-10 pb-10">
         <Button outline className="button button-large mb-5" href="/users/sign_in">
-          로그인
+          {i18next.t('login.title')}
         </Button>
         <Button className="button button-large" href="/users/sign_up" fill>
-          회원가입
+          {i18next.t('signup.title')}
         </Button>
       </div>
     </Page>
