@@ -4,6 +4,7 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import i18next from 'i18next';
 import { loginAPI } from '@api';
+import { VALIDATE_TEXT } from '@config';
 import useAuth from '@hooks/useAuth';
 import DefaultTitle from '@components/DefaultTitle';
 
@@ -18,8 +19,8 @@ const SIGNIN_DATAS = [
 ];
 
 const SignInSchema = Yup.object().shape({
-  email: Yup.string().email().required('필수 입력사항 입니다'),
-  password: Yup.string().min(4, '길이가 너무 짧습니다').max(50, '길이가 너무 깁니다').required('필수 입력사항 입니다'),
+  email: Yup.string().email().required(VALIDATE_TEXT.require),
+  password: Yup.string().min(4, VALIDATE_TEXT.password).max(30, VALIDATE_TEXT.password).required(VALIDATE_TEXT.require),
 });
 
 const initialValues: FormValues = { email: '', password: '' };
@@ -32,10 +33,9 @@ const SessionNewPage = () => {
     try {
       const { data: user } = await loginAPI({ ...params });
       authenticateUser(user);
-      // console.log(user);
       f7.dialog.alert('환영합니다. ');
     } catch (error) {
-      f7.dialog.alert('정보를 확인 해주세요. ');
+      f7.dialog.alert(i18next.t('login.message'));
       setSubmitting(false);
     }
   };

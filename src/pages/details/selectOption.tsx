@@ -7,7 +7,7 @@ import { postLineItem, postOrder } from '@api';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 
-const SelectOption = ({ itemDetail }: any, id: number) => {
+const SelectOption = ({ itemDetail, id }) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
@@ -30,7 +30,9 @@ const SelectOption = ({ itemDetail }: any, id: number) => {
       return;
     }
 
-    await postOrder();
+    await postOrder({
+      total_price: totalPrice,
+    });
     const { data } = await postLineItem({
       item_id: id,
       option_id: selectOptionId,

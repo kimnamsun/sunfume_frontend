@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import i18next from 'i18next';
 import { signupAPI } from '@api';
 import useAuth from '@hooks/useAuth';
+import { VALIDATE_TEXT } from '@config';
 import { sleep } from '@utils';
 import DefaultTitle from '@components/DefaultTitle';
 
@@ -39,13 +40,13 @@ const SIGNUP_DATAS = [
 ];
 
 const SignUpSchema = Yup.object().shape({
-  name: Yup.string().required('필수 입력사항 입니다'),
-  email: Yup.string().email().required('필수 입력사항 입니다'),
-  password: Yup.string().min(4, '길이가 너무 짧습니다').max(50, '길이가 너무 깁니다').required('필수 입력사항 입니다'),
+  name: Yup.string().required(VALIDATE_TEXT.require),
+  email: Yup.string().email().required(VALIDATE_TEXT.require),
+  password: Yup.string().min(4, VALIDATE_TEXT.password).max(30, VALIDATE_TEXT.password).required(VALIDATE_TEXT.require),
   password_confirmation: Yup.string()
-    .min(4, '길이가 너무 짧습니다')
-    .max(50, '길이가 너무 깁니다')
-    .required('필수 입력사항 입니다'),
+    .min(4, VALIDATE_TEXT.password)
+    .max(50, VALIDATE_TEXT.password)
+    .required(VALIDATE_TEXT.require),
 });
 
 const SignUpPage = () => {

@@ -5,7 +5,7 @@ import { currency } from '@js/utils';
 import { getLineItem, deleteLineItem, updateLineItem } from '@api';
 import { lineItemState, lineItemCountState } from '@atoms';
 
-const CartLineItem = ({ item }) => {
+const CartLineItem = ({ item, type }) => {
   const { id, option, total_price, quantity } = item;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
@@ -39,23 +39,28 @@ const CartLineItem = ({ item }) => {
             <span>{option.item.name}</span>
             <span className="text-gray-400 ml-3">{option.name}</span>
           </p>
-          <div className="flex pt-2">
-            <Stepper
-              className="black"
-              color="teal"
-              value={itemAmount}
-              min={1}
-              max={option.item.stock}
-              raised
-              manualInputMode
-              onStepperChange={setItemAmount}
-            />
+          {type === 'cart' && (
+            <div className="flex pt-2">
+              <Stepper
+                className="black"
+                color="teal"
+                value={itemAmount}
+                min={1}
+                max={option.item.stock}
+                raised
+                manualInputMode
+                onStepperChange={setItemAmount}
+              />
+            </div>
+          )}
+          <p className="font-bold text-lg pt-2">{currency((option.add_price + option.item.price) * itemAmount)}원</p>
+          {type === 'order' && <span>{currency(itemAmount)}개</span>}
+        </div>
+        {type === 'cart' && (
+          <div className="absolute right-3 top-3" onClick={deleteCart}>
+            <Icon f7="multiply" />
           </div>
-          <p className="font-bold text-lg pt-2">{currency(itemAmount * option.item.price)}원</p>
-        </div>
-        <div className="absolute right-3 top-3" onClick={deleteCart}>
-          <Icon f7="multiply" />
-        </div>
+        )}
       </>
     )
   );

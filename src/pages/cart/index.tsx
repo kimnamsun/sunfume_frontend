@@ -32,8 +32,8 @@ const CartPage = () => {
           ))}
           {/* <LineProduct type="cart" /> */}
           <TotalPrice />
-          <Button raised large round className="m-1" href="/orders">
-            전체상품 주문하기
+          <Button raised large round className="m-1" href="/order">
+            주문하기
           </Button>
         </>
       ) : (

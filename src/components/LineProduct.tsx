@@ -4,7 +4,8 @@ import LikeLineItem from '@pages/likelist/likeLineItem';
 
 const LineItem = ({ type, item }) => {
   const typeList = {
-    cart: <CartLineItem item={item} />,
+    cart: <CartLineItem item={item} type={type} />,
+    order: <CartLineItem item={item} type={type} />,
     like: <LikeLineItem item={item} />,
   };
 
