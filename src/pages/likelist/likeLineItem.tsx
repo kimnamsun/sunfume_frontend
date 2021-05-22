@@ -1,11 +1,11 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { likeState } from '@atoms';
 import LikeBtn from '../../components/LikeBtn';
 
 const LikeLineItem = ({ item }) => {
-  const [likeItem, setLikeItem] = useRecoilState(likeState);
+  const likeItem = useRecoilValue(likeState);
   const { id, name, price } = item;
 
   const likeItemArray = [];

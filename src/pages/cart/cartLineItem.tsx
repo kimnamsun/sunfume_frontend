@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Stepper, Icon, f7 } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
-import { getLineItem, deleteLineItem, updateLineItem } from '@api';
-import { lineItemState, lineItemCountState } from '@atoms';
+import { deleteLineItem, updateLineItem } from '@api';
+import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
 
 const CartLineItem = ({ item, type }) => {
-  const { id, option, total_price, quantity } = item;
+  const { id, option, quantity } = item;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [itemAmount, setItemAmount] = useState(quantity);
+  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
+  const price = itemAmount * option.item.price + option.add_price;
 
   const deleteCart = async () => {
     await deleteLineItem(id);
@@ -19,16 +21,23 @@ const CartLineItem = ({ item, type }) => {
     f7.dialog.alert('장바구니에서 삭제되었습니다.');
   };
 
-  const handleAmount = async () => {
-    const { data } = await updateLineItem(id, { itemAmount });
+  const handleAmount = async (value: number) => {
+    if (value > 0) {
+      setTotalPrice(totalPrice - option.item.price + price);
+    } else {
+      setTotalPrice(totalPrice - price);
+    }
+    // const { data } = await updateLineItem(id, { itemAmount });
     // setLineItems(data);
     // const updateData = [data];
     // setLineItems([...lineItems, ...updateData]);
   };
 
   useEffect(() => {
-    handleAmount();
-  }, [itemAmount]);
+    setTotalPrice(
+      lineItems.map(({ total_price }) => total_price).reduce((prev: number, current: number) => prev + current, 0),
+    );
+  }, [lineItems]);
 
   return (
     item && (
@@ -49,6 +58,8 @@ const CartLineItem = ({ item, type }) => {
                 max={option.item.stock}
                 raised
                 manualInputMode
+                onStepperMinusClick={() => handleAmount(-1)}
+                onStepperPlusClick={() => handleAmount(1)}
                 onStepperChange={setItemAmount}
               />
             </div>

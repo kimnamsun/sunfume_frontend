@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-onchange */
 import React, { useState, useEffect } from 'react';
 import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar, List } from 'framework7-react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
@@ -11,7 +11,7 @@ const SelectOption = ({ itemDetail, id }) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
-  const [likeItem, setLikeItem] = useRecoilState(likeState);
+  const likeItem = useRecoilValue(likeState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [selectOptionId, setSelectOptionId] = useState(null);
 

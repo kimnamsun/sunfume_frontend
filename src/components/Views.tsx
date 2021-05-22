@@ -3,7 +3,7 @@ import { Link, Toolbar, View, Views } from 'framework7-react';
 import { logoutAPI } from '@api';
 import CustomPanel from '@components/shared/CustomPanel';
 import useAuth from '@hooks/useAuth';
-import LandingPage from '@pages/landing';
+import LandingPage from '@pages/Landing';
 import { destroyToken, getToken } from '@store';
 import { sleep } from '@utils/index';
 

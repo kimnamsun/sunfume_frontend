@@ -5,7 +5,7 @@ import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
 import { getLineItem } from '@api';
 import Caution from '@components/Caution';
-import TotalPrice from './totalPrice';
+import TotalPrice from './TotalPrice';
 
 const CartPage = () => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);

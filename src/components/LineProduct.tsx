@@ -1,6 +1,6 @@
 import React from 'react';
-import CartLineItem from '@pages/cart/cartLineItem';
-import LikeLineItem from '@pages/likelist/likeLineItem';
+import CartLineItem from '@pages/cart/CartLineItem';
+import LikeLineItem from '@pages/likelist/LikeLineItem';
 
 const LineItem = ({ type, item }) => {
   const typeList = {
@@ -11,4 +11,4 @@ const LineItem = ({ type, item }) => {
 
   return <div className="relative flex p-2 mx-2 mb-2 border">{typeList[type]}</div>;
 };
-export default LineItem;
+export default React.memo(LineItem);

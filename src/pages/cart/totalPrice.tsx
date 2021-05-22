@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
-import { lineItemState } from '@atoms';
+import { totalPriceState } from '@atoms';
 
 const TotalPrice = () => {
-  const [lineItems, setLineItems] = useRecoilState(lineItemState);
-  const totalPrice = lineItems
-    .map(({ total_price }) => total_price)
-    .reduce((prev: number, current: number) => prev + current, 0);
+  const totalPrice = useRecoilValue(totalPriceState);
   const deliveryCharge = totalPrice >= 50000 ? 0 : 3000;
-
-  useEffect(() => {
-    // totalPrice = lineItems
-    //   .map(({ total_price }) => total_price)
-    //   .reduce((prev: number, current: number) => prev + current, 0);
-    // deliveryCharge = totalPrice >= 50000 ? 0 : 3000;
-  }, [lineItems]);
 
   return (
     <div className="my-5 mx-1">

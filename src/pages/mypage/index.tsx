@@ -11,7 +11,7 @@ const MYPAGE_MENUS = [
   },
   {
     name: '주문 정보 조회',
-    url: '',
+    url: '/order/list',
     icon: 'bag',
   },
   {

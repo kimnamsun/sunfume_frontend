@@ -5,8 +5,8 @@ import { currency } from '@js/utils';
 import { getItemDetail } from '@api';
 import { totalPriceState } from '@atoms';
 import { ItemDetail } from '@constants';
-import MoreDetail from './moreDetail';
-import SelectOption from './selectOption';
+import MoreDetail from './MoreDetail';
+import SelectOption from './SelectOption';
 
 const SLIDE_OPTIONS = 'w-full h-full bg-no-repeat bg-cover bg-center object-cover';
 

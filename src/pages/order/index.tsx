@@ -19,7 +19,7 @@ import { lineItemState } from '@atoms';
 import { updateOrder, postOrder } from '@api';
 import { sleep, toast } from '@js/utils';
 import { VALIDATE_TEXT } from '@config';
-import TotalPrice from '@pages/cart/totalPrice';
+import TotalPrice from '@pages/cart/TotalPrice';
 import LineProduct from '@components/LineProduct';
 
 interface FormValues {

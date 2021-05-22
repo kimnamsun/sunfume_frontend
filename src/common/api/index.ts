@@ -48,6 +48,6 @@ export const deleteLineItem = (id: number) => API.delete<LineItem>(`/line_items/
 
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 export const updateOrder = (params = null) => API.put<Order>(`/orders`, params);
-// export const getOrderList = (params = null) => API.put<Order>(`/orders/list`, params);
+export const getOrderList = (params = null) => API.get<Order>(`/orders/list`, params);
 
 export { API_URL, VERSION };
