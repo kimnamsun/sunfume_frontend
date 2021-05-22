@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Category, Item, Token, Like, LineItem, Order } from '@constants';
+import { Category, Item, Token, Like, LineItem, Order, User } from '@constants';
 import { getToken } from '@store';
 import { PlainAPI, API, VERSION, API_URL } from './api.config';
 import { ApiService } from './api.service';
@@ -48,6 +48,9 @@ export const deleteLineItem = (id: number) => API.delete<LineItem>(`/line_items/
 
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 export const updateOrder = (params = null) => API.put<Order>(`/orders`, params);
-export const getOrderList = (params = null) => API.get<Order>(`/orders/list`, params);
+export const getOrderList = (params = null): Promise<AxiosResponse> => API.get<Order>(`/orders/list`, params);
+
+export const getUser = (id: number, params = null): Promise<AxiosResponse> => API.get<User>(`/users/${id}`, params);
+export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
 
 export { API_URL, VERSION };

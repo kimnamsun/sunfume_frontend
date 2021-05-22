@@ -39,7 +39,7 @@ const SIGNUP_DATAS = [
   },
 ];
 
-const SignUpSchema = Yup.object().shape({
+const signUpSchema = Yup.object().shape({
   name: Yup.string().required(VALIDATE_TEXT.require),
   email: Yup.string().email().required(VALIDATE_TEXT.require),
   password: Yup.string().min(4, VALIDATE_TEXT.password).max(30, VALIDATE_TEXT.password).required(VALIDATE_TEXT.require),
@@ -64,7 +64,7 @@ const SignUpPage = () => {
       <DefaultTitle />
       <Formik
         initialValues={initialValues}
-        validationSchema={SignUpSchema}
+        validationSchema={signUpSchema}
         onSubmit={async (values, { setSubmitting }: FormikHelpers<FormValues>) => {
           await sleep(400);
           setSubmitting(false);

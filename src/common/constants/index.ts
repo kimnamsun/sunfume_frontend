@@ -53,12 +53,13 @@ export interface Address {
 // Tables
 
 export interface User extends DefaultProps, Address {
-  email: string;
-  name: string;
-  phone: string;
+  email?: string;
+  name?: string;
+  phone?: string;
   image_path: string;
   status?: string;
   description?: string;
+  birthday?: Date;
 }
 
 export interface Category extends DefaultProps {

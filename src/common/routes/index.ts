@@ -2,6 +2,7 @@ import HomePage from '@pages/Home';
 import IntroPage from '@pages/Intro';
 import LoginPage from '@pages/users/sessions/new';
 import SignUpPage from '@pages/users/registrations/new';
+import UserInfoPage from '@pages/users/info';
 import ItemIndexPage from '@pages/items';
 import ItemDetailPage from '@pages/details';
 import CartPage from '@pages/cart';
@@ -15,6 +16,7 @@ const routes = [
   { path: '/', component: HomePage },
   { path: '/users/sign_in', component: LoginPage },
   { path: '/users/sign_up', component: SignUpPage },
+  { path: '/users/:id', component: UserInfoPage },
   { path: '/intro', component: IntroPage },
   { path: '/category/:id', component: ItemIndexPage },
   { path: '/items/:id', component: ItemDetailPage },

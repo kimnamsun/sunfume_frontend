@@ -18,7 +18,7 @@ const SIGNIN_DATAS = [
   { type: 'password', placeholder: '비밀번호를 입력해주세요.' },
 ];
 
-const SignInSchema = Yup.object().shape({
+const signInSchema = Yup.object().shape({
   email: Yup.string().email().required(VALIDATE_TEXT.require),
   password: Yup.string().min(4, VALIDATE_TEXT.password).max(30, VALIDATE_TEXT.password).required(VALIDATE_TEXT.require),
 });
@@ -33,7 +33,7 @@ const SessionNewPage = () => {
     try {
       const { data: user } = await loginAPI({ ...params });
       authenticateUser(user);
-      f7.dialog.alert('환영합니다. ');
+      f7.dialog.alert('환영합니다.');
     } catch (error) {
       f7.dialog.alert(i18next.t('login.message'));
       setSubmitting(false);
@@ -46,7 +46,7 @@ const SessionNewPage = () => {
       <DefaultTitle />
       <Formik
         initialValues={initialValues}
-        validationSchema={SignInSchema}
+        validationSchema={signInSchema}
         onSubmit={(values, { setSubmitting }: FormikHelpers<FormValues>) => handleLogin(values, setSubmitting)}
         validateOnMount
       >

@@ -7,23 +7,20 @@ import { useRecoilState } from 'recoil';
 import { likeState } from '@atoms';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
 
-const orderList = [];
-
 const OrderList = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   const getOrderItems = (data) => {
     // console.log([data.line_items[0].option.item]);
-    orderList.push(data.line_items[0].option.item);
-    return orderList;
+    // orderList.push(data.line_items[0].option.item);
+    // return orderList;
   };
 
   useEffect(() => {
     (async () => {
-      const { data } = await getOrderList();
-      setOrderItems(data);
-
+      const { data: orderList } = await getOrderList();
+      setOrderItems(orderList);
       // data.map((data) => {
       //   getOrderItems(data);
       //   console.log(getOrderItems(data));
