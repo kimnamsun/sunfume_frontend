@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Category, Item, Token, Like, LineItem, Order, User } from '@constants';
+import { Category, Item, Token, Like, LineItem, Order, User, Review } from '@constants';
 import { getToken } from '@store';
 import { PlainAPI, API, VERSION, API_URL } from './api.config';
 import { ApiService } from './api.service';
@@ -52,5 +52,9 @@ export const getOrderList = (params = null): Promise<AxiosResponse> => API.get<O
 
 export const getUser = (id: number, params = null): Promise<AxiosResponse> => API.get<User>(`/users/${id}`, params);
 export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
+
+export const getReview = (params = null): Promise<AxiosResponse> => API.get<Review>(`/reviews`, params);
+// export const getItemReview = (id: number, params = null): Promise<AxiosResponse> =>
+//   API.get<Review>(`/reviews/${id}`, params);
 
 export { API_URL, VERSION };

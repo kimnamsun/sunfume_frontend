@@ -126,3 +126,11 @@ export interface Order extends DefaultProps {
   total_price: number;
   status: number;
 }
+
+export interface Review extends DefaultProps {
+  [x: string]: any;
+  item_id: number;
+  user_id: number;
+  content: string;
+  rating: number;
+}

@@ -21,7 +21,12 @@ const MyPage = () => {
     {
       menuName: '찜 목록',
       url: '/like',
-      icon: 'lar la-heart',
+      icon: 'heart_fill',
+    },
+    {
+      menuName: '리뷰 목록',
+      url: '/review',
+      icon: 'captions_bubble',
     },
   ];
 

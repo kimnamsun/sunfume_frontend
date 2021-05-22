@@ -10,6 +10,7 @@ import OrderPage from '@pages/order';
 import OrderListPage from '@pages/order/OrderList';
 import LikeListPage from '@pages/likelist';
 import MyPage from '@pages/mypage';
+import ReviewPage from '@pages/review/Review';
 import NotFoundPage from '@pages/404';
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   { path: '/order', component: OrderPage },
   { path: '/order/list', component: OrderListPage },
   { path: '/like', component: LikeListPage },
+  { path: '/review', component: ReviewPage },
   { path: '/mypage', component: MyPage },
   { path: '(.*)', component: NotFoundPage },
 ];
