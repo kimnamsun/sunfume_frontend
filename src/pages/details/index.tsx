@@ -48,7 +48,7 @@ const ItemDetailPage = ({ id }) => {
               {currency(itemDetail.price)}원
             </span>
           </Card>
-          <MoreDetail desc={itemDetail.description} />
+          <MoreDetail itemId={id} desc={itemDetail.description} />
           <SelectOption itemDetail={itemDetail} id={id} />
         </>
       )}

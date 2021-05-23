@@ -54,7 +54,7 @@ export const getUser = (id: number, params = null): Promise<AxiosResponse> => AP
 export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
 
 export const getReview = (params = null): Promise<AxiosResponse> => API.get<Review>(`/reviews`, params);
-// export const getItemReview = (id: number, params = null): Promise<AxiosResponse> =>
-//   API.get<Review>(`/reviews/${id}`, params);
+export const getItemReview = (id: number, params = null): Promise<AxiosResponse> =>
+  API.get<Review>(`/reviews/${id}`, params);
 
 export { API_URL, VERSION };
