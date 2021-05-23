@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { User } from '@constants';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
+import { User } from '@constants';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useAuth from '@hooks/useAuth';
