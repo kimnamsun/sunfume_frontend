@@ -7,7 +7,7 @@ const Product = ({ id, name, price, image, isLike }) => (
   <Card noShadow className="w-full m-0">
     <CardHeader className="p-0 relative">
       <Link href={`/items/${id}`}>
-        <img alt="itemImage" className="w-full rounded-md object-cover" src={image} />
+        <img alt="itemImage" className="w-full h-44 rounded-md object-cover" src={image} />
       </Link>
       <LikeBtn type="product" id={id} isLike={isLike} />
     </CardHeader>

@@ -30,7 +30,6 @@ const CartPage = () => {
           {lineItems.map((item) => (
             <LineProduct key={item.id} type="cart" item={item} />
           ))}
-          {/* <LineProduct type="cart" /> */}
           <TotalPrice />
           <Button raised large round className="m-1" href="/order">
             주문하기

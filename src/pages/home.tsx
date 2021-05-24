@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Page, Swiper, SwiperSlide, NavLeft, Navbar, Link, NavRight, NavTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { logoutAPI, getItems, getLikeItem } from '@api';
 import { Item } from '@constants';
+import { toast } from '@js/utils';
 import { likeState } from '@atoms';
 import { SLIDE_PREFIX, configs } from '@config';
 import Categories from '@components/Categories';
@@ -21,17 +22,46 @@ const SLIDE_DATAS = {
 };
 
 const HomePage = () => {
+  const { unAuthenticateUser } = useAuth();
   const [items, setItems] = useState([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
-  const { unAuthenticateUser } = useAuth();
+  const allowInfinite = useRef(true);
+  const pageOffset = useRef(1);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await getItems();
+  const fetchData = async () => {
+    try {
+      const { data } = await getItems({ page: 1 });
       setItems(data.items);
       const { data: likeData } = await getLikeItem();
       setLikeItem(likeData);
-    })();
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  const moreData = async () => {
+    if (!allowInfinite.current) return;
+    allowInfinite.current = false;
+
+    setTimeout(async () => {
+      try {
+        const { data } = await getItems({ page: (pageOffset.current += 1) });
+
+        if (data.items.length) {
+          setItems((prevItems) => [...prevItems, ...data.items]);
+          allowInfinite.current = true;
+        } else {
+          toast.get().setToastText('마지막 페이지입니다.').openToast();
+          allowInfinite.current = false;
+        }
+      } catch (error) {
+        // console.log(error);
+      }
+    }, 400);
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   const logoutHandler = useCallback(async () => {
@@ -48,7 +78,7 @@ const HomePage = () => {
   likeItem.map((like) => likeItemArray.push(like.id));
 
   return (
-    <Page name="home">
+    <Page name="home" infinite infiniteDistance={50} infinitePreloader={allowInfinite.current} onInfinite={moreData}>
       <Navbar>
         <NavLeft>
           <Link onClick={logoutHandler} iconF7="square_arrow_right" />

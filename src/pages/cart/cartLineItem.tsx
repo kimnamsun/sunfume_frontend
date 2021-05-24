@@ -11,7 +11,6 @@ const CartLineItem = ({ item, type }) => {
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [itemAmount, setItemAmount] = useState(quantity);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
-  const price = itemAmount * option.item.price + option.add_price;
 
   const deleteCart = async () => {
     await deleteLineItem(id);
@@ -21,16 +20,15 @@ const CartLineItem = ({ item, type }) => {
     f7.dialog.alert('장바구니에서 삭제되었습니다.');
   };
 
-  const handleAmount = async (value: number) => {
-    if (value > 0) {
+  const handleAmount = async (value: number, status: number) => {
+    const price = itemAmount * option.item.price + option.add_price;
+    await updateLineItem(id, { itemAmount, price });
+
+    if (status > 0) {
       setTotalPrice(totalPrice - option.item.price + price);
     } else {
       setTotalPrice(totalPrice - price);
     }
-    // const { data } = await updateLineItem(id, { itemAmount });
-    // setLineItems(data);
-    // const updateData = [data];
-    // setLineItems([...lineItems, ...updateData]);
   };
 
   useEffect(() => {
@@ -57,9 +55,8 @@ const CartLineItem = ({ item, type }) => {
                 min={1}
                 max={option.item.stock}
                 raised
-                manualInputMode
-                onStepperMinusClick={() => handleAmount(-1)}
-                onStepperPlusClick={() => handleAmount(1)}
+                onStepperMinusClick={() => handleAmount(itemAmount, -1)}
+                onStepperPlusClick={() => handleAmount(itemAmount, +1)}
                 onStepperChange={setItemAmount}
               />
             </div>

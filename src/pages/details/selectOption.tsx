@@ -25,7 +25,7 @@ const SelectOption = ({ itemDetail, id }) => {
   }, [selectOption, itemAmount]);
 
   const goToCart = async () => {
-    if (selectOptionId === null) {
+    if (itemDetail.option.length && selectOptionId === null) {
       f7.dialog.alert('옵션을 반드시 선택해주세요.');
       return;
     }
@@ -67,27 +67,29 @@ const SelectOption = ({ itemDetail, id }) => {
         </Toolbar>
         <Actions id="select-option" className="bg-white">
           <ActionsGroup>
-            <ActionsLabel>
-              <List className="w-full m-0">
-                <select
-                  className="border-solid border border-gray-300"
-                  onChange={selectedOption}
-                  defaultValue="default"
-                >
-                  <option value="default" disabled hidden>
-                    옵션 선택
-                  </option>
-                  {itemDetail.option.map((optionData: { id?: string; add_price?: number; name?: string }) => {
-                    const { add_price, name } = optionData;
-                    return (
-                      <option key={optionData.id} id={optionData.id} value={add_price}>
-                        {name} (+ {add_price}원)
-                      </option>
-                    );
-                  })}
-                </select>
-              </List>
-            </ActionsLabel>
+            {itemDetail.option.length ? (
+              <ActionsLabel>
+                <List className="w-full m-0">
+                  <select
+                    className="border-solid border border-gray-300"
+                    onChange={selectedOption}
+                    defaultValue="default"
+                  >
+                    <option value="default" disabled hidden>
+                      옵션 선택
+                    </option>
+                    {itemDetail.option.map((optionData: { id?: string; add_price?: number; name?: string }) => {
+                      const { add_price, name } = optionData;
+                      return (
+                        <option key={optionData.id} id={optionData.id} value={add_price}>
+                          {name} (+ {add_price}원)
+                        </option>
+                      );
+                    })}
+                  </select>
+                </List>
+              </ActionsLabel>
+            ) : null}
             <ActionsLabel className="flex justify-between">
               <Stepper
                 className="black"

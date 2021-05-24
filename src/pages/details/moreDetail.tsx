@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Segmented, Tabs, Tab, Button, List, ListItem } from 'framework7-react';
 import { getItemReview } from '@api';
+import Caution from '@components/Caution';
 import StarRating from '../../pages/review/StarRating';
 
 const MoreDetail = ({ itemId, desc }) => {
@@ -12,8 +13,6 @@ const MoreDetail = ({ itemId, desc }) => {
       setItemReviewList(reviewList);
     })();
   }, []);
-
-  console.log(itemReviewList);
 
   return (
     <>
@@ -29,7 +28,7 @@ const MoreDetail = ({ itemId, desc }) => {
         </Tab>
         <Tab id="review" className="page-content mx-5 pt-0">
           <List mediaList>
-            {itemReviewList &&
+            {itemReviewList.length ? (
               itemReviewList.map((review) => (
                 <ListItem key={review.id}>
                   <span className="text-sm text-gray-500">{review.name}</span>
@@ -42,7 +41,12 @@ const MoreDetail = ({ itemId, desc }) => {
                     </React.Fragment>
                   ))}
                 </ListItem>
-              ))}
+              ))
+            ) : (
+              <Caution>
+                <span className="p-10 font-bold">작성된 리뷰가 없습니다.</span>
+              </Caution>
+            )}
           </List>
         </Tab>
       </Tabs>
