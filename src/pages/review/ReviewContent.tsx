@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent } from 'framework7-react';
 import StarRating from './StarRating';
 
-const ReviewContent = ({ content, rating }) => (
+const ReviewContent = ({ content, rating }: { content: string; rating: number }) => (
   <>
     <Card className="mx-0 mb-1">
       <CardContent className="p-1 px-2">

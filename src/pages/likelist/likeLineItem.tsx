@@ -2,9 +2,10 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { likeState } from '@atoms';
+import { Item } from '@constants';
 import LikeBtn from '../../components/LikeBtn';
 
-const LikeLineItem = ({ item }) => {
+const LikeLineItem = ({ item }: { item: Item }) => {
   const likeItem = useRecoilValue(likeState);
   const { id, name, price } = item;
 

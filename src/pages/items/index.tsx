@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navbar, NavRight, NavTitle, Page, List, Chip } from 'framework7-react';
 import { useRecoilValue } from 'recoil';
 import { getCategory, getCategoryItem } from '@api';
-import { Item } from '@constants';
+import { Item, PageRouteProps } from '@constants';
 import { currency } from '@js/utils';
 import { likeState } from '@atoms';
 import Product from '@components/Product';
@@ -12,21 +12,21 @@ const SORTING_DATAS = [
   {
     index: 1,
     name: '최신순',
-    value: 'created_at ASC',
+    value: 'created_at asc',
   },
   {
     index: 2,
     name: '가격 낮은 순',
-    value: 'price ASC',
+    value: 'price asc',
   },
   {
     index: 3,
     name: '가격 높은 순',
-    value: 'price DESC',
+    value: 'price desc',
   },
 ];
 
-const ItemIndexPage = ({ f7route }) => {
+const ItemIndexPage = ({ f7route }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const { id } = f7route.params;
   const likeItem = useRecoilValue(likeState);
@@ -40,7 +40,10 @@ const ItemIndexPage = ({ f7route }) => {
 
   const fetchData = async () => {
     try {
-      const { data } = await getCategoryItem(id, { sort: SORTING_DATAS[currentSorting - 1].value });
+      // const { data } = await getCategoryItem(id, { q: SORTING_DATAS[currentSorting - 1].value });
+      const { data } = await getCategoryItem(id, {
+        q: { s: SORTING_DATAS[currentSorting - 1].value },
+      });
       setItems(data.items);
       setTotalCount(data.total_count);
     } catch (error) {

@@ -4,13 +4,14 @@ import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
 import { getItemDetail } from '@api';
 import { totalPriceState } from '@atoms';
-import { ItemDetail } from '@constants';
+import { ItemDetail, PageRouteProps } from '@constants';
 import MoreDetail from './MoreDetail';
 import SelectOption from './SelectOption';
 
 const SLIDE_OPTIONS = 'w-full h-full bg-no-repeat bg-cover bg-center object-cover';
 
-const ItemDetailPage = ({ id }) => {
+const ItemDetailPage = ({ f7route }: PageRouteProps) => {
+  const { id } = f7route.params;
   const [itemDetail, setItemDetail] = useState<ItemDetail>();
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
 

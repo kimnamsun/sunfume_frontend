@@ -4,10 +4,11 @@ import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
+import { ItemDetail } from '@constants';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 
-const SelectOption = ({ itemDetail, id }) => {
+const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);

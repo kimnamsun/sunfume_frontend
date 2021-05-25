@@ -4,7 +4,7 @@ import { getItemReview } from '@api';
 import Caution from '@components/Caution';
 import StarRating from '../../pages/review/StarRating';
 
-const MoreDetail = ({ itemId, desc }) => {
+const MoreDetail = ({ itemId, desc }: { itemId: string; desc: string }) => {
   const [itemReviewList, setItemReviewList] = useState([]);
 
   useEffect(() => {
