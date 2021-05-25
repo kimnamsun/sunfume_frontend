@@ -26,4 +26,4 @@ const PostCode = ({ settingAddress }) => {
   return <DaumPostcode autoClose onComplete={handleComplete} />;
 };
 
-export default PostCode;
+export default React.memo(PostCode);

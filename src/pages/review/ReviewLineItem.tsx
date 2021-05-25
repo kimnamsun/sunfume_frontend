@@ -14,4 +14,4 @@ const ReviewLineItem = ({ item }) => {
     </>
   );
 };
-export default ReviewLineItem;
+export default React.memo(ReviewLineItem);

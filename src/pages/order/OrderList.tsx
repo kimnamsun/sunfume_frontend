@@ -28,4 +28,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default React.memo(OrderList);

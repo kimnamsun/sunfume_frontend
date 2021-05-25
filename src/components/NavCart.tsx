@@ -16,4 +16,4 @@ const NavCart = () => {
   return <Link href="/cart" iconF7="cart" iconBadge={lineItemCount || null} badgeColor="red" />;
 };
 
-export default NavCart;
+export default React.memo(NavCart);

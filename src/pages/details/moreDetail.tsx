@@ -54,4 +54,4 @@ const MoreDetail = ({ itemId, desc }: { itemId: string; desc: string }) => {
   );
 };
 
-export default MoreDetail;
+export default React.memo(MoreDetail);

@@ -157,4 +157,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default React.memo(OrderPage);

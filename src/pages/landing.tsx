@@ -10,4 +10,4 @@ const LandingPage = () => (
   </Page>
 );
 
-export default LandingPage;
+export default React.memo(LandingPage);

@@ -32,4 +32,4 @@ const OrderListLineItem = ({ item }) => {
   );
 };
 
-export default OrderListLineItem;
+export default React.memo(OrderListLineItem);

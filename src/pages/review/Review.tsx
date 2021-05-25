@@ -22,4 +22,4 @@ const ReviewPage = () => {
   );
 };
 
-export default ReviewPage;
+export default React.memo(ReviewPage);

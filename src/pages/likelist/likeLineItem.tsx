@@ -24,4 +24,4 @@ const LikeLineItem = ({ item }: { item: Item }) => {
   );
 };
 
-export default LikeLineItem;
+export default React.memo(LikeLineItem);

@@ -15,4 +15,4 @@ const ReviewContent = ({ content, rating }: { content: string; rating: number })
   </>
 );
 
-export default ReviewContent;
+export default React.memo(ReviewContent);

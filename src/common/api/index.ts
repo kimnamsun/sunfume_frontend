@@ -39,7 +39,7 @@ export const getCategoryItem = (id: string, params = null): Promise<AxiosRespons
 
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
 export const postLikeItem = (params = null): Promise<AxiosResponse> => API.post<Like>('/likes', params);
-export const deleteLikeItem = (id: number, params = null) => API.delete<Like>(`/likes/${id}`, params);
+export const deleteLikeItem = (id: number) => API.delete<Like>(`/likes/${id}`);
 
 export const getLineItem = (params = null): Promise<AxiosResponse> => API.get<any>(`/line_items`, params);
 export const postLineItem = (params = null) => API.post<LineItem>(`/line_items`, params);
@@ -50,11 +50,10 @@ export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 export const updateOrder = (params = null) => API.put<Order>(`/orders`, params);
 export const getOrderList = (params = null): Promise<AxiosResponse> => API.get<Order>(`/orders/list`, params);
 
-export const getUser = (id: number, params = null): Promise<AxiosResponse> => API.get<User>(`/users/${id}`, params);
+export const getUser = (id: number): Promise<AxiosResponse> => API.get<User>(`/users/${id}`);
 export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
 
 export const getReview = (params = null): Promise<AxiosResponse> => API.get<Review>(`/reviews`, params);
-export const getItemReview = (id: string, params = null): Promise<AxiosResponse> =>
-  API.get<Review>(`/reviews/${id}`, params);
+export const getItemReview = (id: string): Promise<AxiosResponse> => API.get<Review>(`/reviews/${id}`);
 
 export { API_URL, VERSION };

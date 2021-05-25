@@ -107,4 +107,4 @@ const UserInfoPage = () => {
   );
 };
 
-export default UserInfoPage;
+export default React.memo(UserInfoPage);

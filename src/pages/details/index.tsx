@@ -56,4 +56,4 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
     </Page>
   );
 };
-export default ItemDetailPage;
+export default React.memo(ItemDetailPage);

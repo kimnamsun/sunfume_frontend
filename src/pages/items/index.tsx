@@ -40,7 +40,6 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
 
   const fetchData = async () => {
     try {
-      // const { data } = await getCategoryItem(id, { q: SORTING_DATAS[currentSorting - 1].value });
       const { data } = await getCategoryItem(id, {
         q: { s: SORTING_DATAS[currentSorting - 1].value },
       });

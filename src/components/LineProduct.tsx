@@ -4,7 +4,7 @@ import CartLineItem from '@pages/cart/CartLineItem';
 import LikeLineItem from '@pages/likelist/LikeLineItem';
 import ReviewLineItem from '@pages/review/ReviewLineItem';
 
-const LineItem = ({ type, item }: { type: string; item: Item }) => {
+const LineItem = ({ type, item }) => {
   const typeList = {
     cart: <CartLineItem item={item} type={type} />,
     order: <CartLineItem item={item} type={type} />,

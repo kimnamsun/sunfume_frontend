@@ -32,4 +32,4 @@ const Product = ({
   </Card>
 );
 
-export default Product;
+export default React.memo(Product);
