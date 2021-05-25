@@ -34,6 +34,7 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
     await postOrder({
       total_price: totalPrice,
     });
+
     const { data } = await postLineItem({
       item_id: id,
       option_id: selectOptionId,

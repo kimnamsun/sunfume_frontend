@@ -11,7 +11,7 @@ const optionList = {
   product: 'w-6 h-6 right-2',
 };
 
-const LikeBtn = ({ type, id, isLike }) => {
+const LikeBtn = ({ type, id, isLike }: { type: string; id: number; isLike: boolean }) => {
   const [likeItem, setLikeItem] = useRecoilState(likeState);
   let toastText = '';
 

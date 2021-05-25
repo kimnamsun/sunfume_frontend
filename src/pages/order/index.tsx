@@ -13,11 +13,13 @@ import {
 } from 'framework7-react';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import useAuth from '@hooks/useAuth';
 import i18next from 'i18next';
 import { useRecoilState } from 'recoil';
 import { lineItemState } from '@atoms';
 import { updateOrder, getLineItem } from '@api';
-import { sleep, toast } from '@js/utils';
+
+import { sleep } from '@js/utils';
 import { VALIDATE_TEXT } from '@config';
 import TotalPrice from '@pages/cart/TotalPrice';
 import LineProduct from '@components/LineProduct';
@@ -25,7 +27,7 @@ import PostCode from '@components/PostCode';
 
 interface FormValues {
   name: string;
-  address: string;
+  address1: string;
   phone: string;
   status: number;
   total_price: number;
@@ -53,6 +55,7 @@ const OrderPage = () => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [address, setAddress] = useState('');
   const [postCodeOpen, setPostCode] = useState(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -67,14 +70,14 @@ const OrderPage = () => {
   const deliveryCharge = totalPrice >= 50000 ? 0 : 3000;
 
   const initialValues: FormValues = {
-    name: '',
-    address,
-    phone: '',
+    name: currentUser.name,
+    address1: address,
+    phone: currentUser.phone,
     status: 1,
     total_price: totalPrice + deliveryCharge,
   };
 
-  const settingAddress = (add) => {
+  const settingAddress = (add: string) => {
     setAddress(add);
   };
 
@@ -98,20 +101,21 @@ const OrderPage = () => {
             validationSchema={OrderSchema}
             onSubmit={async (values, { setSubmitting }: FormikHelpers<FormValues>) => {
               await sleep(1000);
-              setSubmitting(false);
-              f7.dialog.preloader('결제중입니다.');
-              try {
-                await updateOrder(values);
-                f7.dialog.close();
-                f7.dialog.alert('결제가 완료되었습니다.');
-                window.location.replace('/mypage');
-              } catch (error) {
-                f7.dialog.close();
-                toast
-                  .get()
-                  .setToastText(error?.response?.data || error?.message)
-                  .openToast();
-              }
+              console.log(values);
+              // setSubmitting(false);
+              // f7.dialog.preloader('결제중입니다.');
+              // try {
+              //   await updateOrder(values);
+              //   f7.dialog.close();
+              //   f7.dialog.alert('결제가 완료되었습니다.');
+              //   window.location.replace('/mypage');
+              // } catch (error) {
+              //   f7.dialog.close();
+              //   toast
+              //     .get()
+              //     .setToastText(error?.response?.data || error?.message)
+              //     .openToast();
+              // }
             }}
             validateOnMount
           >

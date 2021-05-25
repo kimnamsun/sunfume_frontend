@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DaumPostcode from 'react-daum-postcode';
 
 const PostCode = ({ settingAddress }) => {
   const [address, setAddress] = useState('');
 
-  // const settingFullAddress = () => {
-  //   props.settingAddress(address);
-  // };
+  useEffect(() => {
+    settingAddress(address);
+  });
 
   const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -22,8 +22,6 @@ const PostCode = ({ settingAddress }) => {
     }
     setAddress(fullAddress);
   };
-
-  settingAddress(address);
 
   return <DaumPostcode autoClose onComplete={handleComplete} />;
 };
