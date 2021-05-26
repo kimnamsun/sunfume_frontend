@@ -3,11 +3,11 @@ import { Navbar, Page } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { getLikeItem } from '@api';
 import { likeState } from '@atoms';
-import { Item } from '@constants';
+import { Item, PageRouteProps } from '@constants';
 import LineProduct from '@components/LineProduct';
 import Caution from '@components/Caution';
 
-const LikeListPage = () => {
+const LikeListPage = ({ f7route }: PageRouteProps) => {
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const LikeListPage = () => {
 
   return (
     <Page>
-      <Navbar title="찜 목록" backLink sliding={false} />
+      <Navbar title="찜 목록" backLink={!f7route.query.is_main} sliding={false} />
       {likeItem.length ? (
         likeItem.map((item: Item) => <LineProduct key={item.id} type="like" item={item} />)
       ) : (

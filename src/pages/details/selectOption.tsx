@@ -49,6 +49,8 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
     }
 
     f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
+      setSelectOption(0);
+      setSelectOptionId(0);
       f7.views.current.router.navigate('/cart');
     });
   };

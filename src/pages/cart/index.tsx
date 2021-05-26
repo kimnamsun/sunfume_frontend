@@ -5,9 +5,10 @@ import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
 import { getLineItem } from '@api';
 import Caution from '@components/Caution';
+import { PageRouteProps } from '@constants';
 import TotalPrice from './TotalPrice';
 
-const CartPage = () => {
+const CartPage = ({ f7route }: PageRouteProps) => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
 
@@ -21,7 +22,7 @@ const CartPage = () => {
 
   return (
     <Page name="cart">
-      <Navbar title="장바구니" backLink sliding={false} />
+      <Navbar title="장바구니" backLink={!f7route.query.is_main} sliding={false} />
       {lineItems.length ? (
         <>
           <BlockTitle className="flex justify-between p-2 ml-1">

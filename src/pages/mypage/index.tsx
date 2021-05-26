@@ -50,7 +50,7 @@ const MyPage = () => {
 
   return (
     <Page name="mypage">
-      <Navbar title="마이페이지" backLink sliding={false} />
+      <Navbar title="마이페이지" sliding={false} />
       <div className="py-2">
         <div className="max-w-3xl mx-auto px-8 py-10 sm:px-6 md:flex md:items-center md:justify-between md:space-x-5 lg:max-w-7xl lg:px-8">
           <h1 className="text-xl font-bold text-gray-900">{userName}님 안녕하세요!</h1>
