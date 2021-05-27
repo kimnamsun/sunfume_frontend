@@ -36,7 +36,7 @@ const handleUserInfo = async (id: number, params, setSubmitting) => {
     const { data } = await updateUser(id, params);
     if (data.MESSAGE === 'success') {
       f7.dialog.alert('회원정보가 수정되었습니다.');
-      window.location.replace('/');
+      f7.views.current.router.navigate('/mypage');
     }
   } catch (error) {
     f7.dialog.alert('회원정보 수정에 실패했습니다.');

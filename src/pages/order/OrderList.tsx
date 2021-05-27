@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Navbar, Page, Button } from 'framework7-react';
+import React, { useEffect, useState } from 'react';
+import { Navbar, Page } from 'framework7-react';
 import { getOrderList } from '@api';
 import Caution from '@components/Caution';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
