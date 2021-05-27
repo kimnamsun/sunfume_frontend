@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Navbar, Page } from 'framework7-react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Navbar, Page, Button } from 'framework7-react';
 import { getOrderList } from '@api';
 import Caution from '@components/Caution';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
@@ -7,11 +7,17 @@ import OrderListLineItem from '@pages/order/OrderListLineItem';
 const OrderList = () => {
   const [orderItems, setOrderItems] = useState([]);
 
-  useEffect(() => {
-    (async () => {
+  const fetchData = async () => {
+    try {
       const { data: orderList } = await getOrderList();
       setOrderItems(orderList);
-    })();
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   return (

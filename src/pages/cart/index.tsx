@@ -9,6 +9,7 @@ import { PageRouteProps } from '@constants';
 import TotalPrice from './TotalPrice';
 
 const CartPage = ({ f7route }: PageRouteProps) => {
+  const { is_main } = f7route.query;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
 
@@ -22,7 +23,7 @@ const CartPage = ({ f7route }: PageRouteProps) => {
 
   return (
     <Page name="cart">
-      <Navbar title="장바구니" backLink={!f7route.query.is_main} sliding={false} />
+      <Navbar title="장바구니" backLink={!is_main} sliding={false} />
       {lineItems.length ? (
         <>
           <BlockTitle className="flex justify-between p-2 ml-1">

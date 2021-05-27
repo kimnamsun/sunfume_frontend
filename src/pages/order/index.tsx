@@ -14,30 +14,22 @@ import {
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import useAuth from '@hooks/useAuth';
-import i18next from 'i18next';
 import { useRecoilState } from 'recoil';
 import { lineItemState } from '@atoms';
 import { updateOrder, getLineItem } from '@api';
-
-import { sleep } from '@js/utils';
+import { sleep, toast } from '@js/utils';
 import { VALIDATE_TEXT } from '@config';
 import TotalPrice from '@pages/cart/TotalPrice';
 import LineProduct from '@components/LineProduct';
 import PostCode from '@components/PostCode';
 
-interface FormValues {
+export interface FormValues {
   name: string;
-  address1: string;
   phone: string;
+  address1: string;
   status: number;
   total_price: number;
 }
-
-const ORDER_DATAS = [
-  { name: 'name', placeholder: '이름을 입력해주세요.' },
-  { name: 'phone', placeholder: '휴대폰번호를 입력해주세요.' },
-  { name: 'address1', placeholder: '아래 우편번호 찾기를 통해 주소를 입력해주세요.' },
-];
 
 const phoneRegExp = /^\d{9,11}$/;
 const OrderSchema = Yup.object().shape({
@@ -53,7 +45,6 @@ const OrderSchema = Yup.object().shape({
 
 const OrderPage = () => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
-  const [address, setAddress] = useState('');
   const [postCodeOpen, setPostCode] = useState(false);
   const { currentUser } = useAuth();
 
@@ -71,14 +62,10 @@ const OrderPage = () => {
 
   const initialValues: FormValues = {
     name: currentUser.name,
-    address1: address,
+    address1: '',
     phone: currentUser.phone,
     status: 1,
     total_price: totalPrice + deliveryCharge,
-  };
-
-  const settingAddress = (add: string) => {
-    setAddress(add);
   };
 
   return (
@@ -101,46 +88,54 @@ const OrderPage = () => {
             validationSchema={OrderSchema}
             onSubmit={async (values, { setSubmitting }: FormikHelpers<FormValues>) => {
               await sleep(1000);
-              console.log(values);
-              // setSubmitting(false);
-              // f7.dialog.preloader('결제중입니다.');
-              // try {
-              //   await updateOrder(values);
-              //   f7.dialog.close();
-              //   f7.dialog.alert('결제가 완료되었습니다.');
-              //   window.location.replace('/mypage');
-              // } catch (error) {
-              //   f7.dialog.close();
-              //   toast
-              //     .get()
-              //     .setToastText(error?.response?.data || error?.message)
-              //     .openToast();
-              // }
+              setSubmitting(true);
+              f7.dialog.preloader('결제중입니다.');
+              try {
+                await updateOrder(values);
+                f7.dialog.close();
+                f7.dialog.alert('결제가 완료되었습니다.');
+              } catch (error) {
+                f7.dialog.close();
+                toast
+                  .get()
+                  .setToastText(error?.response?.data || error?.message)
+                  .openToast();
+              } finally {
+                setSubmitting(false);
+              }
             }}
-            validateOnMount
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <List className="m-0">
-                  {ORDER_DATAS.map(({ name, placeholder }, index) => (
-                    <ListInput
-                      key={Number(index)}
-                      label={String(i18next.t(`login.${name}`))}
-                      type="text"
-                      name={name}
-                      placeholder={placeholder}
-                      clearButton
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={name === 'address1' ? address : values[name]}
-                      errorMessageForce
-                      errorMessage={touched[name] && errors[name]}
-                    />
-                  ))}
+                  <ListInput
+                    label="주문자 이름"
+                    type="text"
+                    name="name"
+                    placeholder="이름을 입력해주세요."
+                    clearButton
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.name || ''}
+                    errorMessageForce
+                    errorMessage={touched.name && errors.name}
+                  />
+                  <ListInput
+                    label="주문자 휴대폰번호"
+                    type="text"
+                    name="phone"
+                    placeholder="휴대폰번호를 입력해주세요."
+                    clearButton
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.phone || ''}
+                    errorMessageForce
+                    errorMessage={touched.phone && errors.phone}
+                  />
                   <ListItem onClick={() => setPostCode(!postCodeOpen)}>
                     {!postCodeOpen ? '우편번호 찾기' : '닫기'}
                   </ListItem>
-                  {postCodeOpen && <PostCode settingAddress={(add) => settingAddress(add)} />}
+                  {postCodeOpen && <PostCode />}
                   <TotalPrice />
                 </List>
                 <div className="p-3">
@@ -156,5 +151,4 @@ const OrderPage = () => {
     </Page>
   );
 };
-
 export default React.memo(OrderPage);

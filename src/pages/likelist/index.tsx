@@ -8,6 +8,7 @@ import LineProduct from '@components/LineProduct';
 import Caution from '@components/Caution';
 
 const LikeListPage = ({ f7route }: PageRouteProps) => {
+  const { is_main } = f7route.query;
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const LikeListPage = ({ f7route }: PageRouteProps) => {
 
   return (
     <Page>
-      <Navbar title="찜 목록" backLink={!f7route.query.is_main} sliding={false} />
+      <Navbar title="찜 목록" backLink={!is_main} sliding={false} />
       {likeItem.length ? (
         likeItem.map((item: Item) => <LineProduct key={item.id} type="like" item={item} />)
       ) : (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Navbar, NavRight, NavTitle, Page, List, Chip } from 'framework7-react';
+import { Navbar, NavRight, NavTitle, Page, Chip } from 'framework7-react';
 import { useRecoilValue } from 'recoil';
 import { getCategory, getCategoryItem } from '@api';
 import { Item, PageRouteProps } from '@constants';
@@ -12,7 +12,7 @@ const SORTING_DATAS = [
   {
     index: 1,
     name: '최신순',
-    value: 'created_at asc',
+    value: 'created_at desc',
   },
   {
     index: 2,

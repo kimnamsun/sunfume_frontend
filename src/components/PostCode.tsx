@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { List, ListInput } from 'framework7-react';
 import DaumPostcode from 'react-daum-postcode';
+import { FormikProps, useFormikContext } from 'formik';
+import { FormValues } from '@pages/order';
 
-const PostCode = ({ settingAddress }) => {
-  const [address, setAddress] = useState('');
+const PostCode = () => {
+  const {
+    values: { address1 },
+    touched,
+    errors,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+  }: FormikProps<FormValues> = useFormikContext();
 
-  useEffect(() => {
-    settingAddress(address);
-  });
-
-  const handleComplete = (data) => {
+  const handleComplete = (data: { address: any; addressType: string; bname: string; buildingName: string }) => {
     let fullAddress = data.address;
     let extraAddress = '';
     if (data.addressType === 'R') {
@@ -20,10 +26,28 @@ const PostCode = ({ settingAddress }) => {
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
     }
-    setAddress(fullAddress);
+    setFieldValue('address1', fullAddress);
   };
 
-  return <DaumPostcode autoClose onComplete={handleComplete} />;
+  return (
+    <>
+      <List className="m-0">
+        <ListInput
+          label="배송 주소"
+          type="text"
+          name="address1"
+          placeholder="아래 주소찾기를 통해 주소를 입력하세요."
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={address1 || ''}
+          errorMessageForce
+          errorMessage={touched.address1 && errors.address1}
+          readonly
+        />
+        <DaumPostcode autoClose onComplete={handleComplete} />
+      </List>
+    </>
+  );
 };
 
 export default React.memo(PostCode);

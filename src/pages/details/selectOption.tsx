@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-onchange */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar, List } from 'framework7-react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
@@ -49,8 +49,6 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
     }
 
     f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
-      setSelectOption(0);
-      setSelectOptionId(0);
       f7.views.current.router.navigate('/cart');
     });
   };
