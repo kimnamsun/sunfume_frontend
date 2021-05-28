@@ -2,7 +2,7 @@ import React from 'react';
 import ReviewContent from './ReviewContent';
 
 const ReviewLineItem = ({ item }) => {
-  const { id, name, price, reviews } = item;
+  const { name, reviews } = item;
 
   return (
     <>

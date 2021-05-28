@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { f7, List, ListInput, Navbar, Page } from 'framework7-react';
-import { User } from '@constants';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import useAuth from '@hooks/useAuth';
-import { getUser, updateUser } from '@api';
 import i18next from 'i18next';
+import useAuth from '@hooks/useAuth';
+import { User } from '@constants';
+import { getUser, updateUser } from '@api';
 import { VALIDATE_TEXT } from '@config';
 
 interface FormValues {

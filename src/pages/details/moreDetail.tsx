@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Segmented, Tabs, Tab, Button, List, ListItem } from 'framework7-react';
 import { getItemReview } from '@api';
 import Caution from '@components/Caution';
-import StarRating from '../../pages/review/StarRating';
+import StarRating from '@pages/review/StarRating';
 
 const MoreDetail = ({ itemId, desc }: { itemId: string; desc: string }) => {
   const [itemReviewList, setItemReviewList] = useState([]);

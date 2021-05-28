@@ -1,5 +1,4 @@
 import React from 'react';
-import { Item } from '@constants';
 import CartLineItem from '@pages/cart/CartLineItem';
 import LikeLineItem from '@pages/likelist/LikeLineItem';
 import ReviewLineItem from '@pages/review/ReviewLineItem';

@@ -4,8 +4,8 @@ import { useRecoilState } from 'recoil';
 import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
 import { getLineItem } from '@api';
-import Caution from '@components/Caution';
 import { PageRouteProps } from '@constants';
+import Caution from '@components/Caution';
 import TotalPrice from './TotalPrice';
 
 const CartPage = ({ f7route }: PageRouteProps) => {

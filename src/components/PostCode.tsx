@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListInput } from 'framework7-react';
-import DaumPostcode from 'react-daum-postcode';
 import { FormikProps, useFormikContext } from 'formik';
+import DaumPostcode from 'react-daum-postcode';
 import { FormValues } from '@pages/order';
 
 const PostCode = () => {
@@ -14,7 +14,7 @@ const PostCode = () => {
     handleBlur,
   }: FormikProps<FormValues> = useFormikContext();
 
-  const handleComplete = (data: { address: any; addressType: string; bname: string; buildingName: string }) => {
+  const handleComplete = (data: { address: string; addressType: string; bname: string; buildingName: string }) => {
     let fullAddress = data.address;
     let extraAddress = '';
     if (data.addressType === 'R') {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'framework7-react';
-import { getLineItem } from '@api';
 import { useRecoilState } from 'recoil';
+import { getLineItem } from '@api';
 import { lineItemCountState } from '@atoms';
 
 const NavCart = () => {

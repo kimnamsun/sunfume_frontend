@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { likeState } from '@atoms';
 import { Item } from '@constants';
-import LikeBtn from '../../components/LikeBtn';
+import LikeBtn from '@components/LikeBtn';
 
 const LikeLineItem = ({ item }: { item: Item }) => {
   const likeItem = useRecoilValue(likeState);
