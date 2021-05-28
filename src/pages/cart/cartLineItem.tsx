@@ -20,16 +20,12 @@ const CartLineItem = ({ item, type }) => {
     f7.dialog.alert('장바구니에서 삭제되었습니다.');
   };
 
-  const handleAmount = async (value: number, status: number) => {
-    const price = itemAmount * option.item.price + option.add_price;
-    await updateLineItem(id, { itemAmount, price });
-
-    if (status > 0) {
-      setTotalPrice(totalPrice - option.item.price + price);
-    } else {
-      setTotalPrice(totalPrice - price);
-    }
-  };
+  useEffect(() => {
+    (async () => {
+      const price = itemAmount * option.item.price + option.add_price;
+      await updateLineItem(id, { itemAmount, price });
+    })();
+  }, [itemAmount]);
 
   useEffect(() => {
     setTotalPrice(
@@ -55,8 +51,6 @@ const CartLineItem = ({ item, type }) => {
                 min={1}
                 max={option.item.stock}
                 raised
-                onStepperMinusClick={() => handleAmount(itemAmount, -1)}
-                onStepperPlusClick={() => handleAmount(itemAmount, +1)}
                 onStepperChange={setItemAmount}
               />
             </div>

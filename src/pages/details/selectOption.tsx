@@ -56,6 +56,12 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
   const likeItemArray = [];
   likeItem.map((like) => likeItemArray.push(like.id));
 
+  const initOpionData = () => {
+    setSelectOption(0);
+    setSelectOptionId(null);
+    setItemAmount(1);
+  };
+
   return (
     itemDetail && (
       <>
@@ -67,7 +73,7 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
             <Icon f7="cart" />
           </Button>
         </Toolbar>
-        <Actions id="select-option" className="bg-white">
+        <Actions id="select-option" className="bg-white" onActionsClosed={initOpionData}>
           <ActionsGroup>
             {itemDetail.option.length ? (
               <ActionsLabel>
@@ -75,11 +81,8 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
                   <select
                     className="border-solid border border-gray-300"
                     onChange={selectedOption}
-                    defaultValue="default"
+                    value={selectOption}
                   >
-                    <option value="default" disabled hidden>
-                      옵션 선택
-                    </option>
                     {itemDetail.option.map((optionData: { id?: string; add_price?: number; name?: string }) => {
                       const { add_price, name } = optionData;
                       return (
