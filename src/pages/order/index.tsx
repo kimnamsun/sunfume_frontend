@@ -94,6 +94,8 @@ const OrderPage = () => {
                 await updateOrder(values);
                 f7.dialog.close();
                 f7.dialog.alert('결제가 완료되었습니다.');
+                await sleep(2000);
+                f7.views.current.router.navigate('/order/list');
               } catch (error) {
                 f7.dialog.close();
                 toast
