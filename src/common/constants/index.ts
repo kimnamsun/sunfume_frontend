@@ -68,6 +68,7 @@ export interface Category extends DefaultProps {
 }
 
 export interface Option extends DefaultProps {
+  [x: string]: any;
   item_id: number;
   name: string;
   add_price: number;
@@ -85,6 +86,7 @@ export interface Item extends DefaultProps {
   category?: Category;
   images?: string;
   user?: User;
+  stock?: number;
   options?: Option;
 }
 

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Card, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
-import { getItemDetail } from '@api';
+import { getItemDetail, getItemOption } from '@api';
 import { totalPriceState } from '@atoms';
-import { ItemDetail, PageRouteProps } from '@constants';
+import { ItemDetail, PageRouteProps, Option } from '@constants';
 import MoreDetail from './MoreDetail';
 import SelectOption from './SelectOption';
 
@@ -14,12 +14,15 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
   const { id } = f7route.params;
   const [itemDetail, setItemDetail] = useState<ItemDetail>();
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
+  const [itemOptions, setItemOptions] = useState<Option>();
 
   useEffect(() => {
     const getData = async () => {
       const item = (await getItemDetail(id)).data;
       setItemDetail({ ...item });
       setTotalPrice(item.price);
+      const { data: optionData } = await getItemOption(id);
+      setItemOptions(optionData);
     };
     getData();
   }, []);
@@ -50,7 +53,7 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
             </span>
           </Card>
           <MoreDetail itemId={id} desc={itemDetail.description} />
-          <SelectOption itemDetail={itemDetail} id={id} />
+          <SelectOption itemDetail={itemDetail} option={itemOptions} id={id} />
         </>
       )}
     </Page>

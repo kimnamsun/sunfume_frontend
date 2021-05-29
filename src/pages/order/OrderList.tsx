@@ -23,7 +23,7 @@ const OrderList = () => {
   return (
     <Page>
       <Navbar title="주문 목록" backLink sliding={false} />
-      {orderItems.length ? (
+      {orderItems ? (
         orderItems.map((item, index) => <OrderListLineItem key={Number(index)} item={item} />)
       ) : (
         <Caution>

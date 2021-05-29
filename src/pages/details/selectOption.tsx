@@ -4,11 +4,11 @@ import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
-import { ItemDetail } from '@constants';
+import { ItemDetail, Option } from '@constants';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 
-const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }) => {
+const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; option: Option; id: string }) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
@@ -17,6 +17,7 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
   const [selectOptionId, setSelectOptionId] = useState(null);
 
   const selectedOption = (e) => {
+    console.log(e.target.value);
     setSelectOption(Number(e.target.value));
     setSelectOptionId(e.target.selectedOptions[0].id);
   };
@@ -26,7 +27,7 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
   }, [selectOption, itemAmount]);
 
   const goToCart = async () => {
-    if (itemDetail.option.length && selectOptionId === null) {
+    if (option.length && selectOptionId === null) {
       f7.dialog.alert('옵션을 반드시 선택해주세요.');
       return;
     }
@@ -75,7 +76,7 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
         </Toolbar>
         <Actions id="select-option" className="bg-white" onActionsClosed={initOpionData}>
           <ActionsGroup>
-            {itemDetail.option.length ? (
+            {option ? (
               <ActionsLabel>
                 <List className="w-full m-0">
                   <select
@@ -83,7 +84,10 @@ const SelectOption = ({ itemDetail, id }: { itemDetail: ItemDetail; id: string }
                     onChange={selectedOption}
                     value={selectOption}
                   >
-                    {itemDetail.option.map((optionData: { id?: string; add_price?: number; name?: string }) => {
+                    <option disabled hidden selected>
+                      옵션 선택
+                    </option>
+                    {option.map((optionData: { id?: string; add_price?: number; name?: string }) => {
                       const { add_price, name } = optionData;
                       return (
                         <option key={optionData.id} id={optionData.id} value={add_price}>

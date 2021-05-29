@@ -19,7 +19,8 @@
   "files.eol": "\n",
   "indentRainbow.includedLanguages": [],
   "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
   },
   "css.styleSheets": [],
   "colorize.languages": [

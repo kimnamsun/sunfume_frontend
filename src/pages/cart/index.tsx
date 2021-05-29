@@ -3,8 +3,8 @@ import { Navbar, Page, Button, BlockTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
-import { getLineItem } from '@api';
-import { PageRouteProps } from '@constants';
+import { getLineItem, getOption, getItemDetail } from '@api';
+import { PageRouteProps, Option, Item } from '@constants';
 import Caution from '@components/Caution';
 import TotalPrice from './TotalPrice';
 
@@ -12,12 +12,18 @@ const CartPage = ({ f7route }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
+  const [options, setOptions] = useState<Option>();
+  const [items, setItems] = useState<Item>();
 
   useEffect(() => {
     (async () => {
       const { data } = await getLineItem();
       setLineItems(data.line_items);
       setLineItemCount(data.total_count);
+      // const { data: optionData } = await getOption(data.line_items[0].option_id);
+      // setOptions(optionData);
+      // const { data: itemData } = await getItemDetail(data.line_items[0].item_id);
+      // setItems(itemData);
     })();
   }, []);
 

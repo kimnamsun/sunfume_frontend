@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import { Category, Item, Token, Like, LineItem, Order, User, Review } from '@constants';
+import { Category, Item, Token, Like, LineItem, Order, User, Review, Option } from '@constants';
 import { getToken } from '@store';
 import { PlainAPI, API, VERSION, API_URL } from './api.config';
 import { ApiService } from './api.service';
@@ -31,6 +31,9 @@ export const logoutAPI = () => API.delete('/logout');
 
 export const getItems = (params = null) => API.get<any>('/items', { params });
 export const getItemDetail = (id: string) => API.get(`/items/${id}`);
+
+export const getOption = (id: string) => API.get<Option>(`/options/${id}`);
+export const getItemOption = (id: string) => API.get<Option>(`/items/${id}/options`);
 
 export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
 export const getCategory = (id: string, params = null) => API.get<Category>(`/categories/${id}`, { params });
