@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
+import { Card, Navbar, Page, Swiper, SwiperSlide, Chip } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
 import { getItemDetail, getItemOption } from '@api';
@@ -28,7 +28,7 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
   }, []);
 
   return (
-    <Page name="item">
+    <Page noToolbar name="item">
       <Navbar title="제품상세" backLink sliding={false} />
       {itemDetail && (
         <>
@@ -43,16 +43,13 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
               />
             ))}
           </Swiper>
-          <Card outline>
-            <span slot="header">
-              {itemDetail.name}
-              <span className="text-sm text-gray-400 mx-2">{itemDetail.capacity}</span>
-            </span>
-            <span slot="content" className="text-2xl font-bold">
-              {currency(itemDetail.price)}원
-            </span>
+          <Card noShadow>
+            <span className="text-lg">{itemDetail.name}</span>
+            <span className="text-sm text-gray-400 mx-2">{itemDetail.capacity}</span>
+            <p className="text-2xl font-bold text-green-500">{currency(itemDetail.price)}원</p>
+            <p className="mt-2">{itemDetail.description}</p>
           </Card>
-          <MoreDetail itemId={id} desc={itemDetail.description} />
+          <MoreDetail itemId={id} />
           <SelectOption itemDetail={itemDetail} option={itemOptions} id={id} />
         </>
       )}

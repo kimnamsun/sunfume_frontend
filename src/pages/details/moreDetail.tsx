@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Segmented, Tabs, Tab, Button, List, ListItem } from 'framework7-react';
+import { List, ListItem, Card, CardContent, Icon } from 'framework7-react';
+import moment from 'moment';
 import { getItemReview } from '@api';
 import Caution from '@components/Caution';
 import StarRating from '@pages/review/StarRating';
 
-const MoreDetail = ({ itemId, desc }: { itemId: string; desc: string }) => {
+const MoreDetail = ({ itemId }: { itemId: string }) => {
   const [itemReviewList, setItemReviewList] = useState([]);
 
   useEffect(() => {
@@ -16,40 +17,50 @@ const MoreDetail = ({ itemId, desc }: { itemId: string; desc: string }) => {
 
   return (
     <>
-      <Segmented raised className="mx-4">
-        <Button tabLink="#desc" tabLinkActive>
-          상세정보
-        </Button>
-        <Button tabLink="#review">리뷰</Button>
-      </Segmented>
-      <Tabs>
-        <Tab id="desc" tabActive className="page-content mx-5 text-center">
-          <span>{desc}</span>
-        </Tab>
-        <Tab id="review" className="page-content mx-5 pt-0">
-          <List mediaList>
-            {itemReviewList.length ? (
-              itemReviewList.map((review) => (
-                <ListItem key={review.id}>
-                  <span className="text-sm text-gray-500">{review.name}</span>
-                  {review.reviews.map(({ id, rating, content }) => (
-                    <React.Fragment key={id}>
-                      <span className="float-right">
-                        <StarRating rating={rating} />
-                      </span>
-                      <p>{content}</p>
-                    </React.Fragment>
-                  ))}
-                </ListItem>
-              ))
-            ) : (
-              <Caution>
-                <span className="p-10 font-bold">작성된 리뷰가 없습니다.</span>
-              </Caution>
-            )}
-          </List>
-        </Tab>
-      </Tabs>
+      <Card outline>
+        <CardContent className="text-sm">
+          <p>
+            <Icon f7="cube_box" size="15" className="font-bold" />
+            {/* <span className="text-gray-500 font-bold">&nbsp;배송비&emsp;</span> */}
+            &emsp;50,000원 미만 배송비 <span className="text-gray-500 font-bold">3,000원</span>
+          </p>
+          <p>
+            <Icon f7="exclamationmark_square" size="15" className="font-bold" />
+            &emsp;상품준비중 단계에서만 주문 취소 가능합니다.
+          </p>
+          <p>
+            <Icon f7="cart" size="15" className="font-bold" />
+            &emsp;오후 1시 이전 결제건에 한해 <span className="text-gray-500 font-bold">당일 발송</span>됩니다.
+          </p>
+          <p>
+            <Icon f7="envelope" size="15" className="font-bold" />
+            &emsp;sunfume@sunfume.kr
+          </p>
+        </CardContent>
+      </Card>
+      <List mediaList>
+        <ListItem title="리뷰" groupTitle />
+        {itemReviewList.length ? (
+          itemReviewList.map((review) => (
+            <ListItem key={review.id} className="border-0">
+              <span className="text-sm text-gray-500 font-bold">{review.name}</span>
+              {review.reviews.map(({ id, rating, content, created_at }) => (
+                <React.Fragment key={id}>
+                  <p className="text-sm ">{moment(created_at).format('YYYY-MM-DD')}</p>
+                  <span className="float-right">
+                    <StarRating rating={rating} />
+                  </span>
+                  <p>{content}</p>
+                </React.Fragment>
+              ))}
+            </ListItem>
+          ))
+        ) : (
+          <Caution>
+            <span className="p-10 font-bold">작성된 리뷰가 없습니다.</span>
+          </Caution>
+        )}
+      </List>
     </>
   );
 };
