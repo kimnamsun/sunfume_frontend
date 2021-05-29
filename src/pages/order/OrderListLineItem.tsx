@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { Card, CardHeader, CardContent } from 'framework7-react';
 import { getItemDetail } from '@api';
 import { currency } from '@js/utils';
@@ -7,12 +8,6 @@ import { ItemDetail } from '@constants';
 const OrderListLineItem = ({ item }) => {
   const [items, setItems] = useState<ItemDetail>();
   const { updated_at, total_price } = item;
-
-  const dateFormat = (date: string) => {
-    const ymd = date.split('T')[0];
-    const time = date.split('T')[1].split('.')[0];
-    return `${ymd} ${time}`;
-  };
 
   useEffect(() => {
     (async () => {
@@ -26,7 +21,7 @@ const OrderListLineItem = ({ item }) => {
       {item.line_items[0] && items && (
         <Card className="demo-facebook-card">
           <CardHeader className="no-border">
-            <div className="text-base demo-facebook-name">{dateFormat(updated_at)}</div>
+            <div className="text-base demo-facebook-name">{moment(updated_at).format('YYYY/MM/DD hh:mm:ss')}</div>
           </CardHeader>
           <CardContent className="flex">
             <img alt="orderListImage" className="w-1/3 border rounded-lg" src={items.images[0]} />

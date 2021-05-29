@@ -64,13 +64,11 @@ export const toast = (() => {
   };
 })();
 
-export const objectsSkeletonPlaceholder = (size) => {
-  return {
-    objects: new Array(size).fill({}),
-    total_pages: 0,
-    total_count: 0
-  }
-}
+export const objectsSkeletonPlaceholder = (size) => ({
+  objects: new Array(size).fill({}),
+  total_pages: 0,
+  total_count: 0,
+});
 
 export const simpleFormat = (text, options) => {
   try {
@@ -91,4 +89,4 @@ export const saleRate = ({ list_price, sale_price }) => {
     result = 100 - resultSaleRate;
   }
   return result;
-}
+};
