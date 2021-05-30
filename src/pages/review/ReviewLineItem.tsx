@@ -1,7 +1,8 @@
 import React from 'react';
+import { Item } from '@constants';
 import ReviewContent from './ReviewContent';
 
-const ReviewLineItem = ({ item }) => {
+const ReviewLineItem = ({ item }: { item: Item }) => {
   const { name, reviews } = item;
 
   return (

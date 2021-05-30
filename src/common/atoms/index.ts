@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { AuthState, User } from '@constants';
+import { AuthState, User, LineItem } from '@constants';
 
 const initialAuthState: AuthState = {
   token: null,

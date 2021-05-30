@@ -4,7 +4,7 @@ import { getCategories } from '@api';
 import { Category } from '@constants';
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
     (async () => {
       const { data } = await getCategories();

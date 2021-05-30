@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navbar, NavRight, NavTitle, Page, Chip } from 'framework7-react';
 import { useRecoilValue } from 'recoil';
 import { getCategory, getCategoryItem } from '@api';
-import { Item, PageRouteProps } from '@constants';
+import { Category, Item, PageRouteProps } from '@constants';
 import { currency } from '@js/utils';
 import { likeState } from '@atoms';
 import Product from '@components/Product';
@@ -30,9 +30,9 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const { id } = f7route.params;
   const likeItem = useRecoilValue(likeState);
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState<Category>(null);
   const [currentSorting, setCurrentSorting] = useState(1);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [totalCount, setTotalCount] = useState(0);
 
   const likeItemArray = [];

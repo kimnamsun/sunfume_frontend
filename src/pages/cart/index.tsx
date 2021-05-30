@@ -3,27 +3,21 @@ import { Navbar, Page, Button, BlockTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
-import { getLineItem, getOption, getItemDetail } from '@api';
-import { PageRouteProps, Option, Item } from '@constants';
+import { getLineItem } from '@api';
+import { PageRouteProps } from '@constants';
 import Caution from '@components/Caution';
 import TotalPrice from './TotalPrice';
 
-const CartPage = ({ f7route }: PageRouteProps) => {
+const CartPage = ({ f7route, f7router }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
-  const [options, setOptions] = useState<Option>();
-  const [items, setItems] = useState<Item>();
 
   useEffect(() => {
     (async () => {
       const { data } = await getLineItem();
       setLineItems(data.line_items);
       setLineItemCount(data.total_count);
-      // const { data: optionData } = await getOption(data.line_items[0].option_id);
-      // setOptions(optionData);
-      // const { data: itemData } = await getItemDetail(data.line_items[0].item_id);
-      // setItems(itemData);
     })();
   }, []);
 
@@ -35,11 +29,17 @@ const CartPage = ({ f7route }: PageRouteProps) => {
           <BlockTitle className="flex justify-between p-2 ml-1">
             <p>전체 {lineItemCount}개</p>
           </BlockTitle>
-          {lineItems.map((item) => (
+          {lineItems.map((item: { id: string }) => (
             <LineProduct key={item.id} type="cart" item={item} />
           ))}
           <TotalPrice />
-          <Button raised large round className="m-1" href="/order">
+          <Button
+            raised
+            large
+            round
+            className="m-1"
+            onClick={() => f7router.navigate('/order', { props: { lineItems } })}
+          >
             주문하기
           </Button>
         </>

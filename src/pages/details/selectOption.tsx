@@ -4,11 +4,19 @@ import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
-import { ItemDetail, Option } from '@constants';
+import { PageRouteProps, ItemDetail, Option } from '@constants';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
+import { Router } from 'framework7/types';
 
-const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; option: Option; id: string }) => {
+interface SelectOptionPageProps extends PageRouteProps {
+  itemDetail: ItemDetail;
+  option: Option;
+  id: string;
+  f7router: Router.Router;
+}
+
+const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProps) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
@@ -25,7 +33,7 @@ const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; opti
     setTotalPrice((selectOption + (itemDetail && itemDetail.price)) * itemAmount);
   }, [selectOption, itemAmount]);
 
-  const goToCart = async () => {
+  const goToCart = async (type: string) => {
     if (option.length && selectOptionId === null) {
       f7.dialog.alert('옵션을 반드시 선택해주세요.');
       return;
@@ -42,15 +50,19 @@ const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; opti
       total_price: totalPrice,
     });
 
-    if (data.MESSAGE === 'exist') {
-      f7.dialog.alert('이미 장바구니에 존재합니다.');
+    if (type === 'directOrder') {
+      f7router.navigate('/order', { props: { directOrderItems: 1 } });
     } else {
-      setLineItemCount((prev) => prev + 1);
-    }
+      if (data.MESSAGE === 'exist') {
+        f7.dialog.alert('이미 장바구니에 존재합니다.');
+      } else {
+        setLineItemCount((prev) => prev + 1);
+      }
 
-    f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
-      f7.views.current.router.navigate('/cart');
-    });
+      f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
+        f7.views.current.router.navigate('/cart');
+      });
+    }
   };
 
   const likeItemArray = [];
@@ -66,6 +78,7 @@ const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; opti
             </Button>
             <Button raised round className="w-1/2 mx-1" actionsOpen="#select-option">
               <Icon f7="cart" />
+              <span>장바구니</span>
             </Button>
           </Toolbar>
           <Actions id="select-option" className="bg-white" onActionsClosed={() => setItemAmount(1)}>
@@ -108,7 +121,10 @@ const SelectOption = ({ itemDetail, option, id }: { itemDetail: ItemDetail; opti
                 </div>
               </ActionsLabel>
               <ActionsLabel className="text-white">
-                <Button onClick={goToCart} className="w-full" large fill actionsClose>
+                <Button onClick={() => goToCart('directOrder')} className="w-full m-1" large fill actionsClose>
+                  바로구매
+                </Button>
+                <Button onClick={goToCart} className="w-full m-1" large fill actionsClose>
                   장바구니 담기
                 </Button>
               </ActionsLabel>

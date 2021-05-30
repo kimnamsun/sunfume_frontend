@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Stepper, Icon, f7 } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
-import { deleteLineItem, updateLineItem, getOption, getItemDetail } from '@api';
+import { deleteLineItem, updateLineItem, getOption, getItemDetail, getLineItem } from '@api';
 import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
 import { Option, Item } from '@constants';
 
 const CartLineItem = ({ item, type }) => {
-  const { item_id, option, option_id, id, quantity } = item;
+  const { item_id, option_id, id, quantity } = item;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [itemAmount, setItemAmount] = useState(quantity);
@@ -26,14 +26,14 @@ const CartLineItem = ({ item, type }) => {
 
   const deleteCart = async () => {
     await deleteLineItem(id);
-    const deleteItem = lineItems.filter((data) => data.id !== id);
+    const deleteItem = lineItems.filter((data: { id: string }) => data.id !== id);
     setLineItems(deleteItem);
     setLineItemCount((prev) => prev - 1);
     f7.dialog.alert('장바구니에서 삭제되었습니다.');
   };
 
   const handleAmount = async (value: number, status: number) => {
-    const price = itemAmount * items.price + options.add_price;
+    const price = (items.price + options.add_price) * itemAmount;
     await updateLineItem(id, { itemAmount, price });
 
     if (status > 0) {
@@ -48,6 +48,8 @@ const CartLineItem = ({ item, type }) => {
       (async () => {
         const price = itemAmount * items.price + options.add_price;
         await updateLineItem(id, { itemAmount, price });
+        const { data } = await getLineItem();
+        setLineItems(data.line_items);
       })();
     }
   }, [itemAmount]);

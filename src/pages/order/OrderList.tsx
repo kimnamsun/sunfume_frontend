@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Navbar, Page } from 'framework7-react';
 import { getOrderList } from '@api';
 import Caution from '@components/Caution';
+import { Order } from '@constants';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
 
 const OrderList = () => {
-  const [orderItems, setOrderItems] = useState([]);
+  const [orderItems, setOrderItems] = useState<Order>();
 
   const fetchData = async () => {
     try {
@@ -24,7 +25,7 @@ const OrderList = () => {
     <Page>
       <Navbar title="주문 목록" backLink sliding={false} />
       {orderItems ? (
-        orderItems.map((item, index) => <OrderListLineItem key={Number(index)} item={item} />)
+        orderItems.map((item: Order, index: number) => <OrderListLineItem key={Number(index)} item={item} />)
       ) : (
         <Caution>
           <span className="text-lg p-10 font-bold">주문 목록이 없습니다.</span>

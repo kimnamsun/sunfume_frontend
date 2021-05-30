@@ -30,7 +30,11 @@ const userInfoSchema = Yup.object().shape({
   }),
 });
 
-const handleUserInfo = async (id: number, params, setSubmitting) => {
+const handleUserInfo = async (
+  id: number,
+  params: FormValues,
+  setSubmitting: { (isSubmitting: boolean): void; (arg0: boolean): void },
+) => {
   setSubmitting(true);
   try {
     const { data } = await updateUser(id, params);

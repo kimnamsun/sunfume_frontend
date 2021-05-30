@@ -56,10 +56,9 @@ export interface User extends DefaultProps, Address {
   email?: string;
   name?: string;
   phone?: string;
-  image_path: string;
   status?: string;
-  description?: string;
   birthday?: Date;
+  reviews: Review;
 }
 
 export interface Category extends DefaultProps {
@@ -88,6 +87,7 @@ export interface Item extends DefaultProps {
   user?: User;
   stock?: number;
   options?: Option;
+  reviews?: Review;
 }
 
 export interface ItemDetail extends DefaultProps {
@@ -119,12 +119,11 @@ export interface LineItem extends DefaultProps {
 }
 
 export interface Order extends DefaultProps {
+  [x: string]: any;
   user_id: number;
-  receiver_name: string;
-  receiver_phone: string;
-  zipcode: string;
+  name: string;
+  phone: string;
   address1: string;
-  address2: string;
   total_price: number;
   status: number;
 }

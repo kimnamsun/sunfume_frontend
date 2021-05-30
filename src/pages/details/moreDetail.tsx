@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { List, ListItem, Card, CardContent, Icon } from 'framework7-react';
 import moment from 'moment';
 import { getItemReview } from '@api';
+import { Review, User } from '@constants';
 import Caution from '@components/Caution';
 import StarRating from '@pages/review/StarRating';
 
 const MoreDetail = ({ itemId }: { itemId: string }) => {
-  const [itemReviewList, setItemReviewList] = useState([]);
+  const [itemReviewList, setItemReviewList] = useState<User[]>([]);
 
   useEffect(() => {
     (async () => {
@@ -21,7 +22,6 @@ const MoreDetail = ({ itemId }: { itemId: string }) => {
         <CardContent className="text-sm">
           <p>
             <Icon f7="cube_box" size="15" className="font-bold" />
-            {/* <span className="text-gray-500 font-bold">&nbsp;배송비&emsp;</span> */}
             &emsp;50,000원 미만 배송비 <span className="text-gray-500 font-bold">3,000원</span>
           </p>
           <p>
@@ -39,9 +39,9 @@ const MoreDetail = ({ itemId }: { itemId: string }) => {
         </CardContent>
       </Card>
       <List mediaList>
-        <ListItem title="리뷰" groupTitle />
+        <ListItem title={`리뷰 (${itemReviewList.length})`} groupTitle />
         {itemReviewList.length ? (
-          itemReviewList.map((review) => (
+          itemReviewList.map((review: User) => (
             <ListItem key={review.id} className="border-0">
               <span className="text-sm text-gray-500 font-bold">{review.name}</span>
               {review.reviews.map(({ id, rating, content, created_at }) => (

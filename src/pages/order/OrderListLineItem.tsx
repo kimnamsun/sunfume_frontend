@@ -3,9 +3,10 @@ import moment from 'moment';
 import { Card, CardHeader, CardContent } from 'framework7-react';
 import { getItemDetail } from '@api';
 import { currency } from '@js/utils';
-import { ItemDetail } from '@constants';
+import { ItemDetail, Order } from '@constants';
 
-const OrderListLineItem = ({ item }) => {
+const OrderListLineItem = ({ item }: { item: Order }) => {
+  console.log('orderlistlineitem', item);
   const [items, setItems] = useState<ItemDetail>();
   const { updated_at, total_price } = item;
 

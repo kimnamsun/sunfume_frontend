@@ -16,9 +16,10 @@ import * as Yup from 'yup';
 import useAuth from '@hooks/useAuth';
 import { useRecoilState } from 'recoil';
 import { lineItemState } from '@atoms';
-import { updateOrder, getLineItem } from '@api';
+import { updateOrder } from '@api';
 import { sleep, toast } from '@js/utils';
 import { VALIDATE_TEXT } from '@config';
+import { LineItem } from '@constants';
 import TotalPrice from '@pages/cart/TotalPrice';
 import LineProduct from '@components/LineProduct';
 import PostCode from '@components/PostCode';
@@ -43,15 +44,14 @@ const OrderSchema = Yup.object().shape({
   address1: Yup.string().required(VALIDATE_TEXT.require),
 });
 
-const OrderPage = () => {
+const OrderPage = (props) => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [postCodeOpen, setPostCode] = useState(false);
   const { currentUser } = useAuth();
 
   useEffect(() => {
     (async () => {
-      const { data } = await getLineItem();
-      setLineItems(data.line_items);
+      setLineItems(props.lineItems);
     })();
   }, []);
 
@@ -75,7 +75,7 @@ const OrderPage = () => {
         <ListItem accordionItem title="주문상품 정보" className="p-0">
           <AccordionContent className="p-0">
             <Block>
-              {lineItems.map((item) => (
+              {lineItems.map((item: LineItem) => (
                 <LineProduct key={item.id} type="order" item={item} />
               ))}
             </Block>
@@ -89,12 +89,10 @@ const OrderPage = () => {
             onSubmit={async (values, { setSubmitting }: FormikHelpers<FormValues>) => {
               await sleep(1000);
               setSubmitting(true);
-              f7.dialog.preloader('결제중입니다.');
               try {
                 await updateOrder(values);
-                f7.dialog.close();
                 f7.dialog.alert('결제가 완료되었습니다.');
-                await sleep(2000);
+                await sleep(1000);
                 f7.views.current.router.navigate('/order/list');
               } catch (error) {
                 f7.dialog.close();

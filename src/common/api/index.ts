@@ -36,7 +36,8 @@ export const getOption = (id: string) => API.get<Option>(`/options/${id}`);
 export const getItemOption = (id: string) => API.get<Option>(`/items/${id}/options`);
 
 export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
-export const getCategory = (id: string, params = null) => API.get<Category>(`/categories/${id}`, { params });
+export const getCategory = (id: string, params = null): Promise<AxiosResponse> =>
+  API.get<Category>(`/categories/${id}`, { params });
 export const getCategoryItem = (id: string, params = null): Promise<AxiosResponse> =>
   API.get<Item>(`/items/category/${id}`, { params });
 

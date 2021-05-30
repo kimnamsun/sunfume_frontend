@@ -8,6 +8,12 @@ const MyPage = () => {
   const { id, name, email } = currentUser;
   const [userName, setUserName] = useState(name);
 
+  interface MypageMenusProps {
+    menuName: string;
+    url: string;
+    icon: string;
+  }
+
   const MYPAGE_MENUS = [
     {
       menuName: '회원 정보 조회/수정',
@@ -58,7 +64,7 @@ const MyPage = () => {
         </div>
         <div className="bg-white overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
-            {MYPAGE_MENUS.map(({ menuName, url, icon }) => (
+            {MYPAGE_MENUS.map(({ menuName, url, icon }: MypageMenusProps) => (
               <li key={menuName}>
                 <Link href={url} className="block hover:bg-gray-50">
                   <div className="min-w-0 flex-1 flex items-center px-7 py-4 md:grid md:grid-cols-2 md:gap-4">

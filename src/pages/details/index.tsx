@@ -10,10 +10,10 @@ import SelectOption from './SelectOption';
 
 const SLIDE_OPTIONS = 'w-full h-full bg-no-repeat bg-cover bg-center object-cover';
 
-const ItemDetailPage = ({ f7route }: PageRouteProps) => {
+const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   const { id } = f7route.params;
-  const [itemDetail, setItemDetail] = useState<ItemDetail>();
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
+  const [itemDetail, setItemDetail] = useState<ItemDetail>();
   const [itemOptions, setItemOptions] = useState<Option>();
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const ItemDetailPage = ({ f7route }: PageRouteProps) => {
             <p className="mt-2">{itemDetail.description}</p>
           </Card>
           <MoreDetail itemId={id} />
-          <SelectOption itemDetail={itemDetail} option={itemOptions} id={id} />
+          <SelectOption f7route={f7route} f7router={f7router} itemDetail={itemDetail} option={itemOptions} id={id} />
         </>
       )}
     </Page>
