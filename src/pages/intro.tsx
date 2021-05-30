@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
 import i18next from 'i18next';
 import { SLIDE_PREFIX, configs } from '@config';

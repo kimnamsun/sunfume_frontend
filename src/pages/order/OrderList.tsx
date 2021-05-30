@@ -4,22 +4,10 @@ import { getOrderList } from '@api';
 import Caution from '@components/Caution';
 import { Order } from '@constants';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
+import { useQuery } from 'react-query';
 
 const OrderList = () => {
-  const [orderItems, setOrderItems] = useState<Order>();
-
-  const fetchData = async () => {
-    try {
-      const { data: orderList } = await getOrderList();
-      setOrderItems(orderList);
-    } catch (error) {
-      // console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data: orderItems } = useQuery<Order>('orderList', getOrderList());
 
   return (
     <Page>

@@ -6,7 +6,6 @@ import { currency } from '@js/utils';
 import { ItemDetail, Order } from '@constants';
 
 const OrderListLineItem = ({ item }: { item: Order }) => {
-  console.log('orderlistlineitem', item);
   const [items, setItems] = useState<ItemDetail>();
   const { updated_at, total_price } = item;
 

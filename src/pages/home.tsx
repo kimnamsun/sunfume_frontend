@@ -75,7 +75,7 @@ const HomePage = () => {
   }, [unAuthenticateUser]);
 
   const likeItemArray = [];
-  likeItem.map((like) => likeItemArray.push(like.id));
+  likeItem.map((like: { id: string }) => likeItemArray.push(like.id));
 
   return (
     <Page name="home" infinite infiniteDistance={50} infinitePreloader={allowInfinite.current} onInfinite={moreData}>

@@ -58,7 +58,7 @@ const F7App = () => {
         <App {...f7params}>
           <Views />
         </App>
-        {/* {IS_PRODUCTION && <ReactQueryDevtools position="bottom-right" />} */}
+        {IS_PRODUCTION && <ReactQueryDevtools position="bottom-right" />}
         <RecoilRootPortal />
       </RecoilRoot>
     </QueryClientProvider>

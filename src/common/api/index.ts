@@ -30,17 +30,47 @@ export const logoutAPI = () => API.delete('/logout');
 // export const { query: getItemDetail, get: getItemDetail } = ApiService('categories');
 
 export const getItems = (params = null) => API.get<any>('/items', { params });
+// export const getItems =
+//   (params = null) =>
+//   async () => {
+//     const { data } = await API.get<any>('/items', { params });
+//     return data;
+//   };
+
+export const getCarItemDetail = (id: string) => async () => {
+  const { data } = await API.get(`/items/${id}`);
+  return data;
+};
 export const getItemDetail = (id: string) => API.get(`/items/${id}`);
 
-export const getOption = (id: string) => API.get<Option>(`/options/${id}`);
-export const getItemOption = (id: string) => API.get<Option>(`/items/${id}/options`);
+export const getOption = (id: string) => async () => {
+  const { data } = await API.get<Option>(`/options/${id}`);
+  return data;
+};
 
-export const getCategories = (params = null) => API.get<Category[]>('/categories', { params });
+export const getItemOption = (id: string) => async () => {
+  const { data } = await API.get<Option>(`/items/${id}/options`);
+  return data;
+};
+
+export const getCategories =
+  (params = null) =>
+  async () => {
+    const { data } = await API.get<Category[]>('/categories', { params });
+    return data;
+  };
+
 export const getCategory = (id: string, params = null): Promise<AxiosResponse> =>
   API.get<Category>(`/categories/${id}`, { params });
 export const getCategoryItem = (id: string, params = null): Promise<AxiosResponse> =>
   API.get<Item>(`/items/category/${id}`, { params });
 
+// export const getLikeItem =
+//   (params = null) =>
+//   async () => {
+//     const { data } = await API.get<Like>(`/likes`, { params });
+//     return data;
+//   };
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
 export const postLikeItem = (params = null): Promise<AxiosResponse> => API.post<Like>('/likes', params);
 export const deleteLikeItem = (id: number) => API.delete<Like>(`/likes/${id}`);
@@ -52,12 +82,31 @@ export const deleteLineItem = (id: number) => API.delete<LineItem>(`/line_items/
 
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 export const updateOrder = (params = null) => API.put<Order>(`/orders`, params);
-export const getOrderList = (params = null): Promise<AxiosResponse> => API.get<Order>(`/orders/list`, params);
 
+export const getOrderList =
+  (params = null) =>
+  async () => {
+    const { data } = await API.get<Order>(`/orders/list`, params);
+    return data;
+  };
+
+// export const getUser = (id: number) => async () => {
+//   const { data } = await API.get<User>(`/users/${id}`);
+//   return data;
+// };
 export const getUser = (id: number): Promise<AxiosResponse> => API.get<User>(`/users/${id}`);
 export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
 
-export const getReview = (params = null): Promise<AxiosResponse> => API.get<Review>(`/reviews`, params);
-export const getItemReview = (id: string): Promise<AxiosResponse> => API.get<Review>(`/reviews/${id}`);
+export const getReview =
+  (params = null) =>
+  async () => {
+    const { data } = await API.get<Review>(`/reviews`, params);
+    return data;
+  };
+
+export const getItemReview = (id: string) => async () => {
+  const { data } = await API.get<Review>(`/reviews/${id}`);
+  return data;
+};
 
 export { API_URL, VERSION };

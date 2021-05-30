@@ -2,19 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { List, ListItem, Card, CardContent, Icon } from 'framework7-react';
 import moment from 'moment';
 import { getItemReview } from '@api';
-import { Review, User } from '@constants';
+import { User, Review } from '@constants';
 import Caution from '@components/Caution';
 import StarRating from '@pages/review/StarRating';
+import { useQuery } from 'react-query';
 
 const MoreDetail = ({ itemId }: { itemId: string }) => {
-  const [itemReviewList, setItemReviewList] = useState<User[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const { data: reviewList } = await getItemReview(itemId);
-      setItemReviewList(reviewList);
-    })();
-  }, []);
+  const { data: itemReviewList } = useQuery<Review>(`itemReview${itemId}`, getItemReview(itemId));
 
   return (
     <>
@@ -39,27 +33,28 @@ const MoreDetail = ({ itemId }: { itemId: string }) => {
         </CardContent>
       </Card>
       <List mediaList>
-        <ListItem title={`리뷰 (${itemReviewList.length})`} groupTitle />
-        {itemReviewList.length ? (
-          itemReviewList.map((review: User) => (
-            <ListItem key={review.id} className="border-0">
-              <span className="text-sm text-gray-500 font-bold">{review.name}</span>
-              {review.reviews.map(({ id, rating, content, created_at }) => (
-                <React.Fragment key={id}>
-                  <p className="text-sm ">{moment(created_at).format('YYYY-MM-DD')}</p>
-                  <span className="float-right">
-                    <StarRating rating={rating} />
-                  </span>
-                  <p>{content}</p>
-                </React.Fragment>
-              ))}
-            </ListItem>
-          ))
-        ) : (
-          <Caution>
-            <span className="p-10 font-bold">작성된 리뷰가 없습니다.</span>
-          </Caution>
-        )}
+        {itemReviewList && itemReviewList.length && <ListItem title={`리뷰 (${itemReviewList.length})`} groupTitle />}
+        {itemReviewList &&
+          (itemReviewList.length ? (
+            itemReviewList.map((review: User) => (
+              <ListItem key={review.id} className="border-0">
+                <span className="text-sm text-gray-500 font-bold">{review.name}</span>
+                {review.reviews.map(({ id, rating, content, created_at }) => (
+                  <React.Fragment key={id}>
+                    <p className="text-sm ">{moment(created_at).format('YYYY-MM-DD')}</p>
+                    <span className="float-right">
+                      <StarRating rating={rating} />
+                    </span>
+                    <p>{content}</p>
+                  </React.Fragment>
+                ))}
+              </ListItem>
+            ))
+          ) : (
+            <Caution>
+              <span className="p-10 font-bold">작성된 리뷰가 없습니다.</span>
+            </Caution>
+          ))}
       </List>
     </>
   );

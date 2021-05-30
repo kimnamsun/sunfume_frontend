@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Navbar, Page } from 'framework7-react';
 import { Review } from '@constants';
 import { getReview } from '@api';
 import LineProduct from '@components/LineProduct';
+import { useQuery } from 'react-query';
 
 const ReviewPage = () => {
-  const [reviewList, setReviewList] = useState<Review>();
-
-  useEffect(() => {
-    (async () => {
-      const { data: reviewData } = await getReview();
-      setReviewList(reviewData);
-    })();
-  }, []);
+  const { data: reviewList } = useQuery<Review>('reviewList', getReview());
 
   return (
     <Page>

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Stepper, Icon, f7 } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { currency } from '@js/utils';
-import { deleteLineItem, updateLineItem, getOption, getItemDetail, getLineItem } from '@api';
+import { deleteLineItem, updateLineItem, getOption, getItemDetail, getLineItem, getCarItemDetail } from '@api';
 import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
 import { Option, Item } from '@constants';
+import { useQuery } from 'react-query';
 
 const CartLineItem = ({ item, type }) => {
   const { item_id, option_id, id, quantity } = item;
@@ -12,17 +13,8 @@ const CartLineItem = ({ item, type }) => {
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [itemAmount, setItemAmount] = useState(quantity);
   const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
-  const [options, setOptions] = useState<Option>();
-  const [items, setItems] = useState<Item>();
-
-  useEffect(() => {
-    (async () => {
-      const { data: optionData } = await getOption(option_id);
-      const { data: itemData } = await getItemDetail(item_id);
-      setOptions(optionData);
-      setItems(itemData);
-    })();
-  }, []);
+  const { data: options } = useQuery<Option>(`option-${option_id}`, getOption(option_id));
+  const { data: items } = useQuery<Item>(`itemDetail-${item_id}`, getCarItemDetail(item_id));
 
   const deleteCart = async () => {
     await deleteLineItem(id);
