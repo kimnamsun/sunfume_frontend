@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { getLineItem } from '@api';

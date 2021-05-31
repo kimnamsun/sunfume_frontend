@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navbar, Page } from 'framework7-react';
 import { getOrderList } from '@api';
 import Caution from '@components/Caution';

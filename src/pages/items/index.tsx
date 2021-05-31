@@ -96,7 +96,7 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
           return (
             <Product
               key={item.id}
-              id={item.id}
+              id={String(item.id)}
               name={name}
               price={price}
               image={images[0]}

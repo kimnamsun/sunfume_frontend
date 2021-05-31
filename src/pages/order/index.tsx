@@ -13,8 +13,8 @@ import {
 } from 'framework7-react';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import useAuth from '@hooks/useAuth';
 import { useRecoilState } from 'recoil';
+import useAuth from '@hooks/useAuth';
 import { lineItemState } from '@atoms';
 import { updateOrder } from '@api';
 import { sleep, toast } from '@js/utils';

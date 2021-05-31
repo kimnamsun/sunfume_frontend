@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { App, f7ready } from 'framework7-react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import { RecoilRootPortal } from '@components/RecoilRootPortal';
 import Views from '@components/Views';
@@ -8,8 +10,6 @@ import capacitorApp from '@js/capacitor-app';
 import { getDevice } from '@js/framework7-custom';
 import { toast } from '@js/utils';
 import routes from '@routes';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 const F7App = () => {
   const device = getDevice();

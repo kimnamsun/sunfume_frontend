@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Stepper, Icon, f7 } from 'framework7-react';
 import { useRecoilState } from 'recoil';
+import { useQuery } from 'react-query';
 import { currency } from '@js/utils';
-import { deleteLineItem, updateLineItem, getOption, getItemDetail, getLineItem, getCarItemDetail } from '@api';
+import { deleteLineItem, updateLineItem, getOption, getLineItem, getCarItemDetail } from '@api';
 import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
 import { Option, Item } from '@constants';
-import { useQuery } from 'react-query';
 
 const CartLineItem = ({ item, type }) => {
   const { item_id, option_id, id, quantity } = item;

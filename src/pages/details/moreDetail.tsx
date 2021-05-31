@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { List, ListItem, Card, CardContent, Icon } from 'framework7-react';
+import { useQuery } from 'react-query';
 import moment from 'moment';
 import { getItemReview } from '@api';
 import { User, Review } from '@constants';
 import Caution from '@components/Caution';
 import StarRating from '@pages/review/StarRating';
-import { useQuery } from 'react-query';
 
 const MoreDetail = ({ itemId }: { itemId: string }) => {
   const { data: itemReviewList } = useQuery<Review>(`itemReview${itemId}`, getItemReview(itemId));

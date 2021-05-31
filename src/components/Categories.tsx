@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'framework7-react';
+import { useQuery } from 'react-query';
 import { getCategories } from '@api';
 import { Category } from '@constants';
-import { useQuery } from 'react-query';
 
 const Categories = () => {
   const { data: categories } = useQuery<Category[]>('categories', getCategories());

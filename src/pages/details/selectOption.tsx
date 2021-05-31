@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar, List } from 'framework7-react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { Router } from 'framework7/types';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
 import { PageRouteProps, ItemDetail, Option } from '@constants';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
-import { Router } from 'framework7/types';
 import useAuth from '@hooks/useAuth';
 
 interface SelectOptionPageProps extends PageRouteProps {
