@@ -13,7 +13,7 @@ const NavCart = () => {
     if (isAuthenticated) {
       (async () => {
         const { data } = await getLineItem();
-        setLineItemCount(data.total_count === undefined ? 0 : data.total_count);
+        setLineItemCount(data.total_count || 0);
       })();
     }
   }, []);
