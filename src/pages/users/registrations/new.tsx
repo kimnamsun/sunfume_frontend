@@ -7,6 +7,7 @@ import { signupAPI } from '@api';
 import useAuth from '@hooks/useAuth';
 import { VALIDATE_TEXT } from '@config';
 import { sleep } from '@utils';
+import { PageRouteProps } from '@constants';
 import DefaultTitle from '@components/DefaultTitle';
 
 interface FormValues {
@@ -49,7 +50,7 @@ const signUpSchema = Yup.object().shape({
     .required(VALIDATE_TEXT.require),
 });
 
-const SignUpPage = () => {
+const SignUpPage = ({ f7router }: PageRouteProps) => {
   const { authenticateUser } = useAuth();
   const initialValues: FormValues = {
     name: '',
@@ -59,7 +60,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <Page>
+    <Page noToolbar>
       <Navbar title={i18next.t('signup.title')} backLink sliding={false} />
       <DefaultTitle />
       <Formik
@@ -72,6 +73,8 @@ const SignUpPage = () => {
           try {
             const { data: user } = await signupAPI({ ...values });
             f7.dialog.close();
+            f7.dialog.alert('회원가입이 완료되었습니다!');
+            f7.views.current.router.navigate('/');
             authenticateUser(user);
           } catch (error) {
             f7.dialog.close();

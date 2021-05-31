@@ -59,7 +59,18 @@ const F7Views = () => {
     </Views>
   );
 
-  const loggedOutViews = () => <View id="view-intro" main url="/intro" />;
+  const loggedOutViews = () => (
+    <Views tabs className="safe-areas">
+      <Toolbar tabbar labels bottom>
+        <Link tabLink="#view-home" tabLinkActive icon="las la-home" text="홈" />
+      </Toolbar>
+      <View id="view-home" stackPages main tab tabActive url="/" iosDynamicNavbar={false} />
+      <View id="view-items" stackPages name="items" tab url="/items?is_main=true/" />
+      <View id="view-details" stackPages name="details" tab url="/details?is_main=true/" />
+    </Views>
+  );
+
+  // const loggedOutViews = () => <View id="view-intro" main url="/intro" />;
 
   return (
     <>

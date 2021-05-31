@@ -11,8 +11,8 @@ import { VALIDATE_TEXT } from '@config';
 interface FormValues {
   email: string;
   name: string;
-  phone: string;
-  birthday: Date;
+  phone: null | string;
+  birthday: null | Date;
 }
 
 const USER_INFO_DATAS = [
@@ -62,8 +62,8 @@ const UserInfoPage = () => {
   const initialValues: FormValues = {
     email: userData?.email,
     name: userData?.name,
-    phone: userData?.phone,
-    birthday: userData?.birthday,
+    phone: userData?.phone || null,
+    birthday: userData?.birthday || null,
   };
 
   return (

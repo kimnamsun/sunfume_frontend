@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
 import { totalPriceState } from '@atoms';

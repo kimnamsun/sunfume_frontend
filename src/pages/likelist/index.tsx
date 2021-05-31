@@ -6,16 +6,20 @@ import { likeState } from '@atoms';
 import { Item, PageRouteProps } from '@constants';
 import LineProduct from '@components/LineProduct';
 import Caution from '@components/Caution';
+import useAuth from '@hooks/useAuth';
 
 const LikeListPage = ({ f7route }: PageRouteProps) => {
+  const { isAuthenticated } = useAuth();
   const { is_main } = f7route.query;
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {
-    (async () => {
-      const { data: likeItems } = await getLikeItem();
-      setLikeItem(likeItems);
-    })();
+    if (isAuthenticated) {
+      (async () => {
+        const { data: likeItems } = await getLikeItem();
+        setLikeItem(likeItems);
+      })();
+    }
   }, []);
 
   return (

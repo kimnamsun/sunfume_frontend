@@ -29,13 +29,7 @@ export const logoutAPI = () => API.delete('/logout');
 // export const { query: getCategories, get: getCategory } = ApiService('categories');
 // export const { query: getItemDetail, get: getItemDetail } = ApiService('categories');
 
-export const getItems = (params = null) => API.get<any>('/items', { params });
-// export const getItems =
-//   (params = null) =>
-//   async () => {
-//     const { data } = await API.get<any>('/items', { params });
-//     return data;
-//   };
+export const getItems = (params = null) => API.get<Item>('/items', { params });
 
 export const getCarItemDetail = (id: string) => async () => {
   const { data } = await API.get(`/items/${id}`);
@@ -65,20 +59,14 @@ export const getCategory = (id: string, params = null): Promise<AxiosResponse> =
 export const getCategoryItem = (id: string, params = null): Promise<AxiosResponse> =>
   API.get<Item>(`/items/category/${id}`, { params });
 
-// export const getLikeItem =
-//   (params = null) =>
-//   async () => {
-//     const { data } = await API.get<Like>(`/likes`, { params });
-//     return data;
-//   };
 export const getLikeItem = (params = null): Promise<AxiosResponse> => API.get<Like>(`/likes`, { params });
 export const postLikeItem = (params = null): Promise<AxiosResponse> => API.post<Like>('/likes', params);
-export const deleteLikeItem = (id: number) => API.delete<Like>(`/likes/${id}`);
+export const deleteLikeItem = (id: string) => API.delete<Like>(`/likes/${id}`);
 
 export const getLineItem = (params = null): Promise<AxiosResponse> => API.get<any>(`/line_items`, params);
 export const postLineItem = (params = null) => API.post<LineItem>(`/line_items`, params);
-export const updateLineItem = (id: number, params = null) => API.put<LineItem>(`/line_items/${id}`, params);
-export const deleteLineItem = (id: number) => API.delete<LineItem>(`/line_items/${id}`);
+export const updateLineItem = (id: string, params = null) => API.put<LineItem>(`/line_items/${id}`, params);
+export const deleteLineItem = (id: string) => API.delete<LineItem>(`/line_items/${id}`);
 
 export const postOrder = (params = null) => API.post<Order>(`/orders`, params);
 export const updateOrder = (params = null) => API.put<Order>(`/orders`, params);
@@ -90,12 +78,8 @@ export const getOrderList =
     return data;
   };
 
-// export const getUser = (id: number) => async () => {
-//   const { data } = await API.get<User>(`/users/${id}`);
-//   return data;
-// };
-export const getUser = (id: number): Promise<AxiosResponse> => API.get<User>(`/users/${id}`);
-export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<any>(`/users/${id}`, params);
+export const getUser = (id: string): Promise<AxiosResponse> => API.get<User>(`/users/${id}`);
+export const updateUser = (id: number, params = null): Promise<AxiosResponse> => API.put<User>(`/users/${id}`, params);
 
 export const getReview =
   (params = null) =>

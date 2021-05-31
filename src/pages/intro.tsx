@@ -11,8 +11,8 @@ const IntroPage = () => {
   ];
 
   return (
-    <Page>
-      <Navbar title={configs.SITE_NAME} sliding={false} />
+    <Page noToolbar>
+      <Navbar title={configs.SITE_NAME} sliding={false} backLink />
       <Swiper
         spaceBetween={30}
         slidesPerView={1}
@@ -29,7 +29,7 @@ const IntroPage = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="block block-strong m-10 pt-10 pb-10">
+      <div className="block block-strong m-10 py-12">
         <Button outline className="button button-large mb-5" href="/users/sign_in">
           {i18next.t('login.title')}
         </Button>

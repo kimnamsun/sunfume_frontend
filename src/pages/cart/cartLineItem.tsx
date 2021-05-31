@@ -18,7 +18,7 @@ const CartLineItem = ({ item, type }) => {
 
   const deleteCart = async () => {
     await deleteLineItem(id);
-    const deleteItem = lineItems.filter((data: { id: string }) => data.id !== id);
+    const deleteItem = lineItems.filter((data) => data.id !== id);
     setLineItems(deleteItem);
     setLineItemCount((prev) => prev - 1);
     f7.dialog.alert('장바구니에서 삭제되었습니다.');

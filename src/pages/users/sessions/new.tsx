@@ -33,6 +33,7 @@ const SessionNewPage = () => {
     try {
       const { data: user } = await loginAPI({ ...params });
       authenticateUser(user);
+      f7.views.current.router.navigate('/');
       f7.dialog.alert('환영합니다.');
     } catch (error) {
       f7.dialog.alert(i18next.t('login.message'));
@@ -41,7 +42,7 @@ const SessionNewPage = () => {
   };
 
   return (
-    <Page className="bg-white">
+    <Page noToolbar className="bg-white">
       <Navbar title={i18next.t('login.title')} backLink sliding={false} />
       <DefaultTitle />
       <Formik

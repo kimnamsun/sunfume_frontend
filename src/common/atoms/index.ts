@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { AuthState, User, LineItem } from '@constants';
+import { AuthState, LineItem } from '@constants';
 
 const initialAuthState: AuthState = {
   token: null,
@@ -12,7 +12,7 @@ export const authState = atom<AuthState>({
   default: initialAuthState,
 });
 
-export const likeState = atom({
+export const likeState = atom<any[]>({
   key: 'likeState',
   default: [],
 });
@@ -32,7 +32,7 @@ export const itemAmountState = atom({
   default: 1,
 });
 
-export const lineItemState = atom({
+export const lineItemState = atom<LineItem[]>({
   key: 'lineItems',
   default: [],
 });

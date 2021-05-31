@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { Page, Swiper, SwiperSlide, NavLeft, Navbar, Link, NavRight, NavTitle } from 'framework7-react';
+import { f7, Page, Swiper, SwiperSlide, NavLeft, Navbar, Link, NavRight, NavTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import { logoutAPI, getItems, getLikeItem } from '@api';
 import { Item } from '@constants';
@@ -22,7 +22,7 @@ const SLIDE_DATAS = {
 };
 
 const HomePage = () => {
-  const { unAuthenticateUser } = useAuth();
+  const { unAuthenticateUser, isAuthenticated } = useAuth();
   const [items, setItems] = useState<Item[]>([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
   const allowInfinite = useRef(true);
@@ -32,8 +32,11 @@ const HomePage = () => {
     try {
       const { data } = await getItems({ page: 1 });
       setItems(data.items);
-      const { data: likeData } = await getLikeItem();
-      setLikeItem(likeData);
+
+      if (isAuthenticated) {
+        const { data: likeData } = await getLikeItem();
+        setLikeItem(likeData);
+      }
     } catch (error) {
       // console.log(error);
     }
@@ -60,10 +63,6 @@ const HomePage = () => {
     }, 400);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const logoutHandler = useCallback(async () => {
     try {
       await logoutAPI();
@@ -74,19 +73,30 @@ const HomePage = () => {
     }
   }, [unAuthenticateUser]);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const likeItemArray = [];
   likeItem.map((like: { id: string }) => likeItemArray.push(like.id));
 
   return (
-    <Page name="home" infinite infiniteDistance={50} infinitePreloader={allowInfinite.current} onInfinite={moreData}>
+    <Page name="home" infinite infinitePreloader={allowInfinite.current} onInfinite={moreData}>
       <Navbar>
         <NavLeft>
-          <Link onClick={logoutHandler} iconF7="square_arrow_right" />
+          {isAuthenticated ? (
+            <Link onClick={logoutHandler} iconF7="square_arrow_left" />
+          ) : (
+            <Link
+              onClick={() => {
+                f7.views.current.router.navigate('/intro');
+              }}
+              iconF7="square_arrow_right"
+            />
+          )}
         </NavLeft>
         <NavTitle>{configs.SITE_NAME}</NavTitle>
-        <NavRight>
-          <NavCart />
-        </NavRight>
+        <NavRight>{isAuthenticated && <NavCart />}</NavRight>
       </Navbar>
       <Swiper
         pagination={{ clickable: true }}
@@ -110,7 +120,7 @@ const HomePage = () => {
         {items.map((item: Item) => (
           <Product
             key={item.id}
-            id={item.id}
+            id={String(item.id)}
             name={item.name}
             price={item.price}
             image={item.images[0]}

@@ -8,6 +8,7 @@ import { PageRouteProps, ItemDetail, Option } from '@constants';
 import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 import { Router } from 'framework7/types';
+import useAuth from '@hooks/useAuth';
 
 interface SelectOptionPageProps extends PageRouteProps {
   itemDetail: ItemDetail;
@@ -23,6 +24,7 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
   const likeItem = useRecoilValue(likeState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [selectOptionId, setSelectOptionId] = useState(null);
+  const { isAuthenticated } = useAuth();
 
   const selectedOption = (e) => {
     setSelectOption(Number(e.target.value));
@@ -34,11 +36,16 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
   }, [selectOption, itemAmount]);
 
   const goToCart = async (type: string) => {
+    if (!isAuthenticated) {
+      f7.dialog.alert('로그인이 필요합니다.');
+      f7.views.current.router.navigate('/intro');
+      return;
+    }
+
     if (option.length && selectOptionId === null) {
       f7.dialog.alert('옵션을 반드시 선택해주세요.');
       return;
     }
-
     await postOrder({
       total_price: totalPrice,
     });

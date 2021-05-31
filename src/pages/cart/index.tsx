@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Page, Button, BlockTitle } from 'framework7-react';
 import { useRecoilState } from 'recoil';
 import LineProduct from '@components/LineProduct';
 import { lineItemState, lineItemCountState } from '@atoms';
 import { getLineItem } from '@api';
-import { PageRouteProps } from '@constants';
+import { LineItem, PageRouteProps } from '@constants';
 import Caution from '@components/Caution';
 import TotalPrice from './TotalPrice';
 
@@ -29,7 +29,7 @@ const CartPage = ({ f7route, f7router }: PageRouteProps) => {
           <BlockTitle className="flex justify-between p-2 ml-1">
             <p>전체 {lineItemCount}개</p>
           </BlockTitle>
-          {lineItems.map((item: { id: string }) => (
+          {lineItems.map((item: LineItem) => (
             <LineProduct key={item.id} type="cart" item={item} />
           ))}
           <TotalPrice />
