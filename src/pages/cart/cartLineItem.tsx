@@ -5,9 +5,9 @@ import { useQuery } from 'react-query';
 import { currency } from '@js/utils';
 import { deleteLineItem, updateLineItem, getOption, getLineItem, getCarItemDetail } from '@api';
 import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
-import { Option, Item } from '@constants';
+import { Option, Item, LineItem } from '@constants';
 
-const CartLineItem = ({ item, type }) => {
+const CartLineItem = ({ item, type }: { item: LineItem; type: string }) => {
   const { item_id, option_id, id, quantity } = item;
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);

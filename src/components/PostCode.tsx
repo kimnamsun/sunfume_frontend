@@ -14,7 +14,14 @@ const PostCode = () => {
     handleBlur,
   }: FormikProps<FormValues> = useFormikContext();
 
-  const handleComplete = (data: { address: string; addressType: string; bname: string; buildingName: string }) => {
+  interface PostCodeProps {
+    address: string;
+    addressType: string;
+    bname: string;
+    buildingName: string;
+  }
+
+  const handleComplete = (data: PostCodeProps) => {
     let fullAddress = data.address;
     let extraAddress = '';
     if (data.addressType === 'R') {
