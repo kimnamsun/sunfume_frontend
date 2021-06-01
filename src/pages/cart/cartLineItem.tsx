@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
 import { currency } from '@js/utils';
 import { deleteLineItem, updateLineItem, getOption, getLineItem, getCarItemDetail } from '@api';
-import { lineItemState, lineItemCountState, totalPriceState } from '@atoms';
+import { lineItemState, lineItemCountState } from '@atoms';
 import { Option, Item, LineItem } from '@constants';
 
 const CartLineItem = ({ item, type }: { item: LineItem; type: string }) => {
@@ -12,7 +12,6 @@ const CartLineItem = ({ item, type }: { item: LineItem; type: string }) => {
   const [lineItems, setLineItems] = useRecoilState(lineItemState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
   const [itemAmount, setItemAmount] = useState(quantity);
-  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const { data: options } = useQuery<Option>(`option-${option_id}`, getOption(option_id));
   const { data: items } = useQuery<Item>(`itemDetail-${item_id}`, getCarItemDetail(item_id));
 
@@ -24,33 +23,21 @@ const CartLineItem = ({ item, type }: { item: LineItem; type: string }) => {
     f7.dialog.alert('장바구니에서 삭제되었습니다.');
   };
 
-  const handleAmount = async (value: number, status: number) => {
+  const handleAmount = async () => {
     const price = (items.price + options.add_price) * itemAmount;
     await updateLineItem(id, { itemAmount, price });
-
-    if (status > 0) {
-      setTotalPrice(totalPrice - items.price + price);
-    } else {
-      setTotalPrice(totalPrice - price);
-    }
   };
 
   useEffect(() => {
     if (items && options) {
       (async () => {
-        const price = itemAmount * items.price + options.add_price;
+        const price = (items.price + options.add_price) * itemAmount;
         await updateLineItem(id, { itemAmount, price });
         const { data } = await getLineItem();
         setLineItems(data.line_items);
       })();
     }
   }, [itemAmount]);
-
-  useEffect(() => {
-    setTotalPrice(
-      lineItems.map(({ total_price }) => total_price).reduce((prev: number, current: number) => prev + current, 0),
-    );
-  }, [lineItems]);
 
   return (
     <>
@@ -71,8 +58,8 @@ const CartLineItem = ({ item, type }: { item: LineItem; type: string }) => {
                   min={1}
                   max={items.stock}
                   raised
-                  onStepperMinusClick={() => handleAmount(itemAmount, -1)}
-                  onStepperPlusClick={() => handleAmount(itemAmount, +1)}
+                  onStepperMinusClick={() => handleAmount()}
+                  onStepperPlusClick={() => handleAmount()}
                   onStepperChange={setItemAmount}
                 />
               </div>

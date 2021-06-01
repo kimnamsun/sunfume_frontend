@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Navbar, Page, Swiper, SwiperSlide } from 'framework7-react';
-import { useRecoilState } from 'recoil';
 import { useQuery } from 'react-query';
 import { currency } from '@js/utils';
 import { getItemDetail, getItemOption } from '@api';
-import { totalPriceState } from '@atoms';
 import { ItemDetail, PageRouteProps, Option } from '@constants';
 import MoreDetail from './MoreDetail';
 import SelectOption from './SelectOption';
@@ -13,7 +11,6 @@ const SLIDE_OPTIONS = 'w-full h-full bg-no-repeat bg-cover bg-center object-cove
 
 const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
   const { id } = f7route.params;
-  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
   const [itemDetail, setItemDetail] = useState<ItemDetail>();
   const { data: itemOptions } = useQuery<Option>(`itemOption-${id}`, getItemOption(id));
 
@@ -21,7 +18,6 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
     const getData = async () => {
       const item = (await getItemDetail(id)).data;
       setItemDetail({ ...item });
-      setTotalPrice(item.price);
     };
     getData();
   }, []);

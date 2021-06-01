@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
-import { totalPriceState } from '@atoms';
+import { totalPriceState } from '@selectors';
 
 const TotalPrice = () => {
   const totalPrice = useRecoilValue(totalPriceState);

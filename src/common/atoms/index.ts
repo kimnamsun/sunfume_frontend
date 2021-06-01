@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { AuthState, LineItem } from '@constants';
 
 const initialAuthState: AuthState = {
@@ -17,9 +17,9 @@ export const likeState = atom<any[]>({
   default: [],
 });
 
-export const totalPriceState = atom({
-  key: 'totalPrice',
-  default: 0,
+export const lineItemState = atom<LineItem[]>({
+  key: 'lineItems',
+  default: [],
 });
 
 export const selectOptionState = atom({
@@ -30,11 +30,6 @@ export const selectOptionState = atom({
 export const itemAmountState = atom({
   key: 'itemAmount',
   default: 1,
-});
-
-export const lineItemState = atom<LineItem[]>({
-  key: 'lineItems',
-  default: [],
 });
 
 export const lineItemCountState = atom({

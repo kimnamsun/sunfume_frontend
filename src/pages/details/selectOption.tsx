@@ -6,7 +6,7 @@ import { Router } from 'framework7/types';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
 import { PageRouteProps, ItemDetail, Option } from '@constants';
-import { totalPriceState, selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
+import { selectOptionState, itemAmountState, likeState, lineItemCountState } from '@atoms';
 import LikeBtn from '@components/LikeBtn';
 import useAuth from '@hooks/useAuth';
 
@@ -19,7 +19,7 @@ interface SelectOptionPageProps extends PageRouteProps {
 
 const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProps) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
-  const [totalPrice, setTotalPrice] = useRecoilState(totalPriceState);
+  const [totalPrice, setTotalPrice] = useState(itemDetail.price);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
   const likeItem = useRecoilValue(likeState);
   const [lineItemCount, setLineItemCount] = useRecoilState(lineItemCountState);
