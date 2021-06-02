@@ -1,11 +1,11 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { currency } from '@js/utils';
-import { totalPriceState } from '@selectors';
+import { totalPriceState, deliveryChargeState } from '@selectors';
 
 const TotalPrice = () => {
   const totalPrice = useRecoilValue(totalPriceState);
-  const deliveryCharge = totalPrice >= 50000 ? 0 : 3000;
+  const deliveryCharge = useRecoilValue(deliveryChargeState);
 
   return (
     <div className="my-5 mx-1">

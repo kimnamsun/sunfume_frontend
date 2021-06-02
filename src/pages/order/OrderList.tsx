@@ -1,10 +1,10 @@
 import React from 'react';
 import { Navbar, Page } from 'framework7-react';
+import { useQuery } from 'react-query';
 import { getOrderList } from '@api';
 import Caution from '@components/Caution';
 import { Order } from '@constants';
 import OrderListLineItem from '@pages/order/OrderListLineItem';
-import { useQuery } from 'react-query';
 
 const OrderList = () => {
   const { data: orderItems } = useQuery<Order>('orderList', getOrderList());
@@ -12,7 +12,7 @@ const OrderList = () => {
   return (
     <Page>
       <Navbar title="주문 목록" backLink sliding={false} />
-      {orderItems ? (
+      {orderItems && orderItems.length ? (
         orderItems.map((item: Order, index: number) => <OrderListLineItem key={Number(index)} item={item} />)
       ) : (
         <Caution>

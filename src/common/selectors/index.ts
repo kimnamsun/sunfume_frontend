@@ -16,3 +16,8 @@ export const totalPriceState = selector({
       .map(({ total_price }) => total_price)
       .reduce((prev: number, current: number) => prev + current, 0),
 });
+
+export const deliveryChargeState = selector({
+  key: 'deliveryCharge',
+  get: ({ get }) => (get(totalPriceState) >= 50000 ? 0 : 3000),
+});

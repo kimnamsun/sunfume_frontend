@@ -47,6 +47,7 @@ const MyPage = () => {
   const logoutHandler = useCallback(async () => {
     try {
       await logoutAPI();
+      window.location.reload();
     } catch (e) {
       // console.log(e);
     } finally {

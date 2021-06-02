@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   f7,
   Page,
@@ -13,9 +13,10 @@ import {
 } from 'framework7-react';
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import useAuth from '@hooks/useAuth';
 import { lineItemState } from '@atoms';
+import { totalPriceState, deliveryChargeState } from '@selectors';
 import { updateOrder } from '@api';
 import { sleep, toast } from '@js/utils';
 import { VALIDATE_TEXT } from '@config';
@@ -44,21 +45,12 @@ const OrderSchema = Yup.object().shape({
   address1: Yup.string().required(VALIDATE_TEXT.require),
 });
 
-const OrderPage = (props) => {
-  const [lineItems, setLineItems] = useRecoilState(lineItemState);
+const OrderPage = () => {
+  const lineItems = useRecoilValue(lineItemState);
+  const totalPrice = useRecoilValue(totalPriceState);
+  const deliveryCharge = useRecoilValue(deliveryChargeState);
   const [postCodeOpen, setPostCode] = useState(false);
   const { currentUser } = useAuth();
-
-  useEffect(() => {
-    (async () => {
-      setLineItems(props.lineItems);
-    })();
-  }, []);
-
-  const totalPrice = lineItems
-    .map(({ total_price }) => total_price)
-    .reduce((prev: number, current: number) => prev + current, 0);
-  const deliveryCharge = totalPrice >= 50000 ? 0 : 3000;
 
   const initialValues: FormValues = {
     name: currentUser.name,
@@ -75,9 +67,7 @@ const OrderPage = (props) => {
         <ListItem accordionItem title="주문상품 정보" className="p-0">
           <AccordionContent className="p-0">
             <Block>
-              {lineItems.map((item: LineItem) => (
-                <LineProduct key={item.id} type="order" item={item} />
-              ))}
+              {lineItems && lineItems.map((item: LineItem) => <LineProduct key={item.id} type="order" item={item} />)}
             </Block>
           </AccordionContent>
         </ListItem>
@@ -91,9 +81,8 @@ const OrderPage = (props) => {
               setSubmitting(true);
               try {
                 await updateOrder(values);
+                window.location.reload();
                 f7.dialog.alert('결제가 완료되었습니다.');
-                await sleep(1000);
-                f7.views.current.router.navigate('/order/list');
               } catch (error) {
                 f7.dialog.close();
                 toast

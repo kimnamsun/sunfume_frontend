@@ -26,6 +26,12 @@ const SORTING_DATAS = [
   },
 ];
 
+interface SortingDataProps {
+  index: number;
+  name: string;
+  value: string;
+}
+
 const ItemIndexPage = ({ f7route }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const { id } = f7route.params;
@@ -80,15 +86,18 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
         총 <b>{currency((items && totalCount) || 0)}</b>개 상품
       </div>
       <div className="mx-3 my-1 text-center">
-        {SORTING_DATAS.map(({ index, name }) => (
-          <Chip
-            key={index}
-            text={name}
-            className="m-2"
-            onClick={() => sortingData(index)}
-            outline={currentSorting !== index}
-          />
-        ))}
+        {SORTING_DATAS.map((sortData: SortingDataProps) => {
+          const { index, name } = sortData;
+          return (
+            <Chip
+              key={index}
+              text={name}
+              className="m-2"
+              onClick={() => sortingData(index)}
+              outline={currentSorting !== index}
+            />
+          );
+        })}
       </div>
       <div className="grid grid-cols-2 gap-2 p-2">
         {items.map((item: Item) => {

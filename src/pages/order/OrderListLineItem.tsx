@@ -21,7 +21,7 @@ const OrderListLineItem = ({ item }: { item: Order }) => {
       {item.line_items[0] && items && (
         <Card className="demo-facebook-card">
           <CardHeader className="no-border">
-            <div className="text-base demo-facebook-name">{moment(updated_at).format('YYYY/MM/DD hh:mm:ss')}</div>
+            <div className="text-base demo-facebook-name">{moment(updated_at).format('YYYY/MM/DD HH:mm:ss')}</div>
           </CardHeader>
           <CardContent className="flex">
             <img alt="orderListImage" className="w-1/3 border rounded-lg" src={items.images[0]} />

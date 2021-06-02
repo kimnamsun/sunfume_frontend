@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { f7, ActionsGroup, ActionsLabel, Stepper, Actions, Icon, Button, Toolbar, List } from 'framework7-react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Router } from 'framework7/types';
 import { currency } from '@js/utils';
 import { postLineItem, postOrder } from '@api';
 import { PageRouteProps, ItemDetail, Option } from '@constants';
@@ -14,10 +13,9 @@ interface SelectOptionPageProps extends PageRouteProps {
   itemDetail: ItemDetail;
   option: Option;
   id: string;
-  f7router: Router.Router;
 }
 
-const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProps) => {
+const SelectOption = ({ itemDetail, option, id }: SelectOptionPageProps) => {
   const [itemAmount, setItemAmount] = useRecoilState(itemAmountState);
   const [totalPrice, setTotalPrice] = useState(itemDetail.price);
   const [selectOption, setSelectOption] = useRecoilState(selectOptionState);
@@ -35,7 +33,7 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
     setTotalPrice((selectOption + (itemDetail && itemDetail.price)) * itemAmount);
   }, [selectOption, itemAmount]);
 
-  const goToCart = async (type: string) => {
+  const goToCart = async () => {
     if (!isAuthenticated) {
       f7.dialog.alert('로그인이 필요합니다.');
       f7.views.current.router.navigate('/intro');
@@ -46,6 +44,7 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
       f7.dialog.alert('옵션을 반드시 선택해주세요.');
       return;
     }
+
     await postOrder({
       total_price: totalPrice,
     });
@@ -57,19 +56,15 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
       total_price: totalPrice,
     });
 
-    if (type === 'directOrder') {
-      f7router.navigate('/order', { props: { directOrderItems: 1 } });
+    if (data.MESSAGE === 'exist') {
+      f7.dialog.alert('이미 장바구니에 존재합니다.');
     } else {
-      if (data.MESSAGE === 'exist') {
-        f7.dialog.alert('이미 장바구니에 존재합니다.');
-      } else {
-        setLineItemCount((prev) => prev + 1);
-      }
-
-      f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
-        f7.views.current.router.navigate('/cart');
-      });
+      setLineItemCount((prev) => prev + 1);
     }
+
+    f7.dialog.confirm('장바구니로 이동하시겠습니까?', () => {
+      f7.views.current.router.navigate('/cart');
+    });
   };
 
   const likeItemArray = [];
@@ -85,7 +80,7 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
             </Button>
             <Button raised round className="w-1/2 mx-1" actionsOpen="#select-option">
               <Icon f7="cart" />
-              <span>장바구니</span>
+              <span>구매하기</span>
             </Button>
           </Toolbar>
           <Actions id="select-option" className="bg-white" onActionsClosed={() => setItemAmount(1)}>
@@ -128,9 +123,6 @@ const SelectOption = ({ f7router, itemDetail, option, id }: SelectOptionPageProp
                 </div>
               </ActionsLabel>
               <ActionsLabel className="text-white">
-                <Button onClick={() => goToCart('directOrder')} className="w-full m-1" large fill actionsClose>
-                  바로구매
-                </Button>
                 <Button onClick={goToCart} className="w-full m-1" large fill actionsClose>
                   장바구니 담기
                 </Button>

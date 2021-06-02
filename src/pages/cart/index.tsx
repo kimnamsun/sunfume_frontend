@@ -33,13 +33,7 @@ const CartPage = ({ f7route, f7router }: PageRouteProps) => {
             <LineProduct key={item.id} type="cart" item={item} />
           ))}
           <TotalPrice />
-          <Button
-            raised
-            large
-            round
-            className="m-1"
-            onClick={() => f7router.navigate('/order', { props: { lineItems } })}
-          >
+          <Button raised large round className="m-1" onClick={() => f7router.navigate('/order')}>
             주문하기
           </Button>
         </>
