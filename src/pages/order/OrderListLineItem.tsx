@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import { Card, CardHeader, CardContent } from 'framework7-react';
+import moment from 'moment';
 import { getItemDetail } from '@api';
 import { currency } from '@js/utils';
 import { ItemDetail, Order } from '@constants';

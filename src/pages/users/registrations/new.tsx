@@ -18,26 +18,10 @@ interface FormValues {
 }
 
 const SIGNUP_DATAS = [
-  {
-    type: 'text',
-    name: 'name',
-    placeholder: '이름을 입력해주세요.',
-  },
-  {
-    type: 'email',
-    name: 'email',
-    placeholder: '이메일을 입력해주세요.',
-  },
-  {
-    type: 'password',
-    name: 'password',
-    placeholder: '비밀번호를 입력해주세요.',
-  },
-  {
-    type: 'password',
-    name: 'password_confirmation',
-    placeholder: '비밀번호를 확인해주세요.',
-  },
+  { type: 'text', name: 'name', placeholder: '이름을 입력해주세요.' },
+  { type: 'email', name: 'email', placeholder: '이메일을 입력해주세요.' },
+  { type: 'password', name: 'password', placeholder: '비밀번호를 입력해주세요.' },
+  { type: 'password', name: 'password_confirmation', placeholder: '비밀번호를 확인해주세요.' },
 ];
 
 const signUpSchema = Yup.object().shape({
@@ -86,19 +70,19 @@ const SignUpPage = ({ f7router }: PageRouteProps) => {
         {({ handleChange, handleBlur, values, errors, touched, isSubmitting, isValid }) => (
           <Form>
             <List noHairlinesMd>
-              {SIGNUP_DATAS.map((data, index) => (
+              {SIGNUP_DATAS.map(({ type, name, placeholder }, index) => (
                 <ListInput
                   key={Number(index)}
-                  label={String(i18next.t(`login.${data.name}`))}
-                  type={data.type}
-                  name={data.name}
-                  placeholder={data.placeholder}
+                  label={String(i18next.t(`login.${name}`))}
+                  type={type}
+                  name={name}
+                  placeholder={placeholder}
                   clearButton
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values[data.name]}
+                  value={values[name]}
                   errorMessageForce
-                  errorMessage={touched[data.name] && errors[data.name]}
+                  errorMessage={touched[name] && errors[name]}
                 />
               ))}
             </List>

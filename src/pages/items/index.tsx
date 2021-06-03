@@ -7,23 +7,12 @@ import { currency } from '@js/utils';
 import { likeState } from '@atoms';
 import Product from '@components/Product';
 import NavCart from '@components/NavCart';
+import useAuth from '@hooks/useAuth';
 
 const SORTING_DATAS = [
-  {
-    index: 1,
-    name: '최신순',
-    value: 'created_at desc',
-  },
-  {
-    index: 2,
-    name: '가격 낮은 순',
-    value: 'price asc',
-  },
-  {
-    index: 3,
-    name: '가격 높은 순',
-    value: 'price desc',
-  },
+  { index: 1, name: '최신순', value: 'created_at desc' },
+  { index: 2, name: '가격 낮은 순', value: 'price asc' },
+  { index: 3, name: '가격 높은 순', value: 'price desc' },
 ];
 
 interface SortingDataProps {
@@ -35,6 +24,7 @@ interface SortingDataProps {
 const ItemIndexPage = ({ f7route }: PageRouteProps) => {
   const { is_main } = f7route.query;
   const { id } = f7route.params;
+  const { isAuthenticated } = useAuth();
   const likeItem = useRecoilValue(likeState);
   const [category, setCategory] = useState<Category>(null);
   const [currentSorting, setCurrentSorting] = useState(1);
@@ -77,9 +67,7 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
     <Page ptr>
       <Navbar backLink={!is_main}>
         <NavTitle>{category}</NavTitle>
-        <NavRight>
-          <NavCart />
-        </NavRight>
+        <NavRight>{isAuthenticated && <NavCart />}</NavRight>
       </Navbar>
 
       <div className="item-list-form p-3 table w-full border-b text-center">

@@ -2,7 +2,6 @@ import { AxiosResponse } from 'axios';
 import { Category, Item, Token, Like, LineItem, Order, User, Review, Option } from '@constants';
 import { getToken } from '@store';
 import { PlainAPI, API, VERSION, API_URL } from './api.config';
-import { ApiService } from './api.service';
 
 export const refresh = (): Promise<{ data: Token }> =>
   PlainAPI.post(
@@ -18,23 +17,13 @@ export const loginAPI = (params: any) => PlainAPI.post('/login', { user: params 
 export const signupAPI = (params: any) => PlainAPI.post('/signup', { user: params });
 export const logoutAPI = () => API.delete('/logout');
 
-// export const {
-//   query: getItems,
-//   get: getItem,
-//   create: createItem,
-//   update: updateItem,
-//   destroy: destroyItem,
-// } = ApiService('items');
-// export const { query: getUsers, get: getUser } = ApiService('user');
-// export const { query: getCategories, get: getCategory } = ApiService('categories');
-// export const { query: getItemDetail, get: getItemDetail } = ApiService('categories');
-
 export const getItems = (params = null) => API.get<Item>('/items', { params });
 
 export const getCarItemDetail = (id: number) => async () => {
   const { data } = await API.get(`/items/${id}`);
   return data;
 };
+
 export const getItemDetail = (id: string) => API.get(`/items/${id}`);
 
 export const getOption = (id: number) => async () => {

@@ -9,8 +9,8 @@ import Caution from '@components/Caution';
 import useAuth from '@hooks/useAuth';
 
 const LikeListPage = ({ f7route }: PageRouteProps) => {
-  const { isAuthenticated } = useAuth();
   const { is_main } = f7route.query;
+  const { isAuthenticated } = useAuth();
   const [likeItem, setLikeItem] = useRecoilState(likeState);
 
   useEffect(() => {

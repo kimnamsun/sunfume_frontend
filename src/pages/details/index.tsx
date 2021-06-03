@@ -28,7 +28,7 @@ const ItemDetailPage = ({ f7route, f7router }: PageRouteProps) => {
       {itemDetail && (
         <>
           <Swiper pagination={{ clickable: true }} spaceBetween={10} className="swiper-container w-full h-1/2" observer>
-            {itemDetail?.images?.map((image: string, index) => (
+            {itemDetail?.images?.map((image: string, index: number) => (
               <SwiperSlide
                 key={Number(index)}
                 className={SLIDE_OPTIONS}

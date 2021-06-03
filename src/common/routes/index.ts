@@ -1,4 +1,4 @@
-import HomePage from '@pages/Home';
+import HomePage from '@pages/home';
 import IntroPage from '@pages/Intro';
 import LoginPage from '@pages/users/sessions/new';
 import SignUpPage from '@pages/users/registrations/new';

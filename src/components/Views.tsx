@@ -24,8 +24,6 @@ const F7Views = () => {
   useEffect(() => {
     (async function checkToken() {
       try {
-        // const response = await refresh();
-        // saveToken(response.data);
         authenticateUser(getToken());
       } catch {
         destroyToken();
@@ -70,13 +68,10 @@ const F7Views = () => {
     </Views>
   );
 
-  // const loggedOutViews = () => <View id="view-intro" main url="/intro" />;
-
   return (
     <>
       <CustomPanel handleLogout={logoutHandler} isLoggedIn={isAuthenticated} currentUser={currentUser} />
       {isAuthenticated ? loggedInViews() : loggedOutViews()}
-      {/* {loggedInViews()} */}
     </>
   );
 };

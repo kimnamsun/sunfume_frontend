@@ -15,26 +15,10 @@ const MyPage = () => {
   }
 
   const MYPAGE_MENUS = [
-    {
-      menuName: '회원 정보 조회/수정',
-      url: `/users/${id}`,
-      icon: 'person_crop_circle_fill',
-    },
-    {
-      menuName: '주문 정보 조회',
-      url: '/order/list',
-      icon: 'bag',
-    },
-    {
-      menuName: '찜 목록',
-      url: '/like',
-      icon: 'heart_fill',
-    },
-    {
-      menuName: '리뷰 목록',
-      url: '/review',
-      icon: 'captions_bubble',
-    },
+    { menuName: '회원 정보 조회/수정', url: `/users/${id}`, icon: 'person_crop_circle_fill' },
+    { menuName: '주문 정보 조회', url: '/order/list', icon: 'bag' },
+    { menuName: '찜 목록', url: '/like', icon: 'heart_fill' },
+    { menuName: '리뷰 목록', url: '/review', icon: 'captions_bubble' },
   ];
 
   useEffect(() => {

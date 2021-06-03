@@ -22,11 +22,11 @@ const SLIDE_DATAS = {
 };
 
 const HomePage = () => {
-  const { unAuthenticateUser, isAuthenticated } = useAuth();
   const [items, setItems] = useState<Item[]>([]);
   const [likeItem, setLikeItem] = useRecoilState(likeState);
   const allowInfinite = useRef(true);
   const pageOffset = useRef(1);
+  const { unAuthenticateUser, isAuthenticated } = useAuth();
 
   const fetchData = async () => {
     try {

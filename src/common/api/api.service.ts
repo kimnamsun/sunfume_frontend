@@ -10,14 +10,6 @@ interface Params {
 }
 
 export const ApiService = <ModelType = any, ResponseType = any>(resourceName) => {
-  // const singleResourceName = pluralize.singular(resourceName);
-  // const isObjects = resourceName === 'objects';
-  // const queryKey = (model_name = null) => (isObjects ? ['objects', model_name] : resourceName);
-  // const infiniteQueryKey = (model_name = null) =>
-  //   isObjects ? ['objectsInfinite', model_name] : `${resourceName}Infinite`;
-  // const getKey = (id, model_name = null) =>
-  //   isObjects ? ['object', model_name, id] : [singleResourceName, id];
-
   const query =
     <T = ModelType>(params: Params) =>
     async () => {
