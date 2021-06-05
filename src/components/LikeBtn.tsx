@@ -35,8 +35,8 @@ const LikeBtn = ({ type, id, isLike }: LikeBtnProps) => {
         const likeData = [data];
         setLikeItem([...likeItem, ...likeData]);
         toastText = '추가';
-        toast.get().setToastText(`찜 목록에 ${toastText}되었습니다.`).openToast();
       }
+      toast.get().setToastText(`찜 목록에 ${toastText}되었습니다.`).openToast();
     } else {
       f7.dialog.alert('로그인이 필요합니다.');
       f7.views.current.router.navigate('/intro');
