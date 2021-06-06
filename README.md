@@ -24,7 +24,7 @@ https://vimeo.com/559350084
 ### 🔜 Frontend
 
 - HTML5
-- Javascript (ES+6)
+- Javascript (ES6+)
 - React
 - Typescript
 - Framework7
