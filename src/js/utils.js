@@ -11,7 +11,6 @@ export const dateFormat = (date, format) => {
   try {
     return moment(date).format(i18next.t('date_formats')[format]);
   } catch (e) {
-    console.log(e);
     return '시간이나 포맷이 잘못되었습니다.';
   }
 };
@@ -26,7 +25,6 @@ export const enumT = (model_name, value) => {
 
 export const toast = (() => {
   let instance;
-  // public
   function init(f7) {
     const textToast = f7.toast.create({
       text: 'text',
@@ -40,7 +38,6 @@ export const toast = (() => {
       closeTimeout: 2000,
     });
     function privateMethod() {
-      console.log('private');
     }
     return {
       openToast: () => textToast.open(),
@@ -76,7 +73,7 @@ export const simpleFormat = (text, options) => {
     text = map(text, (v) => <>{v}</>);
     return text;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
 };
 

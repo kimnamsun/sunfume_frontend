@@ -68,7 +68,7 @@ const SelectOption = ({ itemDetail, option, id }: SelectOptionPageProps) => {
   };
 
   const likeItemArray = [];
-  likeItem.map((like) => likeItemArray.push(like.id));
+  likeItem.forEach((like: { id: string }) => likeItemArray.push(like.id));
 
   return (
     itemDetail && (

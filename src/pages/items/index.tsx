@@ -32,7 +32,7 @@ const ItemIndexPage = ({ f7route }: PageRouteProps) => {
   const [totalCount, setTotalCount] = useState(0);
 
   const likeItemArray = [];
-  likeItem.map((like) => likeItemArray.push(like.id));
+  likeItem.forEach((like: { id: string }) => likeItemArray.push(like.id));
 
   const fetchData = async () => {
     try {

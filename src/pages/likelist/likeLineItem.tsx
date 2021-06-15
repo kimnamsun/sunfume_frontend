@@ -10,7 +10,7 @@ const LikeLineItem = ({ item }: { item: Item }) => {
   const { id, name, price } = item;
 
   const likeItemArray = [];
-  likeItem.map((like) => likeItemArray.push(like.id));
+  likeItem.forEach((like: { id: string }) => likeItemArray.push(like.id));
 
   return (
     <>

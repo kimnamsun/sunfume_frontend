@@ -79,7 +79,7 @@ const HomePage = () => {
   }, []);
 
   const likeItemArray = [];
-  likeItem.map((like: { id: string }) => likeItemArray.push(like.id));
+  likeItem.forEach((like: { id: string }) => likeItemArray.push(like.id));
 
   return (
     <Page name="home" infinite infinitePreloader={allowInfinite.current} onInfinite={moreData}>
