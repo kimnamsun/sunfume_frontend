@@ -42,7 +42,7 @@ const HomePage = () => {
     }
   };
 
-  const moreData = async () => {
+  const moreData = () => {
     if (!allowInfinite.current) return;
     allowInfinite.current = false;
 
