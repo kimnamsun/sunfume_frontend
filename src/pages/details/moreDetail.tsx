@@ -39,7 +39,7 @@ const MoreDetail = ({ itemId }: { itemId: string }) => {
             itemReviewList.map((review: User) => (
               <ListItem key={review.id} className="border-0">
                 <span className="text-sm text-gray-500 font-bold">{review.name}</span>
-                {review.reviews.map(({ id, rating, content, created_at }) => (
+                {review.reviews.map(({ id, rating, content, created_at }: Review) => (
                   <React.Fragment key={id}>
                     <p className="text-sm ">{moment(created_at).format('YYYY-MM-DD')}</p>
                     <span className="float-right">

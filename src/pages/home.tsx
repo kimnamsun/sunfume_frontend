@@ -118,14 +118,14 @@ const HomePage = () => {
       </Swiper>
       <Categories />
       <div className="grid grid-cols-2 gap-2 p-2">
-        {items.map((item: Item) => (
+        {items.map(({ id, name, price, images }: Item) => (
           <Product
-            key={item.id}
-            id={String(item.id)}
-            name={item.name}
-            price={item.price}
-            image={item.images[0]}
-            isLike={likeItemArray.includes(item.id)}
+            key={id}
+            id={String(id)}
+            name={name}
+            price={price}
+            image={images[0]}
+            isLike={likeItemArray.includes(id)}
           />
         ))}
       </div>

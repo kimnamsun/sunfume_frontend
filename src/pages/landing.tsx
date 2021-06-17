@@ -1,6 +1,6 @@
 import React from 'react';
 import { Page } from 'framework7-react';
-import spinner from '../assets/images/spinner.gif';
+import spinner from '@images/spinner.gif';
 
 const LandingPage = () => (
   <Page>

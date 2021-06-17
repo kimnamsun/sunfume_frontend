@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,23 +16,24 @@
     "noEmit": true,
     "jsx": "react",
     "paths": {
-      "@utils/*": ["src/common/utils/*"],
-      "@utils": ["src/common/utils/index"],
-      "@components/*": ["src/components/*"],
-      "@styles/*": ["src/assets/styles/*"],
-      "@hooks/*": ["src/common/hooks/*"],
-      "@atoms": ["src/common/atoms/index"],
-      "@api": ["src/common/api/index"],
-      "@config": ["src/common/config/index"],
-      "@routes": ["src/common/routes/index"],
-      "@pages/*": ["src/pages/*"],
-      "@js/*": ["src/js/*"],
-      "@constants": ["src/common/constants/index"],
-      "@store": ["src/common/store/index"],
-      "@selectors": ["src/common/selectors/index"],
+      "@utils/*": ["common/utils/*"],
+      "@utils": ["common/utils/index"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["assets/styles/*"],
+      "@images/*": ["assets/images/*"],
+      "@hooks/*": ["common/hooks/*"],
+      "@atoms": ["common/atoms/index"],
+      "@api": ["common/api/index"],
+      "@config": ["common/config/index"],
+      "@routes": ["common/routes/index"],
+      "@pages/*": ["pages/*"],
+      "@js/*": ["js/*"],
+      "@constants": ["common/constants/index"],
+      "@store": ["common/store/index"],
+      "@selectors": ["common/selectors/index"]
     },
-    "typeRoots": ["./node_modules/@types", "@types"],
+    "typeRoots": ["./node_modules/@types", "@types"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.{test|spec}.tsx"],
+  "exclude": ["node_modules", "**/*.{test|spec}.tsx"]
 }

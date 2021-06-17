@@ -72,8 +72,8 @@ module.exports = {
             options:
               env === 'development'
                 ? {
-                    plugins: [require.resolve('react-refresh/babel')],
-                  }
+                  plugins: [require.resolve('react-refresh/babel')],
+                }
                 : {},
           },
         ],
@@ -98,11 +98,11 @@ module.exports = {
           env === 'development'
             ? 'style-loader'
             : {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  publicPath: '../',
-                },
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
               },
+            },
           'css-loader',
           'postcss-loader',
         ],
@@ -113,11 +113,11 @@ module.exports = {
           env === 'development'
             ? 'style-loader'
             : {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  publicPath: '../',
-                },
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
               },
+            },
           'css-loader',
           'postcss-loader',
           'stylus-loader',
@@ -129,11 +129,11 @@ module.exports = {
           env === 'development'
             ? 'style-loader'
             : {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  publicPath: '../',
-                },
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
               },
+            },
           'css-loader',
           'postcss-loader',
           'less-loader',
@@ -145,11 +145,11 @@ module.exports = {
           env === 'development'
             ? 'style-loader'
             : {
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                  publicPath: '../',
-                },
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                publicPath: '../',
               },
+            },
           'css-loader',
           'postcss-loader',
           'sass-loader',
@@ -193,10 +193,10 @@ module.exports = {
     ...(env === 'production'
       ? [new CssMinimizerPlugin()]
       : [
-          // Development only plugins
-          new webpack.HotModuleReplacementPlugin(),
-          new ReactRefreshWebpackPlugin(),
-        ]),
+        // Development only plugins
+        new webpack.HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin(),
+      ]),
     new HtmlWebpackPlugin({
       filename: './index.html',
       template: './src/index.html',
@@ -204,13 +204,13 @@ module.exports = {
       minify:
         env === 'production'
           ? {
-              collapseWhitespace: true,
-              removeComments: true,
-              removeRedundantAttributes: true,
-              removeScriptTypeAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              useShortDoctype: true,
-            }
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true,
+          }
           : false,
     }),
     new MiniCssExtractPlugin({
